@@ -16,12 +16,12 @@ The following **required** functionality is completed:
 - [ ] User is able to use search bar to search through available parks
 - [ ] User can click icon on menu bar or tab to access personal account details.
 - [ ] User can switch activities using an action bar or tab layout.
-- [ ] User can use swipe functionality
 - [ ] In search view user can click park objct to see details about that object.
+- [ ] User can filter parks based on specific characteristics
+
 
 The following **optional** features are implemented:
-
-- [ ] User can filter parks based on specific characteristics
+- [ ] User can use swipe functionality
 - [ ] User can log in / log out / sign up
 - [ ] User can click park pins on MainActivity to see park details
 - [ ] Visiting users can see reccomendations for parks in the area
