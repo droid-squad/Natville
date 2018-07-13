@@ -36,20 +36,31 @@ The following **extra** features are implemented:
 
 ## Considerations
 1. What is your product pitch?
+
 -Problem: People don't know what kind of nature places they can visit. 
 -Solution: location based engaging app providing outdoor activities around the area for potential enthusiasts
+
 2. Who are the key stakeholders for this app?
+
 -Key Users:  outdoor enthusiasts, travelers
 -Find new parks and outdoor locations/activities near them
+
 3. What are the core flows?
+
 -Find locally based parks
 -Details about each park, key identifiers, keeps track of where the user has been
 -Screens:Login screen, home screen w/ google maps search bar, search screen, profile screen
+
 4. What will your final demo look like?
+
 -Login-->Home (map of area can scroll around area and click the pins)-->click pin to get a detail screen-->searchbar/screen-->list of parks matching search-->click a park for detailed screen-->use activity to switch to profile screen-->show profile features and sign out
+
 5. What mobile features do you leverage?
+
 -Leverage maps and swiping
+
 6. What are your technical concerns?
+
 -Filter searching
 -Finding appropriate API or making our own server database
 -Clicking on pins and getting information
