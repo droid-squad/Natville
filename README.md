@@ -1,7 +1,7 @@
 # Parks-App
 The Parks App is FBU android application implemented by droid squad, a location based engaging app providing outdoor activities around the ares for potential enthusiasts.
 
-
+ 
 Time spent: **X** hours spent in total
 
 ## User Stories
