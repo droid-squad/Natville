@@ -18,6 +18,7 @@ The following **required** functionality is completed:
 - [ ] User can switch activities using an action bar or tab layout.
 - [ ] User can use swipe functionality
 - [ ] In search view user can click park objct to see details about that object.
+- [ ] Create App theme and Logos for Title Bar
 
 The following **optional** features are implemented:
 
