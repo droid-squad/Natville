@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private static final float DEFAULT_ZOOM = 15f;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +69,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void initMap() {
-//        FragmentManager manager = this.getFragmentManager();
-//        List<Fragment> fragList = manager.getFragments();
-//        FragmentManager manager2 = getActivity().getSupportFragmentManager();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync((OnMapReadyCallback) getActivity());
+        FragmentManager cfm = getChildFragmentManager();
+        SupportMapFragment mapFragment = ((SupportMapFragment) cfm.findFragmentById(R.id.map_fragment));
+        if(mapFragment==null){
+            mapFragment = SupportMapFragment.newInstance();
+            cfm.beginTransaction().replace(R.id.map_fragment,mapFragment).commit();
+        }
+        mapFragment.getMapAsync(this);
 
     }
 
@@ -137,21 +140,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG,"Permission Granted map should init");
-                mLocationPermissionsGranted = true;
-                initMap();
+                    Log.d(TAG,"Permission Granted map should init");
+                    mLocationPermissionsGranted = true;
+                    initMap();
 
             }else{
-                ActivityCompat.requestPermissions(getActivity(),permissions,LOCATION_PERMISSION_REQUEST_CODE);
+                requestPermissions(permissions,LOCATION_PERMISSION_REQUEST_CODE);
             }
         }else {
-            ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_REQUEST_CODE);
+            requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionsGranted = false;
         switch (requestCode){
             case LOCATION_PERMISSION_REQUEST_CODE:{
                 if(grantResults.length > 0){
@@ -161,9 +163,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
                             return;
                         }
                     }
-                    mLocationPermissionsGranted = true;
-                    initMap();
                 }
+                mLocationPermissionsGranted = true;
+                initMap();
             }
         }
     }
