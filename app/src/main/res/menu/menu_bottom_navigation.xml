@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
@@ -14,6 +15,11 @@
         android:icon="@drawable/baseline_youtube_searched_for_black_18dp"
         app:showAsAction="ifRoom"
        />
+    <item
+        android:id="@+id/ic_recommendations"
+        android:enabled="true"
+        android:icon="@drawable/baseline_list_black_18dp"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/ic_profile"
         android:enabled="true"
