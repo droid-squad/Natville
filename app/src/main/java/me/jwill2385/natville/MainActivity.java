@@ -25,6 +25,8 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import me.jwill2385.natville.Models.Place;
+import com.google.android.gms.maps.SupportMapFragment;
+
 
 public class MainActivity extends AppCompatActivity {
 

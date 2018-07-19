@@ -3,6 +3,13 @@
     package="me.jwill2385.natville">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+<<<<<<< HEAD
+=======
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+>>>>>>> fbb916d6bb100c1bf1e368f4a0ea2f47e86e8b02
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
