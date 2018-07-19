@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 import me.jwill2385.natville.Models.Place;
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     //the API key -TODO move to secret location
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
+    ArrayList<Place> places;
 
 
     // instance fields
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+        // initialize list of Places
+        places = new ArrayList<>();
         //handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -118,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         //maxDistance starts at 30miles and caps at 200 miles
         params.put("lat",lat);
         params.put("lon", lon);
-        params.put("maxDistance", 10);
+        params.put("maxDistance", maxDistance);
         params.put(API_KEY_PRAM, API_KEY);
 
         // execute get request expecting a JSONObject response
@@ -131,11 +136,13 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray trails = response.getJSONArray("trails");
                     //iterate through result set
                     for (int i= 0; i < trails.length(); i++){
-                        Place place = new Place(trails.getJSONObject(i));
+                        Place p = new Place(trails.getJSONObject(i));
+                        places.add(p); // add each place (p) to places array
 
-                        Log.d("Location "+ i , place.getName());
+                        Log.d("Location "+ i , p.getName());
 
                     }
+                    Log.i(TAG, String.format("loaded %s Trails", trails.length()));
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);
                 }
