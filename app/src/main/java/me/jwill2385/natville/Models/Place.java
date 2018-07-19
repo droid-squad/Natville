@@ -11,8 +11,9 @@ public class Place {
     private String pictureSmallURL;
     private String pictureLargeURL;
     private String summary;
-    private String distance;
-    private double latitutude;
+    private double rating;
+    private double distance;
+    private double latitude;
     private double longitude;
 
     //define variables from JSON object
@@ -22,6 +23,10 @@ public class Place {
         pictureSmallURL = object.getString("imgSqSmall");
         pictureLargeURL = object.getString("imgSmallMed");
         summary = object.getString("summary");
+        rating = object.getDouble("stars");
+        distance = object.getDouble("length"); //distance is in miles
+        latitude = object.getDouble("latitude");
+        longitude = object.getDouble("longitude");
 
     }
 
@@ -46,12 +51,16 @@ public class Place {
         return summary;
     }
 
-    public String getDistance() {
+    public double getRating() {
+        return rating;
+    }
+
+    public double getDistance() {
         return distance;
     }
 
-    public double getLatitutude() {
-        return latitutude;
+    public double getLatitude() {
+        return latitude;
     }
 
     public double getLongitude() {

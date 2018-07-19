@@ -13,19 +13,41 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+import me.jwill2385.natville.Models.Place;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
-    private static final String TAG = "MainActivity";
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    private final static String TAG = MainActivity.class.getSimpleName();
+    //base URl for API
+    public final static String API_BASE_URL = "https://www.hikingproject.com/data/get-trails?";
+    // parameter name for API key
+    public final static String API_KEY_PRAM = "key";
+    //the API key -TODO move to secret location
+    public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
+    public final static double maxDistance = 200;
+
+
+    // instance fields
+    AsyncHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        client = new AsyncHttpClient();
 
         final HomeFragment fragmentHome = new HomeFragment();
         final SearchFragment fragmentSearch = new SearchFragment();
@@ -60,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         //starts user on home screen
         bottomNavigationView.setSelectedItemId(R.id.ic_home);
+        getTrails(47, -122);
     }
 
     public boolean isServicesOK(){ //checks google play services
@@ -78,5 +101,66 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "You cannnot make requests", Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+    //get the trails from the API. pass in current latitude and longitude locations
+    private void getTrails(double lat, double lon){
+        RequestParams params = new RequestParams();
+        /*these are all parameters in request
+        latitude value
+        longitude value
+        maxDistance value
+        then API key
+
+         */
+        //hardcoding for testing
+        //automatically sets range to show 10 places unless you change maxResults
+        //maxDistance starts at 30miles and caps at 200 miles
+        params.put("lat",lat);
+        params.put("lon", lon);
+        params.put("maxDistance", 10);
+        params.put(API_KEY_PRAM, API_KEY);
+
+        // execute get request expecting a JSONObject response
+        client.get(API_BASE_URL, params, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // get result places
+                try {
+                    JSONArray trails = response.getJSONArray("trails");
+                    //iterate through result set
+                    for (int i= 0; i < trails.length(); i++){
+                        Place place = new Place(trails.getJSONObject(i));
+
+                        Log.d("Location "+ i , place.getName());
+
+                    }
+                } catch (JSONException e) {
+                    logError("failed to parse Trail list", e, true);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                logError("Failed getting Trails", throwable, true);
+            }
+        });
+
+
+
+
+    }
+
+    private void logError(String message, Throwable error, boolean alertUser){
+        // always log the error
+        Log.e(TAG, message, error);
+        //alert the user to avoid silent errors
+        if(alertUser){
+            // show a long toast with the error message
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+        }
+
     }
 }
