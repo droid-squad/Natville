@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 });
+
+        //starts user on home screen
+        bottomNavigationView.setSelectedItemId(R.id.ic_home);
     }
 
     public boolean isServicesOK(){ //checks google play services
