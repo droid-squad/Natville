@@ -49,9 +49,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         //populate the view
         holder.tvPlaceName.setText(place.getName());
         holder.tvPlaceLocation.setText(place.getLocation());
-        holder.tvPlaceRating.setText(String.format("%f", place.getRating()));
+        holder.tvPlaceRating.setText("Rating: "+String.format("%f", place.getRating()));
         holder.tvPlaceSummary.setText(place.getSummary());
-        holder.tvPlaceDistance.setText(String.format("%f",place.getDistance()));
+        holder.tvPlaceDistance.setText("Length: "+String.format("%f",place.getDistance())+ " miles");
 
         Glide.with(context).load(place.getPictureSmallURL())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))

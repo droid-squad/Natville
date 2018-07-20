@@ -5,53 +5,59 @@
 
     <ImageView
         android:id="@+id/ivPlacePic"
-        android:layout_width="54dp"
-        android:layout_height="64dp"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
         app:srcCompat="@color/Black" />
 
     <TextView
         android:id="@+id/tvPlaceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/ivPlacePic"
         android:layout_toEndOf="@+id/ivPlacePic"
-        android:text="name" />
+        android:text="name"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/tvPlaceLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvPlaceName"
         android:layout_below="@+id/tvPlaceName"
-        android:layout_marginLeft="5dp"
-        android:layout_toEndOf="@+id/ivPlacePic"
-        android:text="location" />
+        android:text="location"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tvPlaceRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvPlaceName"
         android:layout_below="@+id/tvPlaceLocation"
-        android:layout_marginLeft="5dp"
-        android:layout_toEndOf="@+id/ivPlacePic"
-        android:text="Rating" />
-
-    <TextView
-        android:id="@+id/tvPlaceSummary"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivPlacePic"
-        android:text="summary" />
+        android:text="Rating"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvPlaceDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivPlacePic"
-        android:layout_marginLeft="5dp"
-        android:layout_toEndOf="@+id/tvPlaceSummary"
-        android:text="miles" />
+        android:layout_alignStart="@+id/tvPlaceName"
+        android:layout_below="@+id/tvPlaceRating"
+        android:text="dist"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvPlaceSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPlaceDistance"
+        android:layout_alignLeft="@id/tvPlaceDistance"
+        android:text="summary"
+        android:textSize="16sp" />
+
 </RelativeLayout>
