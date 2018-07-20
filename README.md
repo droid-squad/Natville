@@ -6,28 +6,36 @@ Time spent: **X** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is completed:
+### The following **required** functionality is completed:
 
-- [ ] Solves problem of users not knowing what outdoor places to visit
-- [ ] Reaches outdoor enthusiasts travelers and optionally photographgers
+- [X] Solves problem of users not knowing what outdoor places to visit
+- [X] Reaches outdoor enthusiasts travelers and optionally photographgers
+- [X] Upon Start user is presented with Google Maps Activity - Jade
+- [X] User can click icon on menu bar or tab to access personal account details - Sol
+- [X] User can switch activities using an action bar or tab layout - Jadal
+- [X] Create request client to make REST API to Park API - Jadal
+- [ ] Maps with pins marking the location of parks within user location range - Jade (To be completed by 23rd)
+- [ ] user can see park names on pins - Jade (To be completed by 23rd)
+- [ ] Scroll View for Parks nearby sorted by rating - Jadal (To be completed by 23rd)
 
-- [ ] Upon Start user is presented with Google Maps Activity with pins marking the location of parks within their location    range
-- [ ] user can see park names on pins
-- [ ] User is able to use search bar to search through available parks
-- [ ] User can click icon on menu bar or tab to access personal account details.
-- [ ] User can switch activities using an action bar or tab layout.
-- [ ] User can use swipe functionality
-- [ ] In search view user can click park objct to see details about that object.
-- [ ] Create App theme and Logos for Title Bar
+- [ ] User is able to use search bar to search through available parks (To be completed by 27th)
+ - [ ] UI - Jade, Sol
+ - [ ] Making requests - Jadal
+ - [ ] Presenting results - Jadal
+- [ ] User can use swipe functionality - Jadal
+- [ ] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
+ - [ ] Create UI for Park detail view
+ - [ ] Hook up with recycled view
 
-The following **optional** features are implemented:
+#### stretch goal
+- [ ] User can log in / log out / sign up - Sol
+- [ ] User can click park pins on MainActivity to see park details - Jade
+- [ ] Create App theme and Logos for Title Bar - In progress (intentionally postponed until all the main features are implemented)
 
+### The following **optional** features are implemented:
 - [ ] User can filter parks based on specific characteristics
-- [ ] User can log in / log out / sign up
-- [ ] User can click park pins on MainActivity to see park details
 - [ ] Visiting users can see reccomendations for parks in the area
-
-
+- [ ] Achievement implementation (Need to discuss details)
 
 The following **extra** features are implemented:
 
