@@ -14,10 +14,10 @@ Time spent: **X** hours spent in total
 - [X] User can click icon on menu bar or tab to access personal account details - Sol
 - [X] User can switch activities using an action bar or tab layout - Jadal
 - [X] Create request client to make REST API to Park API - Jadal
-- [ ] Maps with pins marking the location of parks within user location range - Jade (To be completed by 23rd)
-- [ ] user can see park names on pins - Jade (To be completed by 23rd)
-- [ ] Scroll View for Parks nearby sorted by rating - Jadal (To be completed by 23rd)
-
+- [X] Maps with pins marking the location of parks within user location range - Jade (To be completed by 23rd)
+- [X] user can see park names on pins when clicked - Jade (To be completed by 23rd)
+- [X] Scroll View for Parks nearby - Jadal (To be completed by 23rd)
+- [ ] List view sorted by rating 
 - [ ] User is able to use search bar to search through available parks (To be completed by 27th)
  - [ ] UI - Jade, Sol
  - [ ] Making requests - Jadal
