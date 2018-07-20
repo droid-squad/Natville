@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import me.jwill2385.natville.Models.Place;
-import com.google.android.gms.maps.SupportMapFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -57,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         final HomeFragment fragmentHome = new HomeFragment();
         final SearchFragment fragmentSearch = new SearchFragment();
         final ProfileFragment fragmentProfile = new ProfileFragment();
+        final RecommendationsFragment fragmentRecommendation = new RecommendationsFragment();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.ic_profile:
                                 FragmentTransaction fragmentTransaction3 = fragmentManager.beginTransaction();
                                 fragmentTransaction3.replace(R.id.flContainer, fragmentProfile).commit();
+                                return true;
+
+                            case R.id.ic_recommendations:
+                                FragmentTransaction fragmentTransaction4 = fragmentManager.beginTransaction();
+                                fragmentTransaction4.replace(R.id.flContainer, fragmentRecommendation).commit();
                                 return true;
                         }
                         return false;
