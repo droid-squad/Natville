@@ -27,10 +27,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import me.jwill2385.natville.Models.Place;
 
 
 ///**
@@ -42,7 +46,7 @@ import java.util.List;
 // * create an instance of this fragment.
 // */
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback{
+public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = "HomeFragment";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -52,13 +56,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final float DEFAULT_ZOOM = 15f;
-
+    public LatLng mLatLng;
+    public MainActivityListener listener;
+    public static ArrayList<Place> mPlaces;
+    public static boolean t = false;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLocationPermission();
+        mPlaces = new ArrayList<>();
     }
 
     @Override
@@ -72,39 +80,51 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
 
         FragmentManager cfm = getChildFragmentManager();
         SupportMapFragment mapFragment = ((SupportMapFragment) cfm.findFragmentById(R.id.map_fragment));
-        if(mapFragment==null){
+        if (mapFragment == null) {
             mapFragment = SupportMapFragment.newInstance();
-            cfm.beginTransaction().replace(R.id.map_fragment,mapFragment).commit();
+            cfm.beginTransaction().replace(R.id.map_fragment, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
 
     }
 
-    private void getDeviceLocation(){
+    private void getDeviceLocation() {
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        try{
-            if(mLocationPermissionsGranted){
+        boolean test = false;
+        try {
+            if (mLocationPermissionsGranted) {
                 Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: found location");
                             Location currentLocation = (Location) task.getResult();
-                            moveCamera(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
 
-                        }else{
+                            mLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            listener.getTrails(mLatLng.latitude, mLatLng.longitude);
+                            mPlaces.addAll(MainActivity.places);
+                            Log.d("getPlaces test line", "Size: "+ mPlaces.size());
+                            for (int i = 0; i < mPlaces.size(); i++) {
+                                Place place = mPlaces.get(i);
+                                Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
+                                LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(trailMark)
+                                        .title(place.getName()));
+                            }
+                        } else {
                             Log.d(TAG, "onComplete: current location unavailable");
-                            Toast.makeText(getActivity(),"Current Location Unavailable",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Current Location Unavailable", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
 
-        }catch (SecurityException e){
-            Log.e(TAG,"Security exception in get device location method:" + e.getMessage());
+        } catch (SecurityException e) {
+            Log.e(TAG, "Security exception in get device location method:" + e.getMessage());
         }
     }
 
@@ -125,40 +145,44 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             // TODO see other UI settings
+            LatLng tester = new LatLng(47.681568, -122.341133);
+            mMap.addMarker(new MarkerOptions()
+                    .position(tester)
+                    .title("test"));
         }
 
     }
 
-    private void moveCamera(LatLng latLng, float zoom){
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
+    private void moveCamera(LatLng latLng, float zoom) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
     private void getLocationPermission() {
         String[] permissions = {FINE_LOCATION, COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG,"Permission Granted map should init");
-                    mLocationPermissionsGranted = true;
-                    initMap();
+                Log.d(TAG, "Permission Granted map should init");
+                mLocationPermissionsGranted = true;
+                initMap();
 
-            }else{
-                requestPermissions(permissions,LOCATION_PERMISSION_REQUEST_CODE);
+            } else {
+                requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
             }
-        }else {
+        } else {
             requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE:{
-                if(grantResults.length > 0){
-                    for(int i = 0; i < grantResults.length; i++){
-                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < grantResults.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             mLocationPermissionsGranted = false;
                             return;
                         }
@@ -170,4 +194,21 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback{
         }
     }
 
+    public interface MainActivityListener {
+        void getTrails(double lat, double lon);
+
+        void getPlaces();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MainActivityListener) {
+            listener = (MainActivityListener) context;
+
+        } else {
+            throw new ClassCastException(context.toString() + "must implement main activity listener");
+        }
+    }
 }
+

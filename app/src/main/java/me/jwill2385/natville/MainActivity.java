@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.Header;
 import me.jwill2385.natville.Models.Place;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener {
 
     BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     //the API key -TODO move to secret location
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
-    public ArrayList<Place> places;
+    public static ArrayList<Place> places;
     PlaceAdapter placeAdapter;
+
 
 
     // instance fields
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //get the trails from the API. pass in current latitude and longitude locations
-    private void getTrails(double lat, double lon){
+    public void getTrails(double lat, double lon){
         RequestParams params = new RequestParams();
         /*these are all parameters in request
         latitude value
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         placeAdapter.notifyItemInserted(places.size() -1);
 
                         Log.d("Location "+ i , p.getName());
+                        getPlaces();
 
                     }
                     Log.i(TAG, String.format("loaded %s Trails", trails.length()));
@@ -166,8 +168,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
 
-
+    @Override
+    public void getPlaces(){
+        HomeFragment.mPlaces = places;
     }
 
     private void logError(String message, Throwable error, boolean alertUser){
