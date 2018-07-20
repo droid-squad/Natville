@@ -27,7 +27,9 @@ import cz.msebera.android.httpclient.Header;
 import me.jwill2385.natville.Models.Place;
 
 
-public class MainActivity extends AppCompatActivity implements RecommendationsFragment.OnItemSelectedListener {
+
+public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener, RecommendationsFragment.OnItemSelectedListener {
+
 
     BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements RecommendationsFr
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
     public static ArrayList<Place> places;
+
+
 
 
     // instance fields
@@ -150,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements RecommendationsFr
                         //placeAdapter.notifyItemInserted(places.size() -1);
 
                         Log.d("Location "+ i , p.getName());
+                        getPlaces();
 
                     }
 
@@ -166,8 +171,11 @@ public class MainActivity extends AppCompatActivity implements RecommendationsFr
         });
 
 
+    }
 
-
+    @Override
+    public void getPlaces(){
+        HomeFragment.mPlaces = places;
     }
 
     private void logError(String message, Throwable error, boolean alertUser){
