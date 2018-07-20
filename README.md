@@ -86,6 +86,10 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 <img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37522993_149940615906102_7975498073872793600_n.jpg?_nc_cat=0&_nc_log=1&oh=9b943f1303bb08758c25e2c1fe0fd52a&oe=5BDDAFA9'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37403519_149940632572767_4875137748995932160_n.jpg?_nc_cat=0&_nc_log=1&oh=da788c2dd955ea4bad47be9871e57cc1&oe=5BE431ED'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37544472_149940642572766_414748997316509696_n.jpg?_nc_cat=0&_nc_log=1&oh=8025c3016ff7ef02dbf80f903a807137&oe=5BCB8176'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37602550_149940692572761_544420631282712576_n.jpg?_nc_cat=0&_nc_log=1&oh=9fdbd1b638b9cad0734ddd93c69a6ac5&oe=5BCAFE50'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37595533_149940655906098_5695346386497699840_n.jpg?_nc_cat=0&_nc_log=1&oh=ff3e6c7dc3239437c9094aa21ed2594d&oe=5BE37F67'/>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
