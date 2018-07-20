@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.Header;
 import me.jwill2385.natville.Models.Place;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecommendationsFragment.OnItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
     //the API key -TODO move to secret location
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
-    public ArrayList<Place> places;
-    PlaceAdapter placeAdapter;
+    public static ArrayList<Place> places;
 
 
     // instance fields
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         // initialize list of Places
         places = new ArrayList<>();
-        placeAdapter = new PlaceAdapter(places);
         //handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
         //starts user on home screen
         bottomNavigationView.setSelectedItemId(R.id.ic_home);
-        getTrails(47, -122);
     }
 
     public boolean isServicesOK(){ //checks google play services
@@ -118,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //get the trails from the API. pass in current latitude and longitude locations
-    private void getTrails(double lat, double lon){
+    public void getTrails(double lat, double lon){
         RequestParams params = new RequestParams();
         /*these are all parameters in request
         latitude value
@@ -135,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         params.put("maxDistance", maxDistance);
         params.put(API_KEY_PRAM, API_KEY);
 
+
         // execute get request expecting a JSONObject response
         client.get(API_BASE_URL, params, new JsonHttpResponseHandler(){
 
@@ -144,15 +142,17 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray trails = response.getJSONArray("trails");
                     //iterate through result set
+                    places.clear();
                     for (int i= 0; i < trails.length(); i++){
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
                         //notify adapter that row was added
-                        placeAdapter.notifyItemInserted(places.size() -1);
+                        //placeAdapter.notifyItemInserted(places.size() -1);
 
                         Log.d("Location "+ i , p.getName());
 
                     }
+
                     Log.i(TAG, String.format("loaded %s Trails", trails.length()));
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);

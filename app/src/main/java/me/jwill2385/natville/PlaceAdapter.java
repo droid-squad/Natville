@@ -91,4 +91,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         mPlaces.clear();
         notifyDataSetChanged();
     }
+
+
 }
