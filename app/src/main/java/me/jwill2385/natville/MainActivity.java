@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     //the API key -TODO move to secret location
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
-    ArrayList<Place> places;
+    public ArrayList<Place> places;
+    PlaceAdapter placeAdapter;
 
 
     // instance fields
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         // initialize list of Places
         places = new ArrayList<>();
+        placeAdapter = new PlaceAdapter(places);
         //handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -145,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     for (int i= 0; i < trails.length(); i++){
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
+                        //notify adapter that row was added
+                        placeAdapter.notifyItemInserted(places.size() -1);
 
                         Log.d("Location "+ i , p.getName());
 
