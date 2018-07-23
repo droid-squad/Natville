@@ -15,6 +15,16 @@ public class Place {
     private double distance;
     private double latitude;
     private double longitude;
+    private double ascent;
+    private double descent;
+    private double high;
+    private double low;;
+    private String conditionStatus;
+    private String conditionDetails;
+    private String conditionUpdated;
+    private String urlDetails;
+    public String difficulty;
+
 
     //define variables from JSON object
     public Place(JSONObject object) throws JSONException{
