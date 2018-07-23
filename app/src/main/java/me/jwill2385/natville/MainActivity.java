@@ -16,6 +16,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        client = new AsyncHttpClient();
+        client = new SyncHttpClient();
 
         final HomeFragment fragmentHome = new HomeFragment();
         final SearchFragment fragmentSearch = new SearchFragment();

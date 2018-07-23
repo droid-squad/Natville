@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -54,11 +55,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public static LatLng mLatLng;
     public MainActivityListener listener;
     public static ArrayList<Place> mPlaces;
-    public static boolean t = false;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //On Start requests the users permission to use the location services
         super.onCreate(savedInstanceState);
         getLocationPermission();
         mPlaces = new ArrayList<>();
@@ -69,87 +70,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    private void initMap() {
-
-        FragmentManager cfm = getChildFragmentManager();
-        SupportMapFragment mapFragment = ((SupportMapFragment) cfm.findFragmentById(R.id.map_fragment));
-        if (mapFragment == null) {
-            mapFragment = SupportMapFragment.newInstance();
-            cfm.beginTransaction().replace(R.id.map_fragment, mapFragment).commit();
-        }
-        mapFragment.getMapAsync(this);
-
-    }
-
-    private void getDeviceLocation() {
-        Log.d(TAG, "getDeviceLocation: getting the devices current location");
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        boolean test = false;
-        try {
-            if (mLocationPermissionsGranted) {
-                Task location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "onComplete: found location");
-                            Location currentLocation = (Location) task.getResult();
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
-
-                            mLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                            listener.getTrails(mLatLng.latitude, mLatLng.longitude);
-                            mPlaces.addAll(MainActivity.places);
-                            Log.d("getPlaces test line", "Size: "+ mPlaces.size());
-                            for (int i = 0; i < mPlaces.size(); i++) {
-                                Place place = mPlaces.get(i);
-                                Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
-                                LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(trailMark)
-                                        .title(place.getName()));
-                            }
-                        } else {
-                            Log.d(TAG, "onComplete: current location unavailable");
-                            Toast.makeText(getActivity(), "Current Location Unavailable", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-
-        } catch (SecurityException e) {
-            Log.e(TAG, "Security exception in get device location method:" + e.getMessage());
-        }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        //TODO Change this toast to something more related to the app
-        Toast.makeText(getActivity(), "Map is ready", Toast.LENGTH_SHORT).show();
-        mMap = googleMap;
-
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-            // TODO see other UI settings
-            LatLng tester = new LatLng(47.681568, -122.341133);
-            mMap.addMarker(new MarkerOptions()
-                    .position(tester)
-                    .title("test"));
-        }
-
-    }
-
-    private void moveCamera(LatLng latLng, float zoom) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
     private void getLocationPermission() {
@@ -173,6 +93,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //once permission has been received, initiate the map
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0) {
@@ -185,6 +106,100 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 }
                 mLocationPermissionsGranted = true;
                 initMap();
+            }
+        }
+    }
+
+    private void initMap() {
+        //puts map fragment in container
+        FragmentManager cfm = getChildFragmentManager();
+        SupportMapFragment mapFragment = ((SupportMapFragment) cfm.findFragmentById(R.id.map_fragment));
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            cfm.beginTransaction().replace(R.id.map_fragment, mapFragment).commit();
+        }
+        //call the on map ready function
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //TODO Change this toast to something more related to the app
+        Toast.makeText(getActivity(), "Map is ready", Toast.LENGTH_SHORT).show();
+        mMap = googleMap;
+
+        if (mLocationPermissionsGranted) {
+
+            //Async Task Starts: gets client first
+            getDeviceLocation();
+
+            //if permission was denied or not given do not set location
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+
+            //Waits until getDeviceLocation is done to apply, other UI settings available
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        }
+
+    }
+
+    private void moveCamera(LatLng latLng, float zoom) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    }
+
+    private void getDeviceLocation() {
+        Log.d(TAG, "getDeviceLocation: getting the devices current location");
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        try {
+            if (mLocationPermissionsGranted) {
+                Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: found location");
+                            Location currentLocation = (Location) task.getResult();
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                    DEFAULT_ZOOM);
+                            mLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            //TODO put get trails task here
+                            new asyncTrails().execute();
+                        } else {
+                            Log.d(TAG, "onComplete: current location unavailable");
+                            Toast.makeText(getActivity(), "Current Location Unavailable", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+        } catch (SecurityException e) {
+            Log.e(TAG, "Security exception in get device location method:" + e.getMessage());
+        }
+    }
+
+    private class asyncTrails extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            listener.getTrails(mLatLng.latitude, mLatLng.longitude);
+            //need to wait for places to finish updating in main activity
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            mPlaces.addAll(MainActivity.places);
+            Log.d("getPlaces test line", "Size: " + mPlaces.size());
+            for (int i = 0; i < mPlaces.size(); i++) {
+                Place place = mPlaces.get(i);
+                Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
+                LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(trailMark)
+                        .title(place.getName()));
             }
         }
     }
