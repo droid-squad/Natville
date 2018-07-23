@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
     //the API key -TODO move to secret location
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
+    public  final static double maxResults = 500;
     public static ArrayList<Place> places;
 
 
@@ -130,12 +131,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
 
          */
         //hardcoding for testing
-        //automatically sets range to show 10 places unless you change maxResults
+        //automatically sets range to show 10 places unless you change maxResults caps at 500
         //maxDistance starts at 30miles and caps at 200 miles
         params.put("lat",lat);
         params.put("lon", lon);
         params.put("maxDistance", maxDistance);
-        params.put("maxResults", 50);
+        params.put("maxResults", maxResults / 10);
         params.put(API_KEY_PRAM, API_KEY);
 
 
@@ -153,8 +154,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
                         Log.d("Location "+ i , p.getName());
-                        getPlaces();
-
+                        
                     }
 
                     Log.i(TAG, String.format("loaded %s Trails", trails.length()));
