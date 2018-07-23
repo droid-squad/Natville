@@ -36,6 +36,7 @@ Time spent: **X** hours spent in total
 - [ ] User can filter parks based on specific characteristics
 - [ ] Visiting users can see reccomendations for parks in the area
 - [ ] Achievement implementation (Need to discuss details)
+- [ ] Find and implement a package to convert a number rating to a star rating
 
 The following **extra** features are implemented:
 
