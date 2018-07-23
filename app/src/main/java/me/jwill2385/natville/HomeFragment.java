@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final float DEFAULT_ZOOM = 15f;
-    public LatLng mLatLng;
+    public static LatLng mLatLng;
     public MainActivityListener listener;
     public static ArrayList<Place> mPlaces;
     public static boolean t = false;

@@ -48,8 +48,10 @@ public class RecommendationsFragment extends Fragment {
         rvRecommendations.setLayoutManager(new LinearLayoutManager(view.getContext()));
         // set the adapter
         rvRecommendations.setAdapter(placeAdapter);
+        Double latitude = HomeFragment.mLatLng.latitude;
+        Double longitude = HomeFragment.mLatLng.longitude;
 
-        listener.getTrails(47,-122);
+        listener.getTrails(latitude,longitude);
         myPlaces.addAll(MainActivity.places);
         Log.d("counter", " we have " + myPlaces.size());
         placeAdapter.notifyDataSetChanged();

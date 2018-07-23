@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         params.put("lat",lat);
         params.put("lon", lon);
         params.put("maxDistance", maxDistance);
+        params.put("maxResults", 50);
         params.put(API_KEY_PRAM, API_KEY);
 
 
@@ -150,9 +151,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                     for (int i= 0; i < trails.length(); i++){
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
-                        //notify adapter that row was added
-                        //placeAdapter.notifyItemInserted(places.size() -1);
-
                         Log.d("Location "+ i , p.getName());
                         getPlaces();
 

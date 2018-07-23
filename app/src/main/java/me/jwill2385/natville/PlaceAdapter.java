@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import me.jwill2385.natville.Models.Place;
@@ -44,14 +45,15 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        DecimalFormat decimalFormat = new DecimalFormat("0.#");
         //get the location data at the specific place
         Place place = mPlaces.get(position);
         //populate the view
         holder.tvPlaceName.setText(place.getName());
         holder.tvPlaceLocation.setText(place.getLocation());
-        holder.tvPlaceRating.setText("Rating: "+String.format("%f", place.getRating()));
+        holder.tvPlaceRating.setText("Rating: "+ Double.toString(place.getRating()));
         holder.tvPlaceSummary.setText(place.getSummary());
-        holder.tvPlaceDistance.setText("Length: "+String.format("%f",place.getDistance())+ " miles");
+        holder.tvPlaceDistance.setText("Length: "+Double.toString(place.getDistance())+ " miles");
 
         Glide.with(context).load(place.getPictureSmallURL())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
