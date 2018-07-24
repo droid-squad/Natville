@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,8 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -226,11 +225,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class asyncTrails extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            listener.getTrails(mLatLng.latitude, mLatLng.longitude);
+            listener.getTrails(mLatLng.latitude, mLatLng.longitude, MainActivity.maxResults / 10 );
             //need to wait for places to finish updating in main activity
             return null;
         }
@@ -246,11 +246,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 mMap.addMarker(new MarkerOptions().position(trailMark)
                         .title(place.getName()));
             }
+//            MainActivity.places.clear();
         }
+
     }
 
     public interface MainActivityListener {
-        void getTrails(double lat, double lon);
+        void getTrails( double lat,  double lon,  double results);
 
         void getPlaces();
     }
@@ -265,5 +267,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             throw new ClassCastException(context.toString() + "must implement main activity listener");
         }
     }
+
+
 }
 

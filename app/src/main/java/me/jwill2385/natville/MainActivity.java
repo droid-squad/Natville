@@ -29,7 +29,8 @@ import me.jwill2385.natville.Models.Place;
 
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener, RecommendationsFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener, RecommendationsFragment.OnItemSelectedListener
+, SearchFragment.OnMainActivitySelectedListener{
 
 
     BottomNavigationView bottomNavigationView;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
     public final static double maxDistance = 200;
     public  final static double maxResults = 500;
     public static ArrayList<Place> places;
+
 
 
 
@@ -121,7 +123,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
     }
 
     //get the trails from the API. pass in current latitude and longitude locations
-    public void getTrails(double lat, double lon){
+    public void getTrails(double lat, double lon, double results){
+        //testing to see if mulitple client calls will work through here.
+
         RequestParams params = new RequestParams();
         /*these are all parameters in request
         latitude value
@@ -136,12 +140,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         params.put("lat",lat);
         params.put("lon", lon);
         params.put("maxDistance", maxDistance);
-        params.put("maxResults", maxResults / 10);
+        params.put("maxResults", results);
         params.put(API_KEY_PRAM, API_KEY);
+        places.clear();
 
 
         // execute get request expecting a JSONObject response
         client.get(API_BASE_URL, params, new JsonHttpResponseHandler(){
+
+
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -153,11 +160,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                     for (int i= 0; i < trails.length(); i++){
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
-                        Log.d("Location "+ i , p.getName());
-                        
+            //            Log.d("Location "+ i , p.getName());
+
+
                     }
 
-                    Log.i(TAG, String.format("loaded %s Trails", trails.length()));
+             //       Log.i(TAG, String.format("loaded %s Trails", trails.length()));
+
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);
                 }
@@ -167,7 +176,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 logError("Failed getting Trails", throwable, true);
             }
+
+
+
         });
+
+
 
 
     }
@@ -186,6 +200,5 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
         }
-
     }
 }

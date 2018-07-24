@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import me.jwill2385.natville.Models.Place;
@@ -45,7 +44,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        DecimalFormat decimalFormat = new DecimalFormat("0.#");
+
         //get the location data at the specific place
         Place place = mPlaces.get(position);
         //populate the view
