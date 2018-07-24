@@ -1,5 +1,6 @@
 package me.jwill2385.natville;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class RecommendationsFragment extends Fragment {
     public ArrayList<Place> myPlaces;
     PlaceAdapter placeAdapter;
     OnItemSelectedListener listener;
+    Double latitude;
+    Double longitude;
 
 
 
@@ -49,28 +52,13 @@ public class RecommendationsFragment extends Fragment {
         rvRecommendations.setLayoutManager(new LinearLayoutManager(view.getContext()));
         // set the adapter
         rvRecommendations.setAdapter(placeAdapter);
-        Double latitude = HomeFragment.mLatLng.latitude;
-        Double longitude = HomeFragment.mLatLng.longitude;
+        latitude = HomeFragment.mLatLng.latitude;
+        longitude = HomeFragment.mLatLng.longitude;
 
-        //listener.getTrails(latitude,longitude, MainActivity.maxResults / 10);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try{
-//                    listener.getTrails(32, -114, MainActivity.maxResults);
-//                }
-//                catch(Exception ex){
-//                    ex.printStackTrace();
-//                }
-//            }
-//        }).start();
-
+        // we have to call getTrails aSynchronously such that we make sure it completes before updating adapter
         new asyncTrailsR().execute();
-//
-//        myPlaces.addAll(MainActivity.places);
-//        Log.d("counter", " we have " + myPlaces.size());
-//        placeAdapter.notifyDataSetChanged();
-//
+
+
 
     }
 
@@ -90,11 +78,12 @@ public class RecommendationsFragment extends Fragment {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     private class asyncTrailsR extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            listener.getTrails(32, -114, MainActivity.maxResults / 10 );
+            listener.getTrails(latitude, longitude, MainActivity.maxResults / 10 );
             //need to wait for places to finish updating in main activity
             return null;
         }
@@ -102,7 +91,6 @@ public class RecommendationsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             myPlaces.addAll(MainActivity.places);
-          //  Log.d("getPlaces test line", "Size: " + myPlaces.size());
             Log.d("counter", " we have " + myPlaces.size());
             placeAdapter.notifyDataSetChanged();
 

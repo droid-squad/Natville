@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.e("JSON", "testing ");
                 // get result places
                 try {
                     JSONArray trails = response.getJSONArray("trails");
@@ -160,12 +159,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                     for (int i= 0; i < trails.length(); i++){
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
-                        Log.d("Location "+ i , p.getName());
+            //            Log.d("Location "+ i , p.getName());
 
 
                     }
 
-                    Log.i(TAG, String.format("loaded %s Trails", trails.length()));
+             //       Log.i(TAG, String.format("loaded %s Trails", trails.length()));
 
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);

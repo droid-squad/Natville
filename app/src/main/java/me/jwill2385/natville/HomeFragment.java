@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -181,6 +182,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class asyncTrails extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -223,9 +225,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
+
 }
 
