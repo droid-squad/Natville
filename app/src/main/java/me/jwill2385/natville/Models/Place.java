@@ -3,7 +3,9 @@ package me.jwill2385.natville.Models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place{
 
     //initialize variables
     private String name;
@@ -37,6 +39,15 @@ public class Place {
         distance = object.getDouble("length"); //distance is in miles
         latitude = object.getDouble("latitude");
         longitude = object.getDouble("longitude");
+        ascent = object.getDouble("ascent");
+        descent = object.getDouble("descent");
+        high = object.getDouble("high");
+        low = object.getDouble("low");
+        conditionStatus = object.getString("conditionStatus");
+        conditionDetails = object.getString("conditionDetails");
+        conditionUpdated = object.getString("conditionDate");
+        urlDetails = object.getString("url");
+        difficulty = object.getString("difficulty");
 
     }
 
@@ -76,4 +87,23 @@ public class Place {
     public double getLongitude() {
         return longitude;
     }
+
+    public double getAscent() { return ascent; }
+
+    public double getDescent() { return descent; }
+
+    public double getHigh() { return high; }
+
+    public double getLow() { return low; }
+
+    public String getConditionStatus() { return conditionStatus; }
+
+    public String getConditionDetails() { return conditionDetails; }
+
+    public String getConditionUpdated() { return conditionUpdated; }
+
+    public String getUrlDetails() { return urlDetails; }
+
+    public String getDifficulty() { return difficulty; }
+
 }

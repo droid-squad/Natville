@@ -2,6 +2,8 @@ package me.jwill2385.natville;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
     ArrayList<Place> mPlaces;
     Context context;
+    Place place;
 
     //will fill Adapter Place array with place array inserted
     public PlaceAdapter(ArrayList<Place> places){
@@ -47,7 +50,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
         DecimalFormat decimalFormat = new DecimalFormat("0.#");
         //get the location data at the specific place
-        Place place = mPlaces.get(position);
+        place = mPlaces.get(position);
         //populate the view
         holder.tvPlaceName.setText(place.getName());
         holder.tvPlaceLocation.setText(place.getLocation());
@@ -65,7 +68,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         return mPlaces.size(); //how many items are in Adapter
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //initiate variables
         public ImageView ivPlacePic;
         public TextView tvPlaceName;
@@ -73,6 +76,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         public TextView tvPlaceRating;
         public TextView tvPlaceSummary;
         public TextView tvPlaceDistance;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -85,6 +89,26 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
             tvPlaceRating = (TextView) itemView.findViewById(R.id.tvPlaceRating);
             tvPlaceSummary = (TextView) itemView.findViewById(R.id.tvPlaceSummary);
             tvPlaceDistance = (TextView) itemView.findViewById(R.id.tvPlaceDistance);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            //created a new instance of the fragment to change to and a new instance of a transaction
+            DetailedViewFragment details = new DetailedViewFragment();
+            //need to cast the context since in the adapter we're not directly accessing the main activity
+            //this way we are and we can set a fragment manager
+            MainActivity mainActivity= (MainActivity) context;
+            FragmentManager fragmentManager= mainActivity.getSupportFragmentManager();
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            //replace the current fragment with a new one, add the transaction to the back stack of transactions, and apply
+            fragmentTransaction.replace(R.id.flContainer, details);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
         }
     }
 
