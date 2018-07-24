@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
 
 
 
+
     // instance fields
     AsyncHttpClient client;
 
@@ -199,6 +200,5 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
         }
-
     }
 }

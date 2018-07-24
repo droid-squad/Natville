@@ -22,20 +22,22 @@ import me.jwill2385.natville.Models.Place;
 
 public class SearchFragment extends Fragment {
 
-    HashMap<String, ArrayList<Double> > placeMap;
+
+
     OnMainActivitySelectedListener listener;
     public  ArrayList<Place> sPlaces;
+    HashMap<String, ArrayList<Double> > placeMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sPlaces = new ArrayList<>();
-        placeMap = new HashMap<>();
+       placeMap = new HashMap<>();
 
         // iterate through lat lon of seattle
 
-        for(int l = 45; l <= 49; l++){
-            for (int ln = -123; ln <= -117; ln++){
+        for(int l = 46; l <= 49; l++){
+            for (int ln = -123; ln <= -119; ln++){
                 LatLng spot = new LatLng(l, ln);
                 new asyncTrailsR().execute(spot);
 
@@ -111,7 +113,6 @@ public class SearchFragment extends Fragment {
             // map is populated so clear out array
             sPlaces.clear();
             Log.d("MAP", " Has " + placeMap.size());
-            //Toast.makeText(getActivity(), "Map has " + placeMap.size(), Toast.LENGTH_SHORT).show();
 
         }
 
