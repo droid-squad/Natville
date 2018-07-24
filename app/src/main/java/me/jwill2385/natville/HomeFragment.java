@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            listener.getTrails(mLatLng.latitude, mLatLng.longitude);
+            listener.getTrails(mLatLng.latitude, mLatLng.longitude, MainActivity.maxResults / 10 );
             //need to wait for places to finish updating in main activity
             return null;
         }
@@ -201,11 +201,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 mMap.addMarker(new MarkerOptions().position(trailMark)
                         .title(place.getName()));
             }
+//            MainActivity.places.clear();
         }
+
     }
 
     public interface MainActivityListener {
-        void getTrails(double lat, double lon);
+        void getTrails( double lat,  double lon,  double results);
 
         void getPlaces();
     }
@@ -219,6 +221,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         } else {
             throw new ClassCastException(context.toString() + "must implement main activity listener");
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 }
 

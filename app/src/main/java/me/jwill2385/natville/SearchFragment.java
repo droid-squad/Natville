@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,37 +38,55 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sPlaces = new ArrayList<>();
+        placeMap = new HashMap<>();
+
 
         // iterate through lat lon of seattle
 
 
-        for(int l = 45; l <= 49; l ++){
-            for (int ln = -123; ln <= -117; ln ++){
-                listener.getTrails(l, ln);
+        for(int l = 32; l <= 49; l++){
+            for (int ln = -123; ln <= -114; ln++){
+                listener.getTrails(32, -114, MainActivity.maxResults);
                 sPlaces.addAll(MainActivity.places);
-
-                for( Place p : sPlaces){
-                    if(!placeMap.containsKey(p.getName())){
-                        //if the name of place isn't already in map add the lat long to an array and add array to map
+                Log.d("SearchFragment", "We are at " + l + ", " + ln);
+               Log.d("sPlaces has ", "this many " + sPlaces.size());
+                for(int i = 0; i < sPlaces.size(); i++) {
+                    if (placeMap.isEmpty()) {
+                        // if map is  empty add the 1st place to map
                         ArrayList<Double> location = new ArrayList<>();
-                        location.add(p.getLatitude());
-                        location.add(p.getLongitude());
-                        placeMap.put(p.getName(), location);
+                        location.add(sPlaces.get(i).getLatitude());
+                        location.add(sPlaces.get(i).getLongitude());
+                        placeMap.put(sPlaces.get(i).getName(), location);
+                    } else {
+                        //if not empty then check if it is not already in map and then add it
+                        if (!placeMap.containsKey(sPlaces.get(i).getName())) {
+                            //if the name of place isn't already in map add the lat long to an array and add array to map
+                            ArrayList<Double> location = new ArrayList<>();
+                            location.add(sPlaces.get(i).getLatitude());
+                            location.add(sPlaces.get(i).getLongitude());
+                            placeMap.put(sPlaces.get(i).getName(), location);
 
+                        }
                     }
                 }
                 // map is populated so clear out array
                 sPlaces.clear();
-                Toast.makeText(getActivity(), "Map has " + placeMap.size(), Toast.LENGTH_LONG);
+                Log.d("MAP", " Has " + placeMap.size());
+                //Toast.makeText(getActivity(), "Map has " + placeMap.size(), Toast.LENGTH_SHORT).show();
+
+
             }
 
         }
 
 
+
     }
 
+
     public interface OnMainActivitySelectedListener{
-        public void getTrails(double lat, double lon);
+        public void getTrails(double lat, double lon, double results);
 
     }
 

@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,16 +52,30 @@ public class RecommendationsFragment extends Fragment {
         Double latitude = HomeFragment.mLatLng.latitude;
         Double longitude = HomeFragment.mLatLng.longitude;
 
-        listener.getTrails(latitude,longitude);
-        myPlaces.addAll(MainActivity.places);
-        Log.d("counter", " we have " + myPlaces.size());
-        placeAdapter.notifyDataSetChanged();
+        //listener.getTrails(latitude,longitude, MainActivity.maxResults / 10);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try{
+//                    listener.getTrails(32, -114, MainActivity.maxResults);
+//                }
+//                catch(Exception ex){
+//                    ex.printStackTrace();
+//                }
+//            }
+//        }).start();
 
+        new asyncTrailsR().execute();
+//
+//        myPlaces.addAll(MainActivity.places);
+//        Log.d("counter", " we have " + myPlaces.size());
+//        placeAdapter.notifyDataSetChanged();
+//
 
     }
 
     public interface  OnItemSelectedListener{
-         void getTrails(double lat, double lon);
+         void getTrails( double lat,  double lon,  double results);
     }
 
     @Override
@@ -72,5 +87,26 @@ public class RecommendationsFragment extends Fragment {
             throw new ClassCastException(context.toString()
                     + " must implement RecommendationsFragment.OnItemSelectedListener");
         }
+    }
+
+
+    private class asyncTrailsR extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            listener.getTrails(32, -114, MainActivity.maxResults / 10 );
+            //need to wait for places to finish updating in main activity
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            myPlaces.addAll(MainActivity.places);
+          //  Log.d("getPlaces test line", "Size: " + myPlaces.size());
+            Log.d("counter", " we have " + myPlaces.size());
+            placeAdapter.notifyDataSetChanged();
+
+        }
+
     }
 }
