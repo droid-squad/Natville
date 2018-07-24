@@ -29,7 +29,8 @@ import me.jwill2385.natville.Models.Place;
 
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener, RecommendationsFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener, RecommendationsFragment.OnItemSelectedListener
+, SearchFragment.OnMainActivitySelectedListener{
 
 
     BottomNavigationView bottomNavigationView;
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
                         Log.d("Location "+ i , p.getName());
-                        
+
                     }
 
                     Log.i(TAG, String.format("loaded %s Trails", trails.length()));

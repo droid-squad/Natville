@@ -57,8 +57,6 @@ public class RecommendationsFragment extends Fragment {
         placeAdapter.notifyDataSetChanged();
 
 
-
-
     }
 
     public interface  OnItemSelectedListener{
