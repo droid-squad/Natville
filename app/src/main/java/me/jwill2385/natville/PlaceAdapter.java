@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -97,12 +98,18 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         public void onClick(View view) {
             //created a new instance of the fragment to change to and a new instance of a transaction
             DetailedViewFragment details = new DetailedViewFragment();
+
             //need to cast the context since in the adapter we're not directly accessing the main activity
             //this way we are and we can set a fragment manager
             MainActivity mainActivity= (MainActivity) context;
             FragmentManager fragmentManager= mainActivity.getSupportFragmentManager();
-
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            //pass the object that is being clicked to the new fragment by getting that object then bundling it and serializing it
+            Bundle bundle = new Bundle();
+            Place clickedPlace= mPlaces.get(getAdapterPosition());
+            bundle.putSerializable("clicked_place", clickedPlace);
+            details.setArguments(bundle);
 
             //replace the current fragment with a new one, add the transaction to the back stack of transactions, and apply
             fragmentTransaction.replace(R.id.flContainer, details);

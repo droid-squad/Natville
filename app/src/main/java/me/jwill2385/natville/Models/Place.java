@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Place{
+public class Place implements Serializable{
 
     //initialize variables
     private String name;
