@@ -15,11 +15,32 @@
         android:layout_marginTop="53dp" />
 
     <Button
-        android:id="@+id/btnSort"
+        android:id="@+id/btnRatingSort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:text="Sort" />
+        android:background="@color/DarkGoldenrod"
+        android:text="Rating" />
+
+    <Button
+        android:id="@+id/btnDistanceSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/btnRatingSort"
+        android:background="@color/Goldenrod"
+        android:text="distance" />
+
+    <TextView
+        android:id="@+id/tvSortTrails"
+        android:layout_width="203dp"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Sort Trails by :"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/green_7"
+        android:textStyle="bold" />
 
 </RelativeLayout>

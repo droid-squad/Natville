@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import me.jwill2385.natville.Models.Place;
 
 
-public class RecommendationsFragment extends Fragment{
+public class RecommendationsFragment extends Fragment {
 
     RecyclerView rvRecommendations;
     // adapter wired to recycler view
@@ -29,7 +29,6 @@ public class RecommendationsFragment extends Fragment{
     OnItemSelectedListener listener;
     Double latitude;
     Double longitude;
-
 
 
     @Override
@@ -43,7 +42,8 @@ public class RecommendationsFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button btnSort = view.findViewById(R.id.btnSort);
+        Button btnRatingSort = view.findViewById(R.id.btnRatingSort);
+        Button btnDistanceSort = view.findViewById(R.id.btnDistanceSort);
 
 
         rvRecommendations = (RecyclerView) view.findViewById(R.id.rvRecommendations);
@@ -61,36 +61,56 @@ public class RecommendationsFragment extends Fragment{
         // we have to call getTrails aSynchronously such that we make sure it completes before updating adapter
         new asyncTrailsR().execute();
 
-        btnSort.setOnClickListener(new View.OnClickListener() {
+        btnRatingSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 filterByRating();
             }
         });
 
+        btnDistanceSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterByDistance();
+            }
+        });
 
 
     }
 
-    private void filterByRating() {
-        //myPlaces.sort(Comparator.comparing(Place::getRating));
-        for(int i = 0; i < myPlaces.size(); i++){
-            for(int j =i +1; j < myPlaces.size(); j++){
-                if(myPlaces.get(i).getRating() < myPlaces.get(j).getRating()){
+    // organizes list from longest distance to shortest
+    private void filterByDistance() {
+        for (int i = 0; i < myPlaces.size(); i++) {
+            for (int j = i + 1; j < myPlaces.size(); j++) {
+                if (myPlaces.get(i).getDistance() < myPlaces.get(j).getDistance()) {
                     Place temp = myPlaces.get(i);
-                    myPlaces.set(i,myPlaces.get(j));
+                    myPlaces.set(i, myPlaces.get(j));
                     myPlaces.set(j, temp);
                 }
             }
+        }
+        placeAdapter.notifyDataSetChanged();
+    }
 
+    // organizes list from highest rating (5) to smallest
+    private void filterByRating() {
+        for (int i = 0; i < myPlaces.size(); i++) {
+            for (int j = i + 1; j < myPlaces.size(); j++) {
+                if (myPlaces.get(i).getRating() < myPlaces.get(j).getRating()) {
+                    Place temp = myPlaces.get(i);
+                    myPlaces.set(i, myPlaces.get(j));
+                    myPlaces.set(j, temp);
+                }
+            }
         }
         placeAdapter.notifyDataSetChanged();
 
     }
 
 
-    public interface  OnItemSelectedListener{
-         void getTrails( double lat,  double lon,  double results);
+    public interface OnItemSelectedListener {
+        void getTrails(double lat, double lon, double results);
     }
 
     @Override
@@ -110,7 +130,7 @@ public class RecommendationsFragment extends Fragment{
 
         @Override
         protected Void doInBackground(Void... voids) {
-            listener.getTrails(latitude, longitude, MainActivity.maxResults / 10 );
+            listener.getTrails(latitude, longitude, MainActivity.maxResults / 10);
             //need to wait for places to finish updating in main activity
             return null;
         }
