@@ -17,7 +17,8 @@ Time spent: **X** hours spent in total
 - [X] Maps with pins marking the location of parks within user location range - Jade (To be completed by 23rd)
 - [X] user can see park names on pins when clicked - Jade (To be completed by 23rd)
 - [X] Scroll View for Parks nearby - Jadal (To be completed by 23rd)
-- [ ] List view sorted by rating 
+- [X] List view sorted by rating - Jadal
+- [X] List view sorted by distance - Jadal
 - [ ] User is able to use search bar to search through available parks (To be completed by 27th)
  - [ ] UI - Jade, Sol
  - [ ] Making requests - Jadal
