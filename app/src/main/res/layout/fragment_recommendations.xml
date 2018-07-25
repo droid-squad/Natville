@@ -14,11 +14,12 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="53dp" />
 
-    <TextView
-        android:id="@+id/tvRecommendations"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_alignParentStart="true"
+    <Button
+        android:id="@+id/btnSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:text="We could place search bar here" />
+        android:text="Sort" />
+
 </RelativeLayout>
