@@ -186,6 +186,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             //Waits until getDeviceLocation is done to apply, other UI settings available
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         }
 
     }
