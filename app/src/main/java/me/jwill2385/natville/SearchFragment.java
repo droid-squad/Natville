@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
 
 
@@ -52,6 +53,9 @@ public class SearchFragment extends Fragment {
 
             }
         }
+        LocationMap locationMap = new LocationMap();
+
+        locationMap.setMap(placeMap);
 
 
     }
