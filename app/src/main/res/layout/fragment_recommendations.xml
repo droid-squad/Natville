@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecommendationsFragment">
+    tools:context=".RecommendationsFragment"
+    android:background="#436077">
 
 
     <android.support.v7.widget.RecyclerView
@@ -34,13 +35,15 @@
 
     <TextView
         android:id="@+id/tvSortTrails"
+        android:layout_marginLeft="5dp"
         android:layout_width="203dp"
         android:layout_height="52dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Sort Trails by :"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/green_7"
-        android:textStyle="bold" />
+        android:textColor="@color/Goldenrod"
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
 
 </RelativeLayout>
