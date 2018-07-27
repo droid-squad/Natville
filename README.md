@@ -20,13 +20,13 @@ Time spent: **X** hours spent in total
 - [X] List view sorted by rating - Jadal
 - [X] List view sorted by distance - Jadal
 - [ ] User is able to use search bar to search through available parks (To be completed by 27th)
- - [ ] UI - Jade, Sol
- - [ ] Making requests - Jadal
- - [ ] Presenting results - Jadal
+  - [X] UI - Jade
+  - [ ] Making requests - Jadal
+  - [ ] Presenting results - Jadal
 - [ ] User can use swipe functionality - Jadal
 - [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
- - [X] Create UI for Park detail view
- - [X] Hook up with recycled view
+  - [X] Create UI for Park detail view
+  - [X] Hook up with recycled view
 
 #### stretch goal
 - [ ] User can log in / log out / sign up - Sol
