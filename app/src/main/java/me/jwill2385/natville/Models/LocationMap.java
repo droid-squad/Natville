@@ -3,11 +3,15 @@ package me.jwill2385.natville.Models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @ParseClassName("LocationMap")
 public class LocationMap extends ParseObject {
     private static final String KEY_MAP = "HashMapData";
+    private static  final String KEY_PLACES = "placeObj";
 
 
     // this function will get the map stored in the Parse Object
@@ -19,4 +23,12 @@ public class LocationMap extends ParseObject {
     public void setMap(HashMap map){
         put(KEY_MAP, map);
     }
+
+    public JSONObject getArray(){
+        return getJSONObject(KEY_PLACES);
+    }
+    public void setArray(ArrayList<Place> location){
+        put(KEY_PLACES, location);
+    }
+
 }

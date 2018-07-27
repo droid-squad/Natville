@@ -17,14 +17,18 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
+import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
 
 
@@ -167,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
 
              //       Log.i(TAG, String.format("loaded %s Trails", trails.length()));
 
+
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);
                 }
@@ -183,6 +188,24 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
 
 
 
+
+    }
+
+    public static void fillMap(HashMap<String, ArrayList<Double> > locations){
+        LocationMap locationMap = new LocationMap();
+
+                locationMap.setMap(locations);
+
+                locationMap.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Log.d(TAG, "Successful");
+                        }else{
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
     }
 
