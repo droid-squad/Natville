@@ -10,16 +10,15 @@
         app:showAsAction="ifRoom"
          />
     <item
-        android:id="@+id/ic_search"
-        android:enabled="true"
-        android:icon="@drawable/baseline_youtube_searched_for_black_18dp"
-        app:showAsAction="ifRoom"
-       />
-    <item
         android:id="@+id/ic_recommendations"
         android:enabled="true"
         android:icon="@drawable/baseline_list_black_18dp"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/ic_search"
+        android:enabled="true"
+        android:icon="@drawable/baseline_youtube_searched_for_black_18dp"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/ic_profile"
         android:enabled="true"
