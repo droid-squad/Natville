@@ -4,7 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,8 +21,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +34,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.jwill2385.natville.Models.Place;
 
@@ -60,6 +68,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private EditText etSearch;
+    private ImageView ivGPS;
 
     public static LatLng mLatLng;
     public MainActivityListener listener;
@@ -86,6 +95,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
+        ivGPS = (ImageView) view.findViewById(R.id.iv_gps);
+        ivGPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeviceLocation();
+            }
+        });
         initSearch();
 
     }
@@ -145,12 +161,29 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 return false;
             }
         });
+        hideSoftKeyboard();
     }
 
     private void geoLocate() {
         Log.d(TAG, "geoLocate: geolocating");
         String searched = etSearch.getText().toString();
-        Toast.makeText(getActivity(), searched, Toast.LENGTH_SHORT).show();
+
+        Geocoder geocoder = new Geocoder(getActivity());
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName(searched,1);
+        }catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException: "+e.getMessage());
+        }
+        if(list.size()>0){
+            Address address = list.get(0);
+            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM);
+            mLatLng = new LatLng(address.getLatitude(),address.getLongitude());
+            new asyncTrails().execute();
+
+        }else{
+            Toast.makeText(getActivity(),"Location not found",Toast.LENGTH_SHORT);
+        }
     }
 
     private void initMap() {
@@ -192,6 +225,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void moveCamera(LatLng latLng, float zoom) {
+        hideSoftKeyboard();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
@@ -245,8 +279,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 Place place = mPlaces.get(i);
                 Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
                 LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(trailMark)
-                        .title(place.getName()));
+                mMap.addMarker(new MarkerOptions()
+                        .position(trailMark)
+                        .title(place.getName())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.tree4)));
             }
         }
 
@@ -267,6 +303,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         } else {
             throw new ClassCastException(context.toString() + "must implement main activity listener");
         }
+    }
+
+    private void hideSoftKeyboard() {
+       getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 

@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         final ProfileFragment fragmentProfile = new ProfileFragment();
         final RecommendationsFragment fragmentRecommendation = new RecommendationsFragment();
 
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         // initialize list of Places
