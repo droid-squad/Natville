@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/trailbackground"
     tools:context=".loginActivity">
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="143dp"
+        android:layout_centerInParent="true"
         android:fontFamily="@font/berkshire_swash"
         android:text="Natville"
-        android:textColor="@color/DarkGreen"
+        android:textColor="@color/White"
         android:textSize="80sp" />
 
 
@@ -23,11 +22,9 @@
         android:id="@+id/btnLogin"
         android:layout_width="274dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
+        android:layout_above="@+id/btnSignUp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="199dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/DarkGreen"
+        android:background="@color/grey_2_30_transparent"
         android:onClick="loginToMainScreen"
         android:text="Login"
         android:textColor="@color/white" />
@@ -38,9 +35,9 @@
         style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnLogin"
-        android:layout_marginTop="-175dp"
+
         android:text="Sign Up"
-        android:textColor="@color/DarkGreen" />
+        android:textColor="@color/WhiteSmoke" />
 </RelativeLayout>

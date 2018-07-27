@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private EditText etSearch;
+    private ImageView ivGPS;
 
     public static LatLng mLatLng;
     public MainActivityListener listener;
@@ -93,6 +95,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
+        ivGPS = (ImageView) view.findViewById(R.id.iv_gps);
+        ivGPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeviceLocation();
+            }
+        });
         initSearch();
 
     }
@@ -215,7 +224,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void moveCamera(LatLng latLng, float zoom) {
-        mMap.clear();
         hideSoftKeyboard();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }

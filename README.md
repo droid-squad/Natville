@@ -24,9 +24,9 @@ Time spent: **X** hours spent in total
  - [ ] Making requests - Jadal
  - [ ] Presenting results - Jadal
 - [ ] User can use swipe functionality - Jadal
-- [ ] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
- - [ ] Create UI for Park detail view
- - [ ] Hook up with recycled view
+- [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
+ - [X] Create UI for Park detail view
+ - [X] Hook up with recycled view
 
 #### stretch goal
 - [ ] User can log in / log out / sign up - Sol
