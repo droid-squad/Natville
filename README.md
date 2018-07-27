@@ -21,7 +21,7 @@ Time spent: **X** hours spent in total
 - [X] List view sorted by distance - Jadal
 - [ ] User is able to use search bar to search through available parks (To be completed by 27th)
   - [X] Search Bar UI - Jade
-  - [ ] Searching and presenting results (on map) -Jade
+  - [X] Searching and presenting results (on map) -Jade
   - [ ] Making requests - Jadal
   - [ ] Presenting results - Jadal
 - [ ] User can use swipe functionality - Jadal
