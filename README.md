@@ -22,29 +22,30 @@ Time spent: **X** hours spent in total
 - [ ] User is able to use search bar to search through available parks (To be completed by 27th)
   - [X] Search Bar UI - Jade
   - [X] Searching and presenting results (on map) -Jade
-  - [ ] Making requests - Jadal
+  - [X] Moving name-lat,long map to Parse server - Jadal
+  - [ ] Investigate if it is possible to remove . from keyname so we can get complete set of hiking trails - Jadal
+  - [X] Making requests - Jadal
   - [ ] Presenting results - Jadal
-- [ ] User can use swipe functionality - Jadal
+- [ ] User can use swipe functionality - Sol/Jade
 - [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
   - [X] Create UI for Park detail view
   - [X] Hook up with recycled view
-
-#### stretch goal
+- [ ] Change App logo on the home screen - Jade
 - [ ] User can log in / log out / sign up - Sol
 - [ ] User can click park pins on MainActivity to see park details - Jade
-- [ ] Create App theme and Logos for Title Bar - In progress (intentionally postponed until all the main features are implemented)
+
+#### stretch goal
+- [ ] Create App theme and Logos for Title Bar - In progress (wait until meeting with Billy)
 
 ### The following **optional** features are implemented:
 - [ ] User can filter parks based on specific characteristics
-- [ ] Visiting users can see reccomendations for parks in the area
+ - [ ] Filter by difficulty
+ - [ ] Filter by star rating
+ - [ ] Filter by trail condition status
+ - [ ] Stretch: parse summary to get more charateristics to filter on
+- [X] Visiting users can see reccomendations for parks in the area
+- [ ] Find and implement a package to convert a number rating to a star rating - Jade
 - [ ] Achievement implementation (Need to discuss details)
-- [ ] Find and implement a package to convert a number rating to a star rating
-
-The following **extra** features are implemented:
-
-- [ ] List anything else that we could possibly implement in extra time.
-1.
-2.
 
 ## Considerations
 1. What is your product pitch?

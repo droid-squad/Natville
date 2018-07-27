@@ -110,7 +110,7 @@ public class RecommendationsFragment extends Fragment {
 
 
     public interface OnItemSelectedListener {
-        void getTrails(double lat, double lon, double results);
+        void getTrails(double lat, double lon, double range, double results);
     }
 
     @Override
@@ -130,7 +130,9 @@ public class RecommendationsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            listener.getTrails(latitude, longitude, MainActivity.maxResults / 10);
+            listener.getTrails(latitude, longitude,
+                    MainActivity.maxDistance, MainActivity.maxResults / 10);
+
             //need to wait for places to finish updating in main activity
             return null;
         }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,10 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.w3c.dom.Text;
-
 import me.jwill2385.natville.Models.Place;
-import me.jwill2385.natville.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,43 +20,50 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
-
 
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
     private EditText etSearchTab;
-
-
-
     OnMainActivitySelectedListener listener;
-    public  ArrayList<Place> sPlaces;
-    HashMap<String, ArrayList<Double> > placeMap;
+    RecyclerView rvSearchBar;
+    PlaceAdapter searchAdapter;
+    public ArrayList<Place> sPlaces;
+    public HashMap<String, ArrayList<Double>> placeMap;
+    String searched;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sPlaces = new ArrayList<>();
-       placeMap = new HashMap<>();
 
-        // iterate through lat lon of seattle
-
-        for(int l = 46; l <= 49; l++){
-            for (int ln = -123; ln <= -119; ln++){
-                LatLng spot = new LatLng(l, ln);
-                // this will get you trails throughout whole state of washington
-                new asyncTrailsR().execute(spot);
-
+        placeMap = new HashMap<>();
+        // specify which class to query
+        ParseQuery<LocationMap> query = ParseQuery.getQuery(LocationMap.class);
+        // Specify the object Id
+        query.getInBackground("Avn3fCWcv0", new GetCallback<LocationMap>() {
+            @Override
+            public void done(LocationMap object, ParseException e) {
+                if (e == null) {
+                    // fill placeMap with map in parse
+                    placeMap = object.getMap();
+                    Log.d(TAG, "Size: " + placeMap.size());
+                } else {
+                    e.printStackTrace();
+                }
             }
-        }
-
-
+        });
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,13 +72,26 @@ public class SearchFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_search, container, false);
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rvSearchBar = view.findViewById(R.id.rvSearchBar);
+        // initialize arraylist (data source)
+        sPlaces = new ArrayList<>();
+        // Construct Adapter for this data source
+        searchAdapter = new PlaceAdapter(sPlaces);
+        // recyclerView setup (layout manager, use adapter)
+        rvSearchBar.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        // set the adapter
+        rvSearchBar.setAdapter(searchAdapter);
+
         etSearchTab = (EditText) view.findViewById(R.id.etSearch2);
         initSearch();
 
+
     }
+
     private void initSearch() {
         etSearchTab.setSingleLine();
         etSearchTab.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -88,25 +110,32 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-    private void filterTrails(){
+
+    private void filterTrails() {
         Log.d(TAG, "filterTrails: filtering");
-        String searched = etSearchTab.getText().toString();
-        Toast.makeText(getActivity(),searched,Toast.LENGTH_SHORT).show();
+        searched = etSearchTab.getText().toString();
+        if (placeMap.containsKey(searched)) {
+            ArrayList<Double> location = placeMap.get(searched);
+            LatLng spot = new LatLng(location.get(0), location.get(1));
+            new asyncTrailsR().execute(spot);
+            Toast.makeText(getActivity(), searched, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Error " + searched + " Not found", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
-
-    public interface OnMainActivitySelectedListener{
-        public void getTrails(double lat, double lon, double results);
+    public interface OnMainActivitySelectedListener {
+        public void getTrails(double lat, double lon, double range, double results);
 
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof OnMainActivitySelectedListener){
+        if (context instanceof OnMainActivitySelectedListener) {
             listener = (OnMainActivitySelectedListener) context;
-        }else{
+        } else {
             throw new ClassCastException(context.toString()
                     + " Must implement SearchFragment.OnMainActivitySelectedListener");
         }
@@ -118,7 +147,8 @@ public class SearchFragment extends Fragment {
         @Override
         protected Void doInBackground(LatLng... params) {
             LatLng currentLocation = params[0];
-            listener.getTrails(currentLocation.latitude, currentLocation.longitude, MainActivity.maxResults / 10 );
+            listener.getTrails(currentLocation.latitude, currentLocation.longitude,
+                    MainActivity.maxDistance / 20, MainActivity.maxResults / 50);
             //need to wait for places to finish updating in main activity
             return null;
         }
@@ -126,31 +156,30 @@ public class SearchFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             sPlaces.addAll(MainActivity.places);
-           // Log.d("counter", " we have " + sPlaces.size());
-            for(int i = 0; i < sPlaces.size(); i++) {
-                if (placeMap.isEmpty()) {
-                    // if map is  empty add the 1st place to map
-                    ArrayList<Double> location = new ArrayList<>();
-                    location.add(sPlaces.get(i).getLatitude());
-                    location.add(sPlaces.get(i).getLongitude());
-                    placeMap.put(sPlaces.get(i).getName(), location);
-                } else {
-                    //if not empty then check if it is not already in map and then add it
-                    if (!placeMap.containsKey(sPlaces.get(i).getName())) {
-                        //if the name of place isn't already in map add the lat long to an array and add array to map
-                        ArrayList<Double> location = new ArrayList<>();
-                        location.add(sPlaces.get(i).getLatitude());
-                        location.add(sPlaces.get(i).getLongitude());
-                        placeMap.put(sPlaces.get(i).getName(), location);
-
-                    }
-                }
-            }
-            // map is populated so clear out array
-            sPlaces.clear();
-            Log.d("MAP", " Has " + placeMap.size());
+            rearrangeArray();
+            Log.d(TAG, "Size " + sPlaces.size());
+            searchAdapter.notifyDataSetChanged();
 
         }
 
+    }
+
+    private void rearrangeArray() {
+        int index = 0;
+        if (sPlaces.get(index).getName().equals(searched)) {
+            //this means the place I want is already at top
+            return;
+        } else {
+            for (int j = 0; j < sPlaces.size(); j++) {
+                if (sPlaces.get(j).getName().equals(searched)) {
+                    index = j;
+                }
+            }
+            Place temp = sPlaces.get(0);
+            sPlaces.set(0, sPlaces.get(index));
+            sPlaces.set(index, temp);
+
+
+        }
     }
 }
