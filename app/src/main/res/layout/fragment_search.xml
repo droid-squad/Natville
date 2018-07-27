@@ -3,39 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    tools:context=".SearchFragment"
+    android:background="#436077">
 
     <!-- TODO: Update blank fragment layout -->
-
     <RelativeLayout
-        android:id="@+id/relLayout2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/white_border">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/ic_magnify2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_search" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="Toolbar Title"
+            android:src="@drawable/app_icon"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title1" />
 
-        <EditText
-            android:id="@+id/etSearch2"
+
+        <RelativeLayout
+            android:id="@+id/relLayout2"
+            android:layout_toRightOf="@id/toolbar_title1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="false"
-            android:layout_toRightOf="@+id/ic_magnify2"
-            android:background="@null"
-            android:hint="Search Parks In Your Area."
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/white_border">
 
+            <ImageView
+                android:id="@+id/ic_magnify2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:id="@+id/etSearch2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="false"
+                android:layout_toRightOf="@+id/ic_magnify2"
+                android:background="@null"
+                android:hint="Search Parks In Your Area."
+                android:textColor="@color/black"
+                android:textSize="15sp"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </FrameLayout>
