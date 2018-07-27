@@ -128,15 +128,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void initSearch(){
+    private void initSearch() {
         etSearch.setSingleLine();
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                    || actionId == EditorInfo.IME_ACTION_DONE
-                    || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                    || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
 
 
                     //TODO: CREATE A METHOD HERE THAT DECIDES WHAT TO DO WHEN USER PRESSES ENTER
@@ -147,10 +147,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    private void geoLocate(){
+    private void geoLocate() {
         Log.d(TAG, "geoLocate: geolocating");
         String searched = etSearch.getText().toString();
-        Toast.makeText(getActivity(),searched,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), searched, Toast.LENGTH_SHORT).show();
     }
 
     private void initMap() {
@@ -230,7 +230,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            listener.getTrails(mLatLng.latitude, mLatLng.longitude, MainActivity.maxResults / 10 );
+            listener.getTrails(mLatLng.latitude, mLatLng.longitude,
+                    MainActivity.maxDistance, MainActivity.maxResults / 10);
+
             //need to wait for places to finish updating in main activity
             return null;
         }
@@ -246,13 +248,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 mMap.addMarker(new MarkerOptions().position(trailMark)
                         .title(place.getName()));
             }
-//            MainActivity.places.clear();
         }
 
     }
 
     public interface MainActivityListener {
-        void getTrails( double lat,  double lon,  double results);
+        void getTrails(double lat, double lon, double range, double results);
 
         void getPlaces();
     }

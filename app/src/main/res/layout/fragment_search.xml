@@ -38,4 +38,20 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="507dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="0dp" />
+
+    </RelativeLayout>
+
+
+
 </FrameLayout>

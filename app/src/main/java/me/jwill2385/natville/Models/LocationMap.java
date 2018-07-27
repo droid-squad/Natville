@@ -11,23 +11,25 @@ import java.util.HashMap;
 @ParseClassName("LocationMap")
 public class LocationMap extends ParseObject {
     private static final String KEY_MAP = "HashMapData";
-    private static  final String KEY_PLACES = "placeObj";
+    private static final String KEY_PLACES = "placeObj";
 
 
     // this function will get the map stored in the Parse Object
-    public ParseObject getMap() {
-        return getParseObject(KEY_MAP);
+    public HashMap getMap() {
+
+        return (HashMap) get(KEY_MAP);
     }
 
     //this function will fill the HashMapData object in parse with the object passed in.
-    public void setMap(HashMap map){
+    public void setMap(HashMap map) {
         put(KEY_MAP, map);
     }
 
-    public JSONObject getArray(){
+    public JSONObject getArray() {
         return getJSONObject(KEY_PLACES);
     }
-    public void setArray(ArrayList<Place> location){
+
+    public void setArray(ArrayList<Place> location) {
         put(KEY_PLACES, location);
     }
 
