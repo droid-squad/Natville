@@ -16,8 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="Toolbar Title"
+            android:src="@drawable/app_icon"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title" />
+
+
         <RelativeLayout
             android:id="@+id/relLayout"
+            android:layout_toRightOf="@id/toolbar_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
@@ -41,7 +53,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_toRightOf="@+id/ic_magnify"
                 android:background="@null"
-                android:hint="Search Parks In Your Area."
+                android:hint="Search All Parks"
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
 
