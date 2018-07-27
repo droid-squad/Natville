@@ -1,10 +1,14 @@
 package me.jwill2385.natville;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +33,7 @@ public class DetailedViewFragment extends Fragment {
 
     //initializing the Place object received from any previous fragment
     Place place;
-
+    Context context;
 
     //initializing all the views
     public ImageView ivPicDetailed;
@@ -47,6 +51,7 @@ public class DetailedViewFragment extends Fragment {
     public TextView tvDescentDetailed;
     public TextView tvLowDetailed;
     public TextView tvUrlDetailed;
+    public ImageView ivBack;
 
     public DetailedViewFragment() {
         // Required empty public constructor
@@ -62,6 +67,7 @@ public class DetailedViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         Bundle bundle = getArguments();
         place = (Place) bundle.getSerializable("clicked_place");
@@ -82,6 +88,7 @@ public class DetailedViewFragment extends Fragment {
         tvDescentDetailed = view.findViewById(R.id.tvDescentDetailed);
         tvLowDetailed = view.findViewById(R.id.tvLowDetailed);
         tvUrlDetailed = view.findViewById(R.id.tvUrlDetailed);
+        ivBack = view.findViewById(R.id.ivBack);
 
         //setting all information from place object
         tvNameDetailed.setText(place.getName());
@@ -95,8 +102,8 @@ public class DetailedViewFragment extends Fragment {
         if(place.getConditionDetails().equals("") || place.getConditionDetails()==null) {
             tvConditionDetDetailed.setText("Condition Details: N/A");
         }
-        else{tvConditionDetDetailed.setText("Condition Details:" + place.getConditionDetails());}
-        tvConditionDateDetailed.setText("Conditions Last Updated On:"+ place.getConditionUpdated());
+        else{tvConditionDetDetailed.setText("Condition Details: " + place.getConditionDetails());}
+        tvConditionDateDetailed.setText("Conditions Last Updated On: "+ place.getConditionUpdated());
         tvAscentDetailed.setText("Ascent: "+ Double.toString(place.getAscent()) + " feet");
         tvDescentDetailed.setText("Descent: "+ Double.toString(place.getDescent()) +" feet");
         tvHighDetailed.setText("High: "+ Double.toString(place.getHigh()) +" feet");
@@ -106,6 +113,23 @@ public class DetailedViewFragment extends Fragment {
         Glide.with(getActivity()).load(place.getPictureLargeURL())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(ivPicDetailed);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                context= getActivity();
+                MainActivity mainActivity= (MainActivity) context;
+                RecommendationsFragment fragmentRecommendation = new RecommendationsFragment();
+                FragmentManager fragmentManager= mainActivity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.flContainer, fragmentRecommendation);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
 
     }
 }

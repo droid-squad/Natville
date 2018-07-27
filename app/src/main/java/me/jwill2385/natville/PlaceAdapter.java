@@ -84,12 +84,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
             //perform findViewById lookups
 
             //reference id of each view from item_place.xml and cast to type
-            ivPlacePic = (ImageView) itemView.findViewById(R.id.ivPlacePic);
-            tvPlaceName = (TextView) itemView.findViewById(R.id.tvPlaceName);
-            tvPlaceLocation= (TextView) itemView.findViewById(R.id.tvPlaceLocation);
-            tvPlaceRating = (TextView) itemView.findViewById(R.id.tvPlaceRating);
-            tvPlaceSummary = (TextView) itemView.findViewById(R.id.tvPlaceSummary);
-            tvPlaceDistance = (TextView) itemView.findViewById(R.id.tvPlaceDistance);
+            ivPlacePic = itemView.findViewById(R.id.ivPlacePic);
+            tvPlaceName = itemView.findViewById(R.id.tvPlaceName);
+            tvPlaceLocation= itemView.findViewById(R.id.tvPlaceLocation);
+            tvPlaceRating = itemView.findViewById(R.id.tvPlaceRating);
+            tvPlaceSummary = itemView.findViewById(R.id.tvPlaceSummary);
+            tvPlaceDistance = itemView.findViewById(R.id.tvPlaceDistance);
 
             itemView.setOnClickListener(this);
         }
