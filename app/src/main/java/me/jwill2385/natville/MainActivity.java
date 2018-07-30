@@ -17,8 +17,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -169,23 +167,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 logError("Failed getting Trails", throwable, true);
-            }
-        });
-    }
-
-    public static void fillMap(HashMap<String, ArrayList<Double>> locations) {
-        LocationMap locationMap = new LocationMap();
-
-        locationMap.setMap(locations);
-
-        locationMap.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d(TAG, "Successful");
-                } else {
-                    e.printStackTrace();
-                }
             }
         });
     }

@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,20 +45,11 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.jwill2385.natville.Models.Place;
 
-
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link HomeFragment.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link HomeFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
-
-public class HomeFragment extends Fragment implements OnMapReadyCallback {
+public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private static final String TAG = "HomeFragment";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -201,7 +194,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         //TODO Change this toast to something more related to the app
-        Toast.makeText(getActivity(), "Map is ready", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Hikes Ready", Toast.LENGTH_SHORT).show();
         mMap = googleMap;
 
         if (mLocationPermissionsGranted) {
@@ -220,6 +213,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            mMap.setOnInfoWindowClickListener(this);
         }
 
     }
@@ -259,6 +253,27 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        //created a new instance of the fragment to change to and a new instance of a transaction
+        DetailedViewFragment details = new DetailedViewFragment();
+
+        //need to cast the context since in the adapter we're not directly accessing the main activity
+        //this way we are and we can set a fragment manager
+        FragmentManager fragmentManager= getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //pass the object that is being clicked to the new fragment by getting that object then bundling it and serializing it
+        Bundle bundle = new Bundle();
+        Place clickedPlace= (Place) marker.getTag();
+        bundle.putSerializable("clicked_place", clickedPlace);
+        details.setArguments(bundle);
+
+        //replace the current fragment with a new one, add the transaction to the back stack of transactions, and apply
+        fragmentTransaction.replace(R.id.flContainer, details).commit();
+
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class asyncTrails extends AsyncTask<Void, Void, Void> {
 
@@ -279,10 +294,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 Place place = mPlaces.get(i);
                 Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
                 LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
-                mMap.addMarker(new MarkerOptions()
+                Marker tMark = mMap.addMarker(new MarkerOptions()
                         .position(trailMark)
                         .title(place.getName())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.tree4)));
+                tMark.setTag(place);
             }
         }
 
