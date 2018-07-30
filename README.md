@@ -14,34 +14,38 @@ Time spent: **X** hours spent in total
 - [X] User can click icon on menu bar or tab to access personal account details - Sol
 - [X] User can switch activities using an action bar or tab layout - Jadal
 - [X] Create request client to make REST API to Park API - Jadal
-- [ ] Maps with pins marking the location of parks within user location range - Jade (To be completed by 23rd)
-- [ ] user can see park names on pins - Jade (To be completed by 23rd)
-- [ ] Scroll View for Parks nearby sorted by rating - Jadal (To be completed by 23rd)
-
+- [X] Maps with pins marking the location of parks within user location range - Jade (To be completed by 23rd)
+- [X] user can see park names on pins when clicked - Jade (To be completed by 23rd)
+- [X] Scroll View for Parks nearby - Jadal (To be completed by 23rd)
+- [X] List view sorted by rating - Jadal
+- [X] List view sorted by distance - Jadal
 - [ ] User is able to use search bar to search through available parks (To be completed by 27th)
- - [ ] UI - Jade, Sol
- - [ ] Making requests - Jadal
- - [ ] Presenting results - Jadal
-- [ ] User can use swipe functionality - Jadal
-- [ ] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
- - [ ] Create UI for Park detail view
- - [ ] Hook up with recycled view
-
-#### stretch goal
+  - [X] Search Bar UI - Jade
+  - [X] Searching and presenting results (on map) -Jade
+  - [X] Moving name-lat,long map to Parse server - Jadal
+  - [ ] Investigate if it is possible to remove . from keyname so we can get complete set of hiking trails - Jadal
+  - [X] Making requests - Jadal
+  - [X] Presenting results - Jadal
+- [ ] User can use swipe functionality - Sol/Jade
+- [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
+  - [X] Create UI for Park detail view
+  - [X] Hook up with recycled view
+- [ ] Change App logo on the home screen - Jade
 - [ ] User can log in / log out / sign up - Sol
 - [ ] User can click park pins on MainActivity to see park details - Jade
-- [ ] Create App theme and Logos for Title Bar - In progress (intentionally postponed until all the main features are implemented)
+
+#### stretch goal
+- [ ] Create App theme and Logos for Title Bar - In progress (wait until meeting with Billy)
 
 ### The following **optional** features are implemented:
 - [ ] User can filter parks based on specific characteristics
-- [ ] Visiting users can see reccomendations for parks in the area
+ - [ ] Filter by difficulty
+ - [ ] Filter by star rating
+ - [ ] Filter by trail condition status
+ - [ ] Stretch: parse summary to get more charateristics to filter on
+- [X] Visiting users can see reccomendations for parks in the area
+- [ ] Find and implement a package to convert a number rating to a star rating - Jade
 - [ ] Achievement implementation (Need to discuss details)
-
-The following **extra** features are implemented:
-
-- [ ] List anything else that we could possibly implement in extra time.
-1.
-2.
 
 ## Considerations
 1. What is your product pitch?
@@ -85,6 +89,11 @@ The following **extra** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37522993_149940615906102_7975498073872793600_n.jpg?_nc_cat=0&_nc_log=1&oh=9b943f1303bb08758c25e2c1fe0fd52a&oe=5BDDAFA9'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37403519_149940632572767_4875137748995932160_n.jpg?_nc_cat=0&_nc_log=1&oh=da788c2dd955ea4bad47be9871e57cc1&oe=5BE431ED'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37544472_149940642572766_414748997316509696_n.jpg?_nc_cat=0&_nc_log=1&oh=8025c3016ff7ef02dbf80f903a807137&oe=5BCB8176'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37602550_149940692572761_544420631282712576_n.jpg?_nc_cat=0&_nc_log=1&oh=9fdbd1b638b9cad0734ddd93c69a6ac5&oe=5BCAFE50'/>
+<img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37595533_149940655906098_5695346386497699840_n.jpg?_nc_cat=0&_nc_log=1&oh=ff3e6c7dc3239437c9094aa21ed2594d&oe=5BE37F67'/>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

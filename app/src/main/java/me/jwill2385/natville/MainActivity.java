@@ -16,18 +16,25 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
+import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.MainActivityListener, RecommendationsFragment.OnItemSelectedListener
+        , SearchFragment.OnMainActivitySelectedListener {
+
 
     BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -40,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     //the API key -TODO move to secret location
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
-    public ArrayList<Place> places;
-    PlaceAdapter placeAdapter;
+    public final static double maxResults = 500;
+    public static ArrayList<Place> places;
 
 
     // instance fields
@@ -52,18 +59,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        client = new AsyncHttpClient();
+        client = new SyncHttpClient();
 
         final HomeFragment fragmentHome = new HomeFragment();
         final SearchFragment fragmentSearch = new SearchFragment();
         final ProfileFragment fragmentProfile = new ProfileFragment();
         final RecommendationsFragment fragmentRecommendation = new RecommendationsFragment();
 
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         // initialize list of Places
         places = new ArrayList<>();
-        placeAdapter = new PlaceAdapter(places);
         //handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.ic_home:
-                                if(isServicesOK()){
+                                if (isServicesOK()) {
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.flContainer, fragmentHome).commit();
                                 }
@@ -96,29 +103,30 @@ public class MainActivity extends AppCompatActivity {
 
         //starts user on home screen
         bottomNavigationView.setSelectedItemId(R.id.ic_home);
-        getTrails(47, -122);
     }
 
-    public boolean isServicesOK(){ //checks google play services
+    public boolean isServicesOK() { //checks google play services
         Log.d(TAG, "isServicesOK: checking google services version");
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
-        if(available == ConnectionResult.SUCCESS){
+        if (available == ConnectionResult.SUCCESS) {
             //everything works user can make requests
             Log.d(TAG, "IsServicesOK: Google Play Services is working");
             return true;
-        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             //resolvable error
             Log.d(TAG, "isServiceOK: an error occured but it can be fixed");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this,available,ERROR_DIALOG_REQUEST);
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
-        }else{
+        } else {
             Toast.makeText(MainActivity.this, "You cannnot make requests", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
 
     //get the trails from the API. pass in current latitude and longitude locations
-    private void getTrails(double lat, double lon){
+    public void getTrails(double lat, double lon, double range, double results) {
+        //testing to see if mulitple client calls will work through here.
+
         RequestParams params = new RequestParams();
         /*these are all parameters in request
         latitude value
@@ -127,16 +135,19 @@ public class MainActivity extends AppCompatActivity {
         then API key
 
          */
-        //hardcoding for testing
-        //automatically sets range to show 10 places unless you change maxResults
+        //automatically sets range to show 10 places unless you change maxResults caps at 500
         //maxDistance starts at 30miles and caps at 200 miles
-        params.put("lat",lat);
+        params.put("lat", lat);
         params.put("lon", lon);
-        params.put("maxDistance", maxDistance);
+        params.put("maxDistance", range);
+        params.put("maxResults", results);
         params.put(API_KEY_PRAM, API_KEY);
+        places.clear();
+
 
         // execute get request expecting a JSONObject response
-        client.get(API_BASE_URL, params, new JsonHttpResponseHandler(){
+        client.get(API_BASE_URL, params, new JsonHttpResponseHandler() {
+
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -144,16 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray trails = response.getJSONArray("trails");
                     //iterate through result set
-                    for (int i= 0; i < trails.length(); i++){
+                    places.clear();
+                    for (int i = 0; i < trails.length(); i++) {
                         Place p = new Place(trails.getJSONObject(i));
                         places.add(p); // add each place (p) to places array
-                        //notify adapter that row was added
-                        placeAdapter.notifyItemInserted(places.size() -1);
-
-                        Log.d("Location "+ i , p.getName());
 
                     }
-                    Log.i(TAG, String.format("loaded %s Trails", trails.length()));
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);
                 }
@@ -164,21 +171,38 @@ public class MainActivity extends AppCompatActivity {
                 logError("Failed getting Trails", throwable, true);
             }
         });
-
-
-
-
     }
 
-    private void logError(String message, Throwable error, boolean alertUser){
+    public static void fillMap(HashMap<String, ArrayList<Double>> locations) {
+        LocationMap locationMap = new LocationMap();
+
+        locationMap.setMap(locations);
+
+        locationMap.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d(TAG, "Successful");
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getPlaces() {
+        HomeFragment.mPlaces = places;
+    }
+
+    private void logError(String message, Throwable error, boolean alertUser) {
         // always log the error
         Log.e(TAG, message, error);
         //alert the user to avoid silent errors
-        if(alertUser){
+        if (alertUser) {
             // show a long toast with the error message
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
         }
-
     }
 }

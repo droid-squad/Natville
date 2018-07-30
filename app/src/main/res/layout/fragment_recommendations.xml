@@ -3,22 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecommendationsFragment">
+    tools:context=".RecommendationsFragment"
+    android:background="#436077">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvRecommendations"
         android:layout_width="match_parent"
-        android:layout_height="458dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="53dp" />
 
+    <Button
+        android:id="@+id/btnRatingSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/DarkGoldenrod"
+        android:text="Rating" />
+
+    <Button
+        android:id="@+id/btnDistanceSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/btnRatingSort"
+        android:background="@color/Goldenrod"
+        android:text="distance" />
+
     <TextView
-        android:id="@+id/tvRecommendations"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:id="@+id/tvSortTrails"
+        android:layout_marginLeft="5dp"
+        android:layout_width="203dp"
+        android:layout_height="52dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="We could place search bar here" />
+        android:text="Sort Trails by :"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/Goldenrod"
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
+
 </RelativeLayout>
