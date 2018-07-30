@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import me.jwill2385.natville.Models.User;
 import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.User;
 
@@ -13,6 +14,7 @@ public class ParseApp extends Application{
     public void onCreate() {
         super.onCreate();
 
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(LocationMap.class);
         ParseObject.registerSubclass(User.class);
 
