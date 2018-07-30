@@ -25,7 +25,7 @@ Time spent: **X** hours spent in total
   - [X] Moving name-lat,long map to Parse server - Jadal
   - [ ] Investigate if it is possible to remove . from keyname so we can get complete set of hiking trails - Jadal
   - [X] Making requests - Jadal
-  - [ ] Presenting results - Jadal
+  - [X] Presenting results - Jadal
 - [ ] User can use swipe functionality - Sol/Jade
 - [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
   - [X] Create UI for Park detail view
