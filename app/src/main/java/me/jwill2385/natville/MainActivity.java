@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                         places.add(p); // add each place (p) to places array
 
                     }
+
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);
                 }

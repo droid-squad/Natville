@@ -6,14 +6,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,6 +34,8 @@ public class RecommendationsFragment extends Fragment {
     OnItemSelectedListener listener;
     Double latitude;
     Double longitude;
+    private NavigationView nv_Recommendations;
+    private DrawerLayout dl_Recommendations;
 
 
     @Override
@@ -41,9 +48,48 @@ public class RecommendationsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dl_Recommendations = (DrawerLayout) view.findViewById(R.id.dl_Recommendations);
+        //this will prevent vertical sliding to access filter options
+        dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        dl_Recommendations.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+
+                dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+
+            }
+        });
+
+
+        nv_Recommendations = (NavigationView) view.findViewById(R.id.nv_Recommendations);
+        nv_Recommendations.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                item.setChecked(true);
+                dl_Recommendations.closeDrawers();
+                return true;
+            }
+        });
 
         Button btnRatingSort = view.findViewById(R.id.btnRatingSort);
         Button btnDistanceSort = view.findViewById(R.id.btnDistanceSort);
+        Button btnFilter = view.findViewById(R.id.btnFilter);
 
 
         rvRecommendations = (RecyclerView) view.findViewById(R.id.rvRecommendations);
@@ -75,9 +121,17 @@ public class RecommendationsFragment extends Fragment {
                 filterByDistance();
             }
         });
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
+                dl_Recommendations.openDrawer(GravityCompat.START);
+            }
+        });
 
     }
+    
 
     // organizes list from longest distance to shortest
     private void filterByDistance() {
@@ -131,7 +185,7 @@ public class RecommendationsFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             listener.getTrails(latitude, longitude,
-                    MainActivity.maxDistance, MainActivity.maxResults / 10);
+                    MainActivity.maxDistance, MainActivity.maxResults);
 
             //need to wait for places to finish updating in main activity
             return null;
@@ -141,6 +195,18 @@ public class RecommendationsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             myPlaces.addAll(MainActivity.places);
             Log.d("counter", " we have " + myPlaces.size());
+//            LocationMap locationMap = new LocationMap();
+//            locationMap.setArray(myPlaces);
+//            locationMap.saveInBackground(new SaveCallback() {
+//                @Override
+//                public void done(ParseException e) {
+//                    if(e == null){
+//                        Log.d("Save ", "Successfull");
+//                    }else{
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
             placeAdapter.notifyDataSetChanged();
 
         }

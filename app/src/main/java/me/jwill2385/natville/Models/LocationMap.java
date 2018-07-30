@@ -3,8 +3,6 @@ package me.jwill2385.natville.Models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,8 +23,8 @@ public class LocationMap extends ParseObject {
         put(KEY_MAP, map);
     }
 
-    public JSONObject getArray() {
-        return getJSONObject(KEY_PLACES);
+    public ArrayList getArray() {
+        return (ArrayList) get(KEY_PLACES);
     }
 
     public void setArray(ArrayList<Place> location) {
