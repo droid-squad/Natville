@@ -31,10 +31,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
-<<<<<<< HEAD
-=======
     implementation 'com.parse.bolts:bolts-android:1.4.0'
->>>>>>> a2dfc60ddd81af4703479a75f5776b1c188cecbc
     implementation 'com.parse:parse-android:1.17.3'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
