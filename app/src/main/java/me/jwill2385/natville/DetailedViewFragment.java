@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,13 +114,20 @@ public class DetailedViewFragment extends Fragment {
 
                 context= getActivity();
                 MainActivity mainActivity= (MainActivity) context;
-                RecommendationsFragment fragmentRecommendation = new RecommendationsFragment();
-                FragmentManager fragmentManager= mainActivity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.flContainer, fragmentRecommendation);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                //get the id of the current selected screen from navigation view
+                int currentId = mainActivity.bottomNavigationView.getSelectedItemId();
+                if (currentId == R.id.ic_recommendations) {
+                    // if you were on recommendations tab and looked at details then switch back
+                    mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_recommendations);
+                }
+                else if (currentId == R.id.ic_search){
+                    // if you were on search tab and looked at details, then switch back
+                    mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_search);
+                }
+                else{
+                    // if you were on home tab and looked at details then switch back
+                    mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_home);
+                }
 
             }
         });
