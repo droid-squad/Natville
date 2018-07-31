@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -54,10 +55,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         //populate the view
         holder.tvPlaceName.setText(place.getName());
         holder.tvPlaceLocation.setText(place.getLocation());
-        holder.tvPlaceRating.setText("Rating: "+ Double.toString(place.getRating()));
+        holder.rbPlaceRating.setRating((float) place.getRating());
         holder.tvPlaceSummary.setText(place.getSummary());
         holder.tvPlaceDistance.setText("Length: "+Double.toString(place.getDistance())+ " miles");
-
         Glide.with(context).load(place.getPictureSmallURL())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(holder.ivPlacePic);
@@ -73,9 +73,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         public ImageView ivPlacePic;
         public TextView tvPlaceName;
         public TextView tvPlaceLocation;
-        public TextView tvPlaceRating;
         public TextView tvPlaceSummary;
         public TextView tvPlaceDistance;
+        public RatingBar rbPlaceRating;
 
 
         public ViewHolder(View itemView) {
@@ -86,9 +86,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
             ivPlacePic = itemView.findViewById(R.id.ivPlacePic);
             tvPlaceName = itemView.findViewById(R.id.tvPlaceName);
             tvPlaceLocation= itemView.findViewById(R.id.tvPlaceLocation);
-            tvPlaceRating = itemView.findViewById(R.id.tvPlaceRating);
             tvPlaceSummary = itemView.findViewById(R.id.tvPlaceSummary);
             tvPlaceDistance = itemView.findViewById(R.id.tvPlaceDistance);
+            rbPlaceRating = itemView.findViewById(R.id.tvPlaceRating);
 
             itemView.setOnClickListener(this);
         }

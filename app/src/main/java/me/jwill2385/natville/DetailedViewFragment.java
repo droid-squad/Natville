@@ -124,7 +124,7 @@ public class DetailedViewFragment extends Fragment {
                     // if you were on search tab and looked at details, then switch back
                     mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_search);
                 }
-                else{
+                else if (currentId==R.id.ic_home){
                     // if you were on home tab and looked at details then switch back
                     mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_home);
                 }
