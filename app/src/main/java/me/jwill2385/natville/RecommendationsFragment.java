@@ -48,10 +48,11 @@ public class RecommendationsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //get id of DrawerLayout
         dl_Recommendations = (DrawerLayout) view.findViewById(R.id.dl_Recommendations);
+
         //this will prevent vertical sliding to access filter options
         dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
         dl_Recommendations.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View view, float v) {
@@ -82,13 +83,12 @@ public class RecommendationsFragment extends Fragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
                 item.setChecked(true);
+                selectDrawerItem(item);
                 dl_Recommendations.closeDrawers();
                 return true;
             }
         });
 
-        Button btnRatingSort = view.findViewById(R.id.btnRatingSort);
-        Button btnDistanceSort = view.findViewById(R.id.btnDistanceSort);
         Button btnFilter = view.findViewById(R.id.btnFilter);
 
 
@@ -107,31 +107,36 @@ public class RecommendationsFragment extends Fragment {
         // we have to call getTrails aSynchronously such that we make sure it completes before updating adapter
         new asyncTrailsR().execute();
 
-        btnRatingSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                filterByRating();
-            }
-        });
-
-        btnDistanceSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                filterByDistance();
-            }
-        });
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //opens Navigation Drawer and allows for swipe to close
                 dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
                 dl_Recommendations.openDrawer(GravityCompat.START);
             }
         });
 
     }
-    
+
+
+
+
+    public void selectDrawerItem(MenuItem item) {
+        //this is where clicking on different filter options will occur
+        switch (item.getItemId()) {
+            case R.id.nav_rating:
+                filterByRating();
+                break;
+
+            case R.id.nav_distance:
+                filterByDistance();
+                break;
+
+            default:
+                break;
+        }
+    }
+
 
     // organizes list from longest distance to shortest
     private void filterByDistance() {

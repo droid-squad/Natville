@@ -8,27 +8,6 @@
     android:background="#436077">
 
 
-
-
-
-    <Button
-        android:id="@+id/btnRatingSort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/DarkGoldenrod"
-        android:text="Rating" />
-
-    <Button
-        android:id="@+id/btnDistanceSort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/btnRatingSort"
-        android:background="@color/Goldenrod"
-        android:text="distance" />
-
     <Button
         android:id="@+id/btnFilter"
         android:layout_width="wrap_content"
@@ -61,6 +40,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="start"
             android:layout_marginTop="50dp"
+            app:headerLayout="@layout/nav_header"
             app:menu="@menu/navigation_menu">
 
         </android.support.design.widget.NavigationView>
