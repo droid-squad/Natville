@@ -14,7 +14,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         holder.tvPlaceSummary.setText(place.getSummary());
         holder.tvPlaceDistance.setText("Length: "+Double.toString(place.getDistance())+ " miles");
         Glide.with(context).load(place.getPictureSmallURL())
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(50)))
                 .into(holder.ivPlacePic);
     }
 

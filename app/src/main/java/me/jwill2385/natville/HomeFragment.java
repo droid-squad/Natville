@@ -290,16 +290,40 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         protected void onPostExecute(Void aVoid) {
             mPlaces.addAll(MainActivity.places);
             Log.d("getPlaces test line", "Size: " + mPlaces.size());
+
             for (int i = 0; i < mPlaces.size(); i++) {
                 Place place = mPlaces.get(i);
                 Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
                 LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
                 Marker tMark = mMap.addMarker(new MarkerOptions()
                         .position(trailMark)
-                        .title(place.getName())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.tree4)));
+                        .title(place.getName()));
                 tMark.setTag(place);
+
+                //Changes Color of the markers on the Map
+                if(place.difficulty.equals("green") ){
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.green_tree));
+                }
+                else if(place.difficulty.equals("greenBlue")){
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_green_tree));
+                }
+                else if(place.difficulty.equals("blue")){
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_tree));
+                }
+                else if(place.difficulty.equals("blueBlack")){
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_black_tree));
+                }
+                else if(place.difficulty.equals("black")){
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.black_tree));
+                }
+                else if(place.difficulty.equals("dblack")){
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.double_black_tree));
+                }else {
+                    //if rank is unknown/null
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.tree4));
+                }
             }
+
         }
 
     }
