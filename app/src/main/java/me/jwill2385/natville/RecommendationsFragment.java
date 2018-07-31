@@ -112,7 +112,7 @@ public class RecommendationsFragment extends Fragment {
             public void onClick(View view) {
                 //opens Navigation Drawer and allows for swipe to close
                 dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                dl_Recommendations.openDrawer(GravityCompat.START);
+                dl_Recommendations.openDrawer(GravityCompat.END); // end means open from right side
             }
         });
 
