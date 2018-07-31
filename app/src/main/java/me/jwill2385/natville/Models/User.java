@@ -7,7 +7,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 @ParseClassName("User")
-public class User extends ParseObject {
+public class User extends ParseUser {
 
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PROFILEIMAGE = "profileImage";
@@ -32,12 +32,27 @@ public class User extends ParseObject {
         put(KEY_PROFILEIMAGE, image);
     }
 
-    public Integer getLegacy() {
-        return getInt(KEY_LEGACY);
+    public Double getLegacy() {
+        return getDouble(KEY_LEGACY);
     }
 
-    public void setLegacy(Integer miles) {
+    public void setLegacy(Double miles) {
         put(KEY_LEGACY, miles);
+    }
+
+    public String getRank() {
+        return getString(KEY_RANK);
+    }
+
+    public void setRank(String rank) {
+        put(KEY_LEGACY, rank);
+    }
+
+    public static class Query extends ParseQuery<User>{
+
+        public Query() {
+            super(User.class);
+        }
     }
 
 }

@@ -9,8 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
+
+import me.jwill2385.natville.Models.User;
 
 /*
 For each fragment you must create
@@ -26,7 +33,12 @@ Also an onAttach function is needed to connect the fragment to the activity
 
 public class ProfileFragment extends Fragment {
 
+    ParseUser currentUser;
+
     private Button logOut;
+    private TextView username;
+    private TextView rank;
+    private TextView legacy;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +56,16 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        currentUser= ParseUser.getCurrentUser();
+
         logOut = view.findViewById(R.id.bvLogout);
+        username = view.findViewById(R.id.tvUsername);
+        rank = view.findViewById(R.id.tvRank);
+        legacy = view.findViewById(R.id.tvLegacy);
+
+        username.setText(currentUser.getUsername());
+        rank.setText("Rank: "+ currentUser.getString("rank"));
+        legacy.setText("Legacy: "+  Double.toString(currentUser.getDouble("legacy"))+ " miles");
 
         logOut.setOnClickListener(new View.OnClickListener(){
             @Override
