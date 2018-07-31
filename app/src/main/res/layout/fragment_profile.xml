@@ -72,10 +72,17 @@
             <TextView
                 android:id="@+id/tvBadges"
                 android:layout_width="wrap_content"
+<<<<<<< HEAD
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/ivUserProfile"
                 android:layout_marginBottom="195dp"
+=======
+                android:layout_height="46dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/ivUserProfile"
+                android:layout_marginBottom="176dp"
+>>>>>>> 53d0e90bea2fa5a5752a7db39e50f9f957dd3e43
                 android:text="Badges"
                 android:textSize="20sp" />
 
@@ -110,9 +117,15 @@
                 android:id="@+id/ivFakeBadge"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
+<<<<<<< HEAD
                 android:layout_alignStart="@+id/ivUserProfile"
                 android:layout_below="@+id/ivShare2"
                 android:layout_marginTop="-189dp"
+=======
+                android:layout_alignStart="@+id/tvBadges"
+                android:layout_below="@+id/tvBadges"
+                android:layout_marginTop="-170dp"
+>>>>>>> 53d0e90bea2fa5a5752a7db39e50f9f957dd3e43
                 app:srcCompat="@drawable/baseline_spa_black_24dp" />
 
             <ImageView
