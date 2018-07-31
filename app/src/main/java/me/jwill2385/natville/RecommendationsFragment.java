@@ -28,8 +28,8 @@ import me.jwill2385.natville.Models.Place;
 public class RecommendationsFragment extends Fragment {
 
     RecyclerView rvRecommendations;
-    // adapter wired to recycler view
     public ArrayList<Place> myPlaces;
+    // adapter wired to recycler view
     PlaceAdapter placeAdapter;
     OnItemSelectedListener listener;
     Double latitude;
@@ -77,11 +77,11 @@ public class RecommendationsFragment extends Fragment {
         });
 
 
+        //function to control when you click on each item in navigation view
         nv_Recommendations = (NavigationView) view.findViewById(R.id.nv_Recommendations);
         nv_Recommendations.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
                 item.setChecked(true);
                 selectDrawerItem(item);
                 dl_Recommendations.closeDrawers();
@@ -119,8 +119,6 @@ public class RecommendationsFragment extends Fragment {
     }
 
 
-
-
     public void selectDrawerItem(MenuItem item) {
         //this is where clicking on different filter options will occur
         switch (item.getItemId()) {
@@ -130,6 +128,25 @@ public class RecommendationsFragment extends Fragment {
 
             case R.id.nav_distance:
                 filterByDistance();
+                break;
+
+            case R.id.nav_difficulty_green:
+                filterByDifficulty("green");
+                break;
+            case R.id.nav_difficulty_blueGreen:
+                filterByDifficulty("blueGreen");
+                break;
+            case R.id.nav_difficulty_blue:
+                filterByDifficulty("blue");
+                break;
+            case R.id.nav_difficulty_blueBlack:
+                filterByDifficulty("blueBlack");
+                break;
+            case R.id.nav_difficulty_black:
+                filterByDifficulty("black");
+                break;
+            case R.id.nav_difficulty_doubleBlack:
+                filterByDifficulty("doubleBlack");
                 break;
 
             default:
@@ -164,6 +181,80 @@ public class RecommendationsFragment extends Fragment {
             }
         }
         placeAdapter.notifyDataSetChanged();
+
+    }
+
+    /*
+    this function searches through array of all places nearby you,
+    finds locations with given dificulty and then shows you that result
+     */
+    private void filterByDifficulty(String level) {
+        ArrayList<Place> filteredList = new ArrayList<>();
+
+        switch (level) {
+            case "green":
+                for (Place p : myPlaces){
+                    if(p.getDifficulty().toLowerCase().equals("green")){
+                        filteredList.add(p);
+                    }
+                }
+                filterResults(filteredList);
+                break;
+            case "blueGreen":
+                for (Place p : myPlaces){
+                    if(p.getDifficulty().toLowerCase().equals("bluegreen")){
+                        filteredList.add(p);
+                    }
+                }
+                filterResults(filteredList);
+                break;
+            case "blue":
+                for (Place p : myPlaces){
+                    if(p.getDifficulty().toLowerCase().equals("blue")){
+                        filteredList.add(p);
+                    }
+                }
+                filterResults(filteredList);
+                break;
+            case "blueBlack":
+                for (Place p : myPlaces){
+                    if(p.getDifficulty().toLowerCase().equals("blueblack")){
+                        filteredList.add(p);
+                    }
+                }
+                filterResults(filteredList);
+                break;
+            case "black":
+                for (Place p : myPlaces){
+                    if(p.getDifficulty().toLowerCase().equals("black")){
+                        filteredList.add(p);
+                    }
+                }
+                filterResults(filteredList);
+                break;
+            case "doubleBlack":
+                for (Place p : myPlaces){
+                    if(p.getDifficulty().toLowerCase().equals("dblack")){
+                        filteredList.add(p);
+                    }
+                }
+                filterResults(filteredList);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void filterResults(ArrayList<Place> filteredList) {
+        if(filteredList.isEmpty()){
+            // show original list not modified
+            Toast.makeText(getActivity(),"No Places of that difficulty type are nearby", Toast.LENGTH_SHORT).show();
+        }else {
+            myPlaces.clear();
+            placeAdapter.clear();
+            myPlaces.addAll(filteredList);
+            placeAdapter.notifyDataSetChanged();
+        }
 
     }
 
