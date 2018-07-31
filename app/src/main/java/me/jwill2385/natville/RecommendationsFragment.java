@@ -29,6 +29,7 @@ public class RecommendationsFragment extends Fragment {
 
     RecyclerView rvRecommendations;
     public ArrayList<Place> myPlaces;
+    public ArrayList<Place> allPlaces; //this will store total places so you can refresh to this state
     // adapter wired to recycler view
     PlaceAdapter placeAdapter;
     OnItemSelectedListener listener;
@@ -90,11 +91,13 @@ public class RecommendationsFragment extends Fragment {
         });
 
         Button btnFilter = view.findViewById(R.id.btnFilter);
+        Button btnReset = view.findViewById(R.id.btnReset);
 
 
         rvRecommendations = (RecyclerView) view.findViewById(R.id.rvRecommendations);
         // initialize arraylist (data source)
         myPlaces = new ArrayList<>();
+        allPlaces = new ArrayList<>();
         // construct the adapter from this data source
         placeAdapter = new PlaceAdapter(myPlaces);
         // recyclerView setup (layout manager, use adapter)
@@ -113,6 +116,16 @@ public class RecommendationsFragment extends Fragment {
                 //opens Navigation Drawer and allows for swipe to close
                 dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 dl_Recommendations.openDrawer(GravityCompat.END); // end means open from right side
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //reset to original view
+                myPlaces.clear();
+                myPlaces.addAll(allPlaces);
+                placeAdapter.notifyDataSetChanged();
             }
         });
 
@@ -290,6 +303,7 @@ public class RecommendationsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             myPlaces.addAll(MainActivity.places);
+            allPlaces.addAll(myPlaces);
             Log.d("counter", " we have " + myPlaces.size());
 //            LocationMap locationMap = new LocationMap();
 //            locationMap.setArray(myPlaces);

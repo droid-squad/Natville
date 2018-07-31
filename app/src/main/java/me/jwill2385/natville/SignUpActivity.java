@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -34,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(SignUpActivity.this, "Complete", Toast.LENGTH_SHORT).show();
                 final String username = newUsername.getText().toString();
                 final String email = newEmail.getText().toString();
                 final String password = newPassword.getText().toString();
@@ -55,17 +57,17 @@ public class SignUpActivity extends AppCompatActivity {
 
     //creates the user account by sending the taken editText info to the Parse server and saving it
     private void signUp(String username, String email, String password){
-        ParseUser user = new ParseUser();
+        final ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
-        user.put("legacy", "0");
-        user.put("rank", "Beginner");
+
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     Log.d("SignUpActivity", "Signed Up Successfully!");
+
 
                     Intent intent= new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -79,6 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 }

@@ -47,5 +47,13 @@
 
     </android.support.v4.widget.DrawerLayout>
 
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/btnFilter"
+        android:text="Reset" />
+
 
 </RelativeLayout>
