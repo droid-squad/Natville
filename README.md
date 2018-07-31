@@ -25,7 +25,7 @@ Time spent: **X** hours spent in total
   - [X] Moving name-lat,long map to Parse server - Jadal
   - [ ] Investigate if it is possible to remove . from keyname so we can get complete set of hiking trails - Jadal
   - [X] Making requests - Jadal
-  - [ ] Presenting results - Jadal
+  - [X] Presenting results - Jadal
 - [ ] User can use swipe functionality - Sol/Jade
 - [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
   - [X] Create UI for Park detail view
@@ -89,6 +89,7 @@ Time spent: **X** hours spent in total
 Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src= 'https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/38064096_142006626702297_3123553723800879104_n.jpg?_nc_cat=0&_nc_log=1&oh=672a2ac5117a21661dbe7c67f9b5c420&oe=5BC871A1'/>
 <img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37522993_149940615906102_7975498073872793600_n.jpg?_nc_cat=0&_nc_log=1&oh=9b943f1303bb08758c25e2c1fe0fd52a&oe=5BDDAFA9'/>
 <img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37403519_149940632572767_4875137748995932160_n.jpg?_nc_cat=0&_nc_log=1&oh=da788c2dd955ea4bad47be9871e57cc1&oe=5BE431ED'/>
 <img src='https://scontent.xx.fbcdn.net/v/wl/t1.15752-9/37544472_149940642572766_414748997316509696_n.jpg?_nc_cat=0&_nc_log=1&oh=8025c3016ff7ef02dbf80f903a807137&oe=5BCB8176'/>
