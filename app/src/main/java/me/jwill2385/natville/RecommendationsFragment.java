@@ -91,8 +91,6 @@ public class RecommendationsFragment extends Fragment {
         });
 
         Button btnFilter = view.findViewById(R.id.btnFilter);
-        Button btnReset = view.findViewById(R.id.btnReset);
-
 
         rvRecommendations = (RecyclerView) view.findViewById(R.id.rvRecommendations);
         // initialize arraylist (data source)
@@ -119,22 +117,18 @@ public class RecommendationsFragment extends Fragment {
             }
         });
 
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //reset to original view
-                myPlaces.clear();
-                myPlaces.addAll(allPlaces);
-                placeAdapter.notifyDataSetChanged();
-            }
-        });
-
     }
 
 
     public void selectDrawerItem(MenuItem item) {
         //this is where clicking on different filter options will occur
         switch (item.getItemId()) {
+            case R.id.nav_clear:
+                //reset to original view
+                myPlaces.clear();
+                myPlaces.addAll(allPlaces);
+                placeAdapter.notifyDataSetChanged();
+                break;
             case R.id.nav_rating:
                 filterByRating();
                 break;

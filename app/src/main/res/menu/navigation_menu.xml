@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
 
+        <item
+            android:id="@+id/nav_clear"
+            android:title="Clear" />
+
         <item android:title="Difficulty">
         <menu>
             <group android:checkableBehavior="single">
