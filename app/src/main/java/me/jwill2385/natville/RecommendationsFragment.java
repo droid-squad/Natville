@@ -206,7 +206,7 @@ public class RecommendationsFragment extends Fragment {
 
         switch (level) {
             case "green":
-                for (Place p : myPlaces){
+                for (Place p : allPlaces){
                     if(p.getDifficulty().toLowerCase().equals("green")){
                         filteredList.add(p);
                     }
@@ -214,7 +214,7 @@ public class RecommendationsFragment extends Fragment {
                 filterResults(filteredList);
                 break;
             case "blueGreen":
-                for (Place p : myPlaces){
+                for (Place p : allPlaces){
                     if(p.getDifficulty().toLowerCase().equals("bluegreen")){
                         filteredList.add(p);
                     }
@@ -222,7 +222,7 @@ public class RecommendationsFragment extends Fragment {
                 filterResults(filteredList);
                 break;
             case "blue":
-                for (Place p : myPlaces){
+                for (Place p : allPlaces){
                     if(p.getDifficulty().toLowerCase().equals("blue")){
                         filteredList.add(p);
                     }
@@ -230,7 +230,7 @@ public class RecommendationsFragment extends Fragment {
                 filterResults(filteredList);
                 break;
             case "blueBlack":
-                for (Place p : myPlaces){
+                for (Place p : allPlaces){
                     if(p.getDifficulty().toLowerCase().equals("blueblack")){
                         filteredList.add(p);
                     }
@@ -238,7 +238,7 @@ public class RecommendationsFragment extends Fragment {
                 filterResults(filteredList);
                 break;
             case "black":
-                for (Place p : myPlaces){
+                for (Place p : allPlaces){
                     if(p.getDifficulty().toLowerCase().equals("black")){
                         filteredList.add(p);
                     }
@@ -246,7 +246,7 @@ public class RecommendationsFragment extends Fragment {
                 filterResults(filteredList);
                 break;
             case "doubleBlack":
-                for (Place p : myPlaces){
+                for (Place p : allPlaces){
                     if(p.getDifficulty().toLowerCase().equals("dblack")){
                         filteredList.add(p);
                     }
