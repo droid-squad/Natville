@@ -30,9 +30,9 @@ Time spent: **X** hours spent in total
 - [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
   - [X] Create UI for Park detail view
   - [X] Hook up with recycled view
-- [ ] Change App logo on the home screen - Jade
+- [X] Change App logo on the home screen - Jade
 - [ ] User can log in / log out / sign up - Sol
-- [ ] User can click park pins on MainActivity to see park details - Jade
+- [X] User can click park pins on MainActivity to see park details - Jade
 
 #### stretch goal
 - [ ] Create App theme and Logos for Title Bar - In progress (wait until meeting with Billy)
@@ -44,7 +44,7 @@ Time spent: **X** hours spent in total
  - [ ] Filter by trail condition status
  - [ ] Stretch: parse summary to get more charateristics to filter on
 - [X] Visiting users can see reccomendations for parks in the area
-- [ ] Find and implement a package to convert a number rating to a star rating - Jade
+- [X] Find and implement a package to convert a number rating to a star rating - Jade
 - [ ] Achievement implementation (Need to discuss details)
 
 ## Considerations
