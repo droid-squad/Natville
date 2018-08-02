@@ -61,7 +61,6 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="end"
             android:layout_marginTop="50dp"
-            app:headerLayout="@layout/nav_header"
             app:menu="@menu/navigation_menu">
 
         </android.support.design.widget.NavigationView>

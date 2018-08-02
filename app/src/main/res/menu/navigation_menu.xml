@@ -8,43 +8,34 @@
             android:title="Clear" />
 
         <item android:title="Difficulty">
-        <menu>
-            <group android:checkableBehavior="single">
+            <menu>
+                <group android:checkableBehavior="single">
 
 
-                <item
-                    android:id="@+id/nav_difficulty_green"
-                    android:title="Green" />
+                    <item
+                        android:id="@+id/nav_difficulty_green"
+                        android:title="Green" />
 
-                <item
-                    android:id="@+id/nav_difficulty_blueGreen"
-                    android:title="Blue-Green" />
-                <item
-                    android:id="@+id/nav_difficulty_blue"
-                    android:title="Blue" />
-                <item
-                    android:id="@+id/nav_difficulty_blueBlack"
-                    android:title="Blue-Black" />
-                <item
-                    android:id="@+id/nav_difficulty_black"
-                    android:title="Black" />
-                <item
-                    android:id="@+id/nav_difficulty_doubleBlack"
-                    android:title="Double-Black" />
+                    <item
+                        android:id="@+id/nav_difficulty_blueGreen"
+                        android:title="Blue-Green" />
+                    <item
+                        android:id="@+id/nav_difficulty_blue"
+                        android:title="Blue" />
+                    <item
+                        android:id="@+id/nav_difficulty_blueBlack"
+                        android:title="Blue-Black" />
+                    <item
+                        android:id="@+id/nav_difficulty_black"
+                        android:title="Black" />
+                    <item
+                        android:id="@+id/nav_difficulty_doubleBlack"
+                        android:title="Double-Black" />
 
 
-            </group>
-        </menu>
+                </group>
+            </menu>
         </item>
-
-
-        <item
-            android:id="@+id/nav_rating"
-            android:title="rating" />
-        <item
-            android:id="@+id/nav_distance"
-            android:title="distance" />
-
     </group>
 
 

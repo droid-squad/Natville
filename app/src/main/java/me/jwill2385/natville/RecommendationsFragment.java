@@ -39,7 +39,6 @@ public class RecommendationsFragment extends Fragment {
     private DrawerLayout dl_Recommendations;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,9 +52,6 @@ public class RecommendationsFragment extends Fragment {
 
         //get id of DrawerLayout
         dl_Recommendations = (DrawerLayout) view.findViewById(R.id.dl_Recommendations);
-       // dl_Sorting = (DrawerLayout) view.findViewById(R.id.dl_Sorting);
-
-
         //this will prevent vertical sliding to access filter options
         dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         dl_Recommendations.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -81,31 +77,8 @@ public class RecommendationsFragment extends Fragment {
             }
         });
 
-//        dl_Sorting = (DrawerLayout) view.findViewById(R.id.dl_Sorting);
-//        dl_Sorting.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-//        dl_Sorting.addDrawerListener(new DrawerLayout.DrawerListener() {
-//            @Override
-//            public void onDrawerSlide(@NonNull View view, float v) {
-//
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(@NonNull View view) {
-//
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(@NonNull View view) {
-//                dl_Sorting.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-//
-//            }
-//
-//            @Override
-//            public void onDrawerStateChanged(int i) {
-//
-//            }
-//        });
 
+        // Controls options for sorting navigation view
         nv_Sorting = view.findViewById(R.id.nv_Sorting);
         nv_Sorting.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -154,13 +127,12 @@ public class RecommendationsFragment extends Fragment {
             public void onClick(View view) {
                 //opens Navigation Drawer and allows for swipe to close
                 dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                if(dl_Recommendations.isDrawerOpen(nv_Recommendations)){
+                if (dl_Recommendations.isDrawerOpen(nv_Recommendations)) {
                     dl_Recommendations.closeDrawer(nv_Recommendations);
-                }
-                else if (!dl_Recommendations.isDrawerOpen(nv_Recommendations)){
+                } else if (!dl_Recommendations.isDrawerOpen(nv_Recommendations)) {
                     dl_Recommendations.openDrawer(nv_Recommendations);
                 }
-                if(dl_Recommendations.isDrawerOpen(nv_Sorting)){
+                if (dl_Recommendations.isDrawerOpen(nv_Sorting)) {
                     dl_Recommendations.closeDrawer(nv_Sorting);
                 }
 
@@ -171,40 +143,32 @@ public class RecommendationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                if(dl_Recommendations.isDrawerOpen(nv_Sorting)){
+                if (dl_Recommendations.isDrawerOpen(nv_Sorting)) {
                     dl_Recommendations.closeDrawer(nv_Sorting);
-                }
-                else if (!dl_Recommendations.isDrawerOpen(nv_Sorting)){
+                } else if (!dl_Recommendations.isDrawerOpen(nv_Sorting)) {
                     dl_Recommendations.openDrawer(nv_Sorting);
                 }
-               if(dl_Recommendations.isDrawerOpen(nv_Recommendations)){
+                if (dl_Recommendations.isDrawerOpen(nv_Recommendations)) {
                     dl_Recommendations.closeDrawer(nv_Recommendations);
-               }
+                }
             }
         });
-
-//        btnFilter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //opens Navigation Drawer and allows for swipe to close
-//                dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-//                dl_Recommendations.openDrawer(GravityCompat.END); // end means open from right side
-//            }
-//        });
-
     }
 
     private void selectSortingOption(MenuItem item) {
         // this is where clicking on different sorting options will occur
         switch (item.getItemId()) {
             case R.id.nav_rating_high:
-                filterByRating();
+                sortByRatingH();
                 break;
             case R.id.nav_rating_low:
+                sortByRatingL();
                 break;
             case R.id.nav_distance_long:
+                sortByDistanceH();
                 break;
             case R.id.nav_distance_short:
+                sortByDistanceL();
                 break;
 
             default:
@@ -223,14 +187,6 @@ public class RecommendationsFragment extends Fragment {
                 myPlaces.addAll(allPlaces);
                 placeAdapter.notifyDataSetChanged();
                 break;
-            case R.id.nav_rating:
-                filterByRating();
-                break;
-
-            case R.id.nav_distance:
-                filterByDistance();
-                break;
-
             case R.id.nav_difficulty_green:
                 filterByDifficulty("green");
                 break;
@@ -257,7 +213,7 @@ public class RecommendationsFragment extends Fragment {
 
 
     // organizes list from longest distance to shortest
-    private void filterByDistance() {
+    private void sortByDistanceH() {
         for (int i = 0; i < myPlaces.size(); i++) {
             for (int j = i + 1; j < myPlaces.size(); j++) {
                 if (myPlaces.get(i).getDistance() < myPlaces.get(j).getDistance()) {
@@ -270,11 +226,40 @@ public class RecommendationsFragment extends Fragment {
         placeAdapter.notifyDataSetChanged();
     }
 
+    // organizes list from shortest distance to longest
+    private void sortByDistanceL() {
+        for (int i = 0; i < myPlaces.size(); i++) {
+            for (int j = i + 1; j < myPlaces.size(); j++) {
+                if (myPlaces.get(i).getDistance() > myPlaces.get(j).getDistance()) {
+                    Place temp = myPlaces.get(i);
+                    myPlaces.set(i, myPlaces.get(j));
+                    myPlaces.set(j, temp);
+                }
+            }
+        }
+        placeAdapter.notifyDataSetChanged();
+    }
+
     // organizes list from highest rating (5) to smallest
-    private void filterByRating() {
+    private void sortByRatingH() {
         for (int i = 0; i < myPlaces.size(); i++) {
             for (int j = i + 1; j < myPlaces.size(); j++) {
                 if (myPlaces.get(i).getRating() < myPlaces.get(j).getRating()) {
+                    Place temp = myPlaces.get(i);
+                    myPlaces.set(i, myPlaces.get(j));
+                    myPlaces.set(j, temp);
+                }
+            }
+        }
+        placeAdapter.notifyDataSetChanged();
+
+    }
+
+    // organizes list from smallest rating (1) to Highest (5)
+    private void sortByRatingL() {
+        for (int i = 0; i < myPlaces.size(); i++) {
+            for (int j = i + 1; j < myPlaces.size(); j++) {
+                if (myPlaces.get(i).getRating() > myPlaces.get(j).getRating()) {
                     Place temp = myPlaces.get(i);
                     myPlaces.set(i, myPlaces.get(j));
                     myPlaces.set(j, temp);
@@ -393,18 +378,6 @@ public class RecommendationsFragment extends Fragment {
             myPlaces.addAll(MainActivity.places);
             allPlaces.addAll(myPlaces);
             Log.d("counter", " we have " + myPlaces.size());
-//            LocationMap locationMap = new LocationMap();
-//            locationMap.setArray(myPlaces);
-//            locationMap.saveInBackground(new SaveCallback() {
-//                @Override
-//                public void done(ParseException e) {
-//                    if(e == null){
-//                        Log.d("Save ", "Successfull");
-//                    }else{
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
             placeAdapter.notifyDataSetChanged();
 
         }
