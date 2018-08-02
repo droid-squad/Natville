@@ -305,19 +305,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.green_tree));
                 }
                 else if(place.difficulty.equals("greenBlue")){
-                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_green_tree));
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.greenBlue_tree));
                 }
                 else if(place.difficulty.equals("blue")){
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_tree));
                 }
                 else if(place.difficulty.equals("blueBlack")){
-                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_black_tree));
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blueBlack_tree));
                 }
                 else if(place.difficulty.equals("black")){
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.black_tree));
                 }
                 else if(place.difficulty.equals("dblack")){
-                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.double_black_tree));
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.dblack_tree));
                 }else {
                     //if rank is unknown/null
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.tree4));

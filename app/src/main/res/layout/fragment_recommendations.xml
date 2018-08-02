@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="13dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/app_icon"
+        android:src="@drawable/trail_app_icon"
         android:text="Toolbar Title" />
 
     <Button
