@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        app:itemBackground="@color/black_80_transparent"
-        app:itemIconTint="@color/green_5"
+        app:itemBackground="@color/white"
+        app:itemIconTint="#DE6F47"
         app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>
