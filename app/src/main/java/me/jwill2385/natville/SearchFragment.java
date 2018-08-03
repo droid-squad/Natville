@@ -54,7 +54,7 @@ public class SearchFragment extends Fragment {
         // specify which class to query
         ParseQuery<LocationMap> query = ParseQuery.getQuery(LocationMap.class);
         // Specify the object Id
-        query.getInBackground("Avn3fCWcv0", new GetCallback<LocationMap>() {
+        query.getInBackground("d1BfcOmfy5", new GetCallback<LocationMap>() {
             @Override
             public void done(LocationMap object, ParseException e) {
                 if (e == null) {
@@ -91,7 +91,31 @@ public class SearchFragment extends Fragment {
         initSearch();
 
 
+
+
+
     }
+
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        // lets loop through Hashmap
+//        HashMap<String, ArrayList<Double>> betterMap = new HashMap<>();
+//
+//        for(HashMap.Entry<String, ArrayList<Double> > entry : placeMap.entrySet()){
+//            //gets each key value pair from placeMap
+//            String key = entry.getKey().toLowerCase();
+//            ArrayList<Double> value = entry.getValue();
+//
+//            betterMap.put(key,value);
+//        }
+//        Log.d(TAG, "Old Map" + placeMap.size());
+//        Log.d(TAG, "New map "+  betterMap.size());
+//
+//        LocationMap newMaps = new LocationMap();
+//        newMaps.setMap(betterMap);
+//        newMaps.saveInBackground();
+//    }
 
     private void initSearch() {
         etSearchTab.setSingleLine();
@@ -114,7 +138,7 @@ public class SearchFragment extends Fragment {
 
     private void filterTrails() {
         Log.d(TAG, "filterTrails: filtering");
-        searched = etSearchTab.getText().toString();
+        searched = etSearchTab.getText().toString().toLowerCase();
         if (placeMap.containsKey(searched)) {
             ArrayList<Double> location = placeMap.get(searched);
             LatLng spot = new LatLng(location.get(0), location.get(1));
