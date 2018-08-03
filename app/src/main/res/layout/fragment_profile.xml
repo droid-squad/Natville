@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:background="@color/DimGray">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,6 +82,7 @@
 
             <ImageView
                 android:id="@+id/ivShare"
+                android:tint="#88B800"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/tvVisited"
@@ -90,6 +92,7 @@
 
             <ImageView
                 android:id="@+id/ivShare2"
+                android:tint="#88B800"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentBottom="true"
@@ -108,6 +111,7 @@
 
             <ImageView
                 android:id="@+id/ivFakeBadge"
+                android:tint="#88B800"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_alignStart="@+id/ivUserProfile"
@@ -206,7 +210,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/ivLockedBadge7"
-                android:background="#436077"
+                android:background="#DE6F47"
                 android:text="Sign Out"
                 android:layout_margin="10dp"
                 android:textColor="@color/white" />

@@ -22,7 +22,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:text="Toolbar Title"
-            android:src="@drawable/trail_app_icon"
+            android:src="@drawable/placeholder"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title" />
 
@@ -67,7 +67,9 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_gps"/>
+            android:src="@drawable/ic_gps"
+            android:tint="#88B800"
+            android:background="@drawable/img"/>
 
 
     </RelativeLayout>

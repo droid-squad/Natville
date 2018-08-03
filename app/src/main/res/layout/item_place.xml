@@ -41,9 +41,9 @@
     <RatingBar
         android:id="@+id/tvPlaceRating"
         style="?android:attr/ratingBarStyleSmall"
-        android:progressTint="@color/Goldenrod"
-        android:progressBackgroundTint="@color/Goldenrod"
-        android:secondaryProgressTint="@color/Goldenrod"
+        android:progressTint="#88B800"
+        android:progressBackgroundTint="#88B800"
+        android:secondaryProgressTint="#88B800"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvPlaceName"
