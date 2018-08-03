@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private AutoCompleteTextView etSearch;
     private ImageView ivGPS;
     private PlaceAutocompleteAdapter placeAutocompleteAdapter;
-    private GoogleApiClient mGoogleApiClient;
+    private static GoogleApiClient mGoogleApiClient;
 
     public static LatLng mLatLng;
     public static ArrayList<Place> mPlaces;
@@ -88,6 +88,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         super.onCreate(savedInstanceState);
         getLocationPermission();
         mPlaces = new ArrayList<>();
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage((FragmentActivity) getContext(),this)
+                .build();
 
     }
 
@@ -111,6 +117,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         });
         initSearch();
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
     }
 
     private void getLocationPermission() {
@@ -152,13 +165,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void initSearch() {
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(getContext())
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage((FragmentActivity) getContext(),this)
-                .build();
-
         placeAutocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(),mGoogleApiClient,LAT_LNG_BOUNDS,null);
         etSearch.setAdapter(placeAutocompleteAdapter);
 
