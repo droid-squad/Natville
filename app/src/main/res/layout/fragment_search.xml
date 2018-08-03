@@ -48,7 +48,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_toRightOf="@+id/ic_magnify2"
                 android:background="@null"
-                android:hint="Search Parks In Your Area."
+                android:hint="Search for specific trail"
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
 

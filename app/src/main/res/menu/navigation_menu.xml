@@ -8,6 +8,7 @@
             android:title="Clear" />
 
         <item android:title="Difficulty">
+
             <menu>
                 <group android:checkableBehavior="single">
 
