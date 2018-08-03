@@ -39,6 +39,7 @@ public class RecommendationsFragment extends Fragment {
     private DrawerLayout dl_Recommendations;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

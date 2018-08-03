@@ -23,10 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
-import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
 
 
@@ -66,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
 
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        //this function makes titles of icons always appear
+        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
+
 
         // initialize list of Places
         places = new ArrayList<>();
