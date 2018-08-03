@@ -5,22 +5,26 @@
 
     <item
         android:id="@+id/ic_home"
+        android:title="Home"
         android:enabled="true"
         android:icon="@drawable/baseline_home_black_18dp"
         app:showAsAction="ifRoom"
          />
     <item
         android:id="@+id/ic_recommendations"
+        android:title="Nearby"
         android:enabled="true"
         android:icon="@drawable/baseline_list_black_18dp"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/ic_search"
+        android:title="Search"
         android:enabled="true"
-        android:icon="@drawable/baseline_youtube_searched_for_black_18dp"
+        android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/ic_profile"
+        android:title="Profile"
         android:enabled="true"
         android:icon="@drawable/baseline_person_black_18dp"
         app:showAsAction="ifRoom"

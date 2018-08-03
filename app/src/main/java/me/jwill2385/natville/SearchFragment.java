@@ -46,6 +46,10 @@ public class SearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // initialize arraylist (data source)
+        sPlaces = new ArrayList<>();
+        // Construct Adapter for this data source
+        searchAdapter = new PlaceAdapter(sPlaces);
         placeMap = new HashMap<>();
         // specify which class to query
         ParseQuery<LocationMap> query = ParseQuery.getQuery(LocationMap.class);
@@ -77,10 +81,7 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvSearchBar = view.findViewById(R.id.rvSearchBar);
-        // initialize arraylist (data source)
-        sPlaces = new ArrayList<>();
-        // Construct Adapter for this data source
-        searchAdapter = new PlaceAdapter(sPlaces);
+
         // recyclerView setup (layout manager, use adapter)
         rvSearchBar.setLayoutManager(new LinearLayoutManager(view.getContext()));
         // set the adapter
