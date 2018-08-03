@@ -2,6 +2,7 @@ package me.jwill2385.natville;
 
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,12 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.parse.ParseUser;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import me.jwill2385.natville.Models.Place;
+
+import static com.google.android.gms.common.util.ArrayUtils.contains;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +54,7 @@ public class DetailedViewFragment extends Fragment {
     public TextView tvLowDetailed;
     public TextView tvUrlDetailed;
     public ImageView ivBack;
+    public ImageView ivCompleteTrail;
 
     public DetailedViewFragment() {
         // Required empty public constructor
@@ -83,25 +92,27 @@ public class DetailedViewFragment extends Fragment {
         tvLowDetailed = view.findViewById(R.id.tvLowDetailed);
         tvUrlDetailed = view.findViewById(R.id.tvUrlDetailed);
         ivBack = view.findViewById(R.id.ivBack);
+        ivCompleteTrail = view.findViewById(R.id.ivComplete);
 
         //setting all information from place object
         tvNameDetailed.setText(place.getName());
         tvSummaryDetailed.setText(place.getSummary());
         tvLocationDetailed.setText(place.getLocation());
-        tvLengthDetailed.setText("Length: "+ Double.toString(place.getDistance()) +" miles");
-        tvRatingDetailed.setText("Rating: "+ Double.toString(place.getRating()));
-        tvDifficultyDetailed.setText("Difficulty: "+ place.getDifficulty());
-        tvConditionStatDetailed.setText("Condition Status: "+ place.getConditionStatus());
+        tvLengthDetailed.setText("Length: " + Double.toString(place.getDistance()) + " miles");
+        tvRatingDetailed.setText("Rating: " + Double.toString(place.getRating()));
+        tvDifficultyDetailed.setText("Difficulty: " + place.getDifficulty());
+        tvConditionStatDetailed.setText("Condition Status: " + place.getConditionStatus());
         //if condition details empty show N/A, else show the details
-        if(place.getConditionDetails().equals("") || place.getConditionDetails()==null) {
+        if (place.getConditionDetails().equals("") || place.getConditionDetails() == null) {
             tvConditionDetDetailed.setText("Condition Details: N/A");
+        } else {
+            tvConditionDetDetailed.setText("Condition Details: " + place.getConditionDetails());
         }
-        else{tvConditionDetDetailed.setText("Condition Details: " + place.getConditionDetails());}
-        tvConditionDateDetailed.setText("Conditions Last Updated On: "+ place.getConditionUpdated());
-        tvAscentDetailed.setText("Ascent: "+ Double.toString(place.getAscent()) + " feet");
-        tvDescentDetailed.setText("Descent: "+ Double.toString(place.getDescent()) +" feet");
-        tvHighDetailed.setText("High: "+ Double.toString(place.getHigh()) +" feet");
-        tvLowDetailed.setText("Low: "+ Double.toString(place.getLow()) +" feet");
+        tvConditionDateDetailed.setText("Conditions Last Updated On: " + place.getConditionUpdated());
+        tvAscentDetailed.setText("Ascent: " + Double.toString(place.getAscent()) + " feet");
+        tvDescentDetailed.setText("Descent: " + Double.toString(place.getDescent()) + " feet");
+        tvHighDetailed.setText("High: " + Double.toString(place.getHigh()) + " feet");
+        tvLowDetailed.setText("Low: " + Double.toString(place.getLow()) + " feet");
         tvUrlDetailed.setText("For more information visit: " + place.getUrlDetails());
 
         Glide.with(getActivity()).load(place.getPictureLargeURL())
@@ -112,19 +123,17 @@ public class DetailedViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                context= getActivity();
-                MainActivity mainActivity= (MainActivity) context;
+                context = getActivity();
+                MainActivity mainActivity = (MainActivity) context;
                 //get the id of the current selected screen from navigation view
                 int currentId = mainActivity.bottomNavigationView.getSelectedItemId();
                 if (currentId == R.id.ic_recommendations) {
                     // if you were on recommendations tab and looked at details then switch back
                     mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_recommendations);
-                }
-                else if (currentId == R.id.ic_search){
+                } else if (currentId == R.id.ic_search) {
                     // if you were on search tab and looked at details, then switch back
                     mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_search);
-                }
-                else if (currentId==R.id.ic_home){
+                } else if (currentId == R.id.ic_home) {
                     // if you were on home tab and looked at details then switch back
                     mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_home);
                 }
@@ -132,5 +141,57 @@ public class DetailedViewFragment extends Fragment {
             }
         });
 
+        ivCompleteTrail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                ArrayList<ArrayList<String>> profArr= (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
+                String parkName=place.getName();
+                //check if that park was already added to our array
+                if(profArr==null){
+                    addToUserList(profArr, place, currentUser);
+                    Toast.makeText(getActivity(), "Hike added to Places Visited!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(!inArray(profArr, parkName)){
+                        addToUserList(profArr, place, currentUser);
+                        Toast.makeText(getActivity(), "Hike added to Places Visited!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Hike already added!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                //if so make a toast telling the user it's already been counted
+                //if not add the park to our array and update the legacy increasing it by the distance listed
+            }
+        });
+
     }
+
+    //search function to check if park is already in array
+    public boolean inArray(ArrayList<ArrayList<String>> profArr, String placeName){
+        for(int i=0; i<profArr.size(); i++){
+            ArrayList<String> hold = profArr.get(i);
+            if(hold.contains(placeName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //create a function that adds the park to the parse server list of visited parks
+    public void addToUserList(ArrayList<ArrayList<String>> profArr, Place place, ParseUser currentUser){
+        double legacy= currentUser.getDouble("legacy");
+        legacy+=place.getDistance();
+        currentUser.put("legacy", legacy);
+
+        ArrayList<String> currentPlace= new ArrayList<String>();
+        currentPlace.add(place.getUrlDetails());
+        currentPlace.add(place.getName());
+        profArr.add(currentPlace);
+        currentUser.put("placesVisited", profArr);
+
+        currentUser.saveInBackground();
+    }
+
 }

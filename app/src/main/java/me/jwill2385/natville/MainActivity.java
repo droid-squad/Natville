@@ -17,6 +17,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
+import com.parse.Parse;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +66,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         final ProfileFragment fragmentProfile = new ProfileFragment();
         final RecommendationsFragment fragmentRecommendation = new RecommendationsFragment();
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser.getString("rank")==null){
+            currentUser.put("rank", "Beginner");
+            currentUser.saveInBackground();
+        }
+        if(currentUser.get("placesVisited")==null){
+            ArrayList<ArrayList<String>> profArr= new ArrayList<>();
+            currentUser.put("placesVisited", profArr);
+            currentUser.saveInBackground();
+        }
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
