@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +33,7 @@ import me.jwill2385.natville.Models.Place;
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
-    private EditText etSearchTab;
+    private AutoCompleteTextView actvSearch;
     OnMainActivitySelectedListener listener;
     RecyclerView rvSearchBar;
     PlaceAdapter searchAdapter;
@@ -86,8 +86,8 @@ public class SearchFragment extends Fragment {
         rvSearchBar.setLayoutManager(new LinearLayoutManager(view.getContext()));
         // set the adapter
         rvSearchBar.setAdapter(searchAdapter);
+        actvSearch = (AutoCompleteTextView) view.findViewById(R.id.actvSearch);
 
-        etSearchTab = (EditText) view.findViewById(R.id.etSearch2);
         initSearch();
 
 
@@ -96,30 +96,18 @@ public class SearchFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        // lets loop through Hashmap
-//        HashMap<String, ArrayList<Double>> betterMap = new HashMap<>();
-//
-//        for(HashMap.Entry<String, ArrayList<Double> > entry : placeMap.entrySet()){
-//            //gets each key value pair from placeMap
-//            String key = entry.getKey().toLowerCase();
-//            ArrayList<Double> value = entry.getValue();
-//
-//            betterMap.put(key,value);
-//        }
-//        Log.d(TAG, "Old Map" + placeMap.size());
-//        Log.d(TAG, "New map "+  betterMap.size());
-//
-//        LocationMap newMaps = new LocationMap();
-//        newMaps.setMap(betterMap);
-//        newMaps.saveInBackground();
-//    }
 
     private void initSearch() {
-        etSearchTab.setSingleLine();
-        etSearchTab.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//       Set<String> names = placeMap.keySet();
+//        String[] nameArray = new String[1115] ;
+//        nameArray = (String[]) names.toArray();
+//
+//        Arr
+
+
+
+        actvSearch.setSingleLine();
+        actvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
@@ -138,7 +126,7 @@ public class SearchFragment extends Fragment {
 
     private void filterTrails() {
         Log.d(TAG, "filterTrails: filtering");
-        searched = etSearchTab.getText().toString().toLowerCase();
+        searched = actvSearch.getText().toString().toLowerCase();
         if (placeMap.containsKey(searched)) {
             ArrayList<Double> location = placeMap.get(searched);
             LatLng spot = new LatLng(location.get(0), location.get(1));
@@ -191,12 +179,12 @@ public class SearchFragment extends Fragment {
 
     private void rearrangeArray() {
         int index = 0;
-        if (sPlaces.get(index).getName().equals(searched)) {
+        if (sPlaces.get(index).getName().toLowerCase().equals(searched)) {
             //this means the place I want is already at top
             return;
         } else {
             for (int j = 0; j < sPlaces.size(); j++) {
-                if (sPlaces.get(j).getName().equals(searched)) {
+                if (sPlaces.get(j).getName().toLowerCase().equals(searched)) {
                     index = j;
                 }
             }
