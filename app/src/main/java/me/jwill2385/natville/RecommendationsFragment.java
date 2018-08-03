@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +35,7 @@ public class RecommendationsFragment extends Fragment {
     Double latitude;
     Double longitude;
     private NavigationView nv_Recommendations;
+    private NavigationView nv_Sorting;
     private DrawerLayout dl_Recommendations;
 
 
@@ -49,9 +49,9 @@ public class RecommendationsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         //get id of DrawerLayout
         dl_Recommendations = (DrawerLayout) view.findViewById(R.id.dl_Recommendations);
-
         //this will prevent vertical sliding to access filter options
         dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         dl_Recommendations.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -78,6 +78,19 @@ public class RecommendationsFragment extends Fragment {
         });
 
 
+        // Controls options for sorting navigation view
+        nv_Sorting = view.findViewById(R.id.nv_Sorting);
+        nv_Sorting.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                selectSortingOption(item);
+                dl_Recommendations.closeDrawers();
+                return true;
+            }
+        });
+
+
         //function to control when you click on each item in navigation view
         nv_Recommendations = (NavigationView) view.findViewById(R.id.nv_Recommendations);
         nv_Recommendations.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -90,7 +103,8 @@ public class RecommendationsFragment extends Fragment {
             }
         });
 
-        Button btnFilter = view.findViewById(R.id.btnFilter);
+        final Button btnFilter = view.findViewById(R.id.btnFilter);
+        final Button btnSort = view.findViewById(R.id.btnSort);
 
         rvRecommendations = (RecyclerView) view.findViewById(R.id.rvRecommendations);
         // initialize arraylist (data source)
@@ -113,10 +127,54 @@ public class RecommendationsFragment extends Fragment {
             public void onClick(View view) {
                 //opens Navigation Drawer and allows for swipe to close
                 dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                dl_Recommendations.openDrawer(GravityCompat.END); // end means open from right side
+                if (dl_Recommendations.isDrawerOpen(nv_Recommendations)) {
+                    dl_Recommendations.closeDrawer(nv_Recommendations);
+                } else if (!dl_Recommendations.isDrawerOpen(nv_Recommendations)) {
+                    dl_Recommendations.openDrawer(nv_Recommendations);
+                }
+                if (dl_Recommendations.isDrawerOpen(nv_Sorting)) {
+                    dl_Recommendations.closeDrawer(nv_Sorting);
+                }
+
             }
         });
 
+        btnSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dl_Recommendations.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                if (dl_Recommendations.isDrawerOpen(nv_Sorting)) {
+                    dl_Recommendations.closeDrawer(nv_Sorting);
+                } else if (!dl_Recommendations.isDrawerOpen(nv_Sorting)) {
+                    dl_Recommendations.openDrawer(nv_Sorting);
+                }
+                if (dl_Recommendations.isDrawerOpen(nv_Recommendations)) {
+                    dl_Recommendations.closeDrawer(nv_Recommendations);
+                }
+            }
+        });
+    }
+
+    private void selectSortingOption(MenuItem item) {
+        // this is where clicking on different sorting options will occur
+        switch (item.getItemId()) {
+            case R.id.nav_rating_high:
+                sortByRatingH();
+                break;
+            case R.id.nav_rating_low:
+                sortByRatingL();
+                break;
+            case R.id.nav_distance_long:
+                sortByDistanceH();
+                break;
+            case R.id.nav_distance_short:
+                sortByDistanceL();
+                break;
+
+            default:
+                break;
+
+        }
     }
 
 
@@ -129,14 +187,6 @@ public class RecommendationsFragment extends Fragment {
                 myPlaces.addAll(allPlaces);
                 placeAdapter.notifyDataSetChanged();
                 break;
-            case R.id.nav_rating:
-                filterByRating();
-                break;
-
-            case R.id.nav_distance:
-                filterByDistance();
-                break;
-
             case R.id.nav_difficulty_green:
                 filterByDifficulty("green");
                 break;
@@ -163,7 +213,7 @@ public class RecommendationsFragment extends Fragment {
 
 
     // organizes list from longest distance to shortest
-    private void filterByDistance() {
+    private void sortByDistanceH() {
         for (int i = 0; i < myPlaces.size(); i++) {
             for (int j = i + 1; j < myPlaces.size(); j++) {
                 if (myPlaces.get(i).getDistance() < myPlaces.get(j).getDistance()) {
@@ -176,11 +226,40 @@ public class RecommendationsFragment extends Fragment {
         placeAdapter.notifyDataSetChanged();
     }
 
+    // organizes list from shortest distance to longest
+    private void sortByDistanceL() {
+        for (int i = 0; i < myPlaces.size(); i++) {
+            for (int j = i + 1; j < myPlaces.size(); j++) {
+                if (myPlaces.get(i).getDistance() > myPlaces.get(j).getDistance()) {
+                    Place temp = myPlaces.get(i);
+                    myPlaces.set(i, myPlaces.get(j));
+                    myPlaces.set(j, temp);
+                }
+            }
+        }
+        placeAdapter.notifyDataSetChanged();
+    }
+
     // organizes list from highest rating (5) to smallest
-    private void filterByRating() {
+    private void sortByRatingH() {
         for (int i = 0; i < myPlaces.size(); i++) {
             for (int j = i + 1; j < myPlaces.size(); j++) {
                 if (myPlaces.get(i).getRating() < myPlaces.get(j).getRating()) {
+                    Place temp = myPlaces.get(i);
+                    myPlaces.set(i, myPlaces.get(j));
+                    myPlaces.set(j, temp);
+                }
+            }
+        }
+        placeAdapter.notifyDataSetChanged();
+
+    }
+
+    // organizes list from smallest rating (1) to Highest (5)
+    private void sortByRatingL() {
+        for (int i = 0; i < myPlaces.size(); i++) {
+            for (int j = i + 1; j < myPlaces.size(); j++) {
+                if (myPlaces.get(i).getRating() > myPlaces.get(j).getRating()) {
                     Place temp = myPlaces.get(i);
                     myPlaces.set(i, myPlaces.get(j));
                     myPlaces.set(j, temp);
@@ -200,48 +279,48 @@ public class RecommendationsFragment extends Fragment {
 
         switch (level) {
             case "green":
-                for (Place p : allPlaces){
-                    if(p.getDifficulty().toLowerCase().equals("green")){
+                for (Place p : allPlaces) {
+                    if (p.getDifficulty().toLowerCase().equals("green")) {
                         filteredList.add(p);
                     }
                 }
                 filterResults(filteredList);
                 break;
             case "blueGreen":
-                for (Place p : allPlaces){
-                    if(p.getDifficulty().toLowerCase().equals("bluegreen")){
+                for (Place p : allPlaces) {
+                    if (p.getDifficulty().toLowerCase().equals("bluegreen")) {
                         filteredList.add(p);
                     }
                 }
                 filterResults(filteredList);
                 break;
             case "blue":
-                for (Place p : allPlaces){
-                    if(p.getDifficulty().toLowerCase().equals("blue")){
+                for (Place p : allPlaces) {
+                    if (p.getDifficulty().toLowerCase().equals("blue")) {
                         filteredList.add(p);
                     }
                 }
                 filterResults(filteredList);
                 break;
             case "blueBlack":
-                for (Place p : allPlaces){
-                    if(p.getDifficulty().toLowerCase().equals("blueblack")){
+                for (Place p : allPlaces) {
+                    if (p.getDifficulty().toLowerCase().equals("blueblack")) {
                         filteredList.add(p);
                     }
                 }
                 filterResults(filteredList);
                 break;
             case "black":
-                for (Place p : allPlaces){
-                    if(p.getDifficulty().toLowerCase().equals("black")){
+                for (Place p : allPlaces) {
+                    if (p.getDifficulty().toLowerCase().equals("black")) {
                         filteredList.add(p);
                     }
                 }
                 filterResults(filteredList);
                 break;
             case "doubleBlack":
-                for (Place p : allPlaces){
-                    if(p.getDifficulty().toLowerCase().equals("dblack")){
+                for (Place p : allPlaces) {
+                    if (p.getDifficulty().toLowerCase().equals("dblack")) {
                         filteredList.add(p);
                     }
                 }
@@ -253,10 +332,10 @@ public class RecommendationsFragment extends Fragment {
     }
 
     private void filterResults(ArrayList<Place> filteredList) {
-        if(filteredList.isEmpty()){
+        if (filteredList.isEmpty()) {
             // show original list not modified
-            Toast.makeText(getActivity(),"No Places of that difficulty type are nearby", Toast.LENGTH_SHORT).show();
-        }else {
+            Toast.makeText(getActivity(), "No Places of that difficulty type are nearby", Toast.LENGTH_SHORT).show();
+        } else {
             myPlaces.clear();
             placeAdapter.clear();
             myPlaces.addAll(filteredList);
@@ -299,18 +378,6 @@ public class RecommendationsFragment extends Fragment {
             myPlaces.addAll(MainActivity.places);
             allPlaces.addAll(myPlaces);
             Log.d("counter", " we have " + myPlaces.size());
-//            LocationMap locationMap = new LocationMap();
-//            locationMap.setArray(myPlaces);
-//            locationMap.saveInBackground(new SaveCallback() {
-//                @Override
-//                public void done(ParseException e) {
-//                    if(e == null){
-//                        Log.d("Save ", "Successfull");
-//                    }else{
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
             placeAdapter.notifyDataSetChanged();
 
         }
