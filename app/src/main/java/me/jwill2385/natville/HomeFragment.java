@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,6 +77,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private ImageView ivGPS;
     private PlaceAutocompleteAdapter placeAutocompleteAdapter;
     private static GoogleApiClient mGoogleApiClient;
+    private Button btnClear;
 
     public static LatLng mLatLng;
     public static ArrayList<Place> mPlaces;
@@ -108,6 +110,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         etSearch = (AutoCompleteTextView) view.findViewById(R.id.etSearch);
+        btnClear = (Button) view.findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etSearch.getText().clear();
+                mMap.clear();
+            }
+        });
         ivGPS = (ImageView) view.findViewById(R.id.iv_gps);
         ivGPS.setOnClickListener(new View.OnClickListener() {
             @Override
