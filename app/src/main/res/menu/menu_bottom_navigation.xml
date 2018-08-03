@@ -12,7 +12,7 @@
          />
     <item
         android:id="@+id/ic_recommendations"
-        android:title="Recommendations"
+        android:title="Nearby"
         android:enabled="true"
         android:icon="@drawable/baseline_list_black_18dp"
         app:showAsAction="ifRoom" />

@@ -39,6 +39,22 @@ public class RecommendationsFragment extends Fragment {
     private DrawerLayout dl_Recommendations;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // initialize arraylist (data source)
+        myPlaces = new ArrayList<>();
+        allPlaces = new ArrayList<>();
+        // construct the adapter from this data source
+        placeAdapter = new PlaceAdapter(myPlaces);
+
+        latitude = HomeFragment.mLatLng.latitude;
+        longitude = HomeFragment.mLatLng.longitude;
+
+        // we have to call getTrails aSynchronously such that we make sure it completes before updating adapter
+        new asyncTrailsR().execute();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +95,8 @@ public class RecommendationsFragment extends Fragment {
         });
 
 
+
+
         // Controls options for sorting navigation view
         nv_Sorting = view.findViewById(R.id.nv_Sorting);
         nv_Sorting.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -108,20 +126,10 @@ public class RecommendationsFragment extends Fragment {
         final Button btnSort = view.findViewById(R.id.btnSort);
 
         rvRecommendations = (RecyclerView) view.findViewById(R.id.rvRecommendations);
-        // initialize arraylist (data source)
-        myPlaces = new ArrayList<>();
-        allPlaces = new ArrayList<>();
-        // construct the adapter from this data source
-        placeAdapter = new PlaceAdapter(myPlaces);
         // recyclerView setup (layout manager, use adapter)
         rvRecommendations.setLayoutManager(new LinearLayoutManager(view.getContext()));
         // set the adapter
         rvRecommendations.setAdapter(placeAdapter);
-        latitude = HomeFragment.mLatLng.latitude;
-        longitude = HomeFragment.mLatLng.longitude;
-
-        // we have to call getTrails aSynchronously such that we make sure it completes before updating adapter
-        new asyncTrailsR().execute();
 
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override

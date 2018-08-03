@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
     public static ArrayList<Place> places;
 
 
+
     // instance fields
     AsyncHttpClient client;
 
