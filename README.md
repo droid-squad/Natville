@@ -43,7 +43,8 @@ Time spent: **X** hours spent in total
 - [X] Visiting users can see reccomendations for parks in the area
 - [X] Find and implement a package to convert a number rating to a star rating - Jade
 - [ ] Achievement implementation (Need to discuss details)
-- [ ] Auto-complete for searching - Jade
+- [X] Auto-complete for searching - Jade
+- [X] Clear all markers and previous search -Jade
 - [ ] Implement functionalities for three buttons in details page - Sol, Jade
  - [ ] Add images - Jade
  - [X] Add to completed list - Sol
