@@ -66,6 +66,7 @@ public class SearchFragment extends Fragment {
                     placeMap = object.getMap();
                     Log.d(TAG, "Size: " + placeMap.size());
                     names = placeMap.keySet();
+                    timer = true;
                     initSearch();
                 } else {
                     e.printStackTrace();
@@ -94,11 +95,7 @@ public class SearchFragment extends Fragment {
         // set the adapter
         rvSearchBar.setAdapter(searchAdapter);
         actvSearch = (AutoCompleteTextView) view.findViewById(R.id.actvSearch);
-
-
-
-
-
+        actvSearch.setSingleLine();
 
 
     }
@@ -106,43 +103,38 @@ public class SearchFragment extends Fragment {
 
     private void initSearch() {
         ArrayList<String> nameArray = new ArrayList<>();
+        //get array of all the names of places
+        nameArray.addAll(names);
+        Log.d(TAG, "Size : " + nameArray.size());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_search, R.id.tvAutoName, nameArray);
+        actvSearch.setAdapter(adapter);
 
 
-            nameArray = getArray(nameArray);
+        actvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
 
-
-
-            Log.d(TAG, "Size : " + nameArray.size());
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.autocomplete_search,R.id.tvAutoName,nameArray);
-            actvSearch.setAdapter(adapter);
-
-
-            actvSearch.setSingleLine();
-            actvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH
-                            || actionId == EditorInfo.IME_ACTION_DONE
-                            || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                            || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
-
-
-                        //TODO: CREATE A METHOD HERE THAT DECIDES WHAT TO DO WHEN USER PRESSES ENTER
-                        filterTrails();
-                    }
-                    return false;
+                    // When user presses enter show the trails
+                    filterTrails();
                 }
-            });
+                return false;
+            }
+        });
 
     }
 
-    private ArrayList<String> getArray(ArrayList<String> nameArray) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(timer) {
+            ///this is for when user returns back fragment from details to search again
+            initSearch();
+        }
 
-        Log.d(TAG, "Names is : " + names.size());
-
-        nameArray.addAll(names);
-        Log.d(TAG, "Size ok: " + nameArray.size());
-        return  nameArray;
     }
 
     private void filterTrails() {

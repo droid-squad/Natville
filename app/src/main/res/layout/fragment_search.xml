@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment"
-    android:background="@color/DimGray">
+    android:background="@color/DimGray"
+    tools:context=".SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -12,24 +12,24 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:id="@+id/toolbar_title1"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:text="Toolbar Title"
-            android:src="@drawable/placeholder"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title1" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/placeholder"
+            android:text="Toolbar Title" />
 
 
         <RelativeLayout
             android:id="@+id/relLayout2"
-            android:layout_toRightOf="@id/toolbar_title1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/toolbar_title1"
             android:background="@drawable/white_border">
 
             <ImageView
@@ -46,13 +46,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:completionThreshold="1"
-                android:hint="Find a Specific Park  ex. 'Pinnacle Peak' "
                 android:layout_toRightOf="@+id/ic_magnify2"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:paddingBottom="5dp"
-                android:popupBackground="@color/green_0"/>
+                android:completionThreshold="1"
+                android:dropDownAnchor="@+id/relLayout2"
+                android:hint="Find a Specific Park  ex. 'Pinnacle Peak' "
+                android:popupBackground="@color/green_0"
+                android:textSize="15sp" />
 
 
         </RelativeLayout>
@@ -73,6 +72,4 @@
     </RelativeLayout>
 
 
-
-</FrameLayout>
-    <!--"#436077"-->
+</FrameLayout><!--"#436077"-->
