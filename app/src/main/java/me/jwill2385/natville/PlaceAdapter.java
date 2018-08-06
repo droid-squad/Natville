@@ -59,9 +59,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         holder.rbPlaceRating.setRating((float) place.getRating());
         holder.tvPlaceSummary.setText(place.getSummary());
         holder.tvPlaceDistance.setText("Length: "+Double.toString(place.getDistance())+ " miles");
-        Glide.with(context).load(place.getPictureSmallURL())
-                .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(50)))
-                .into(holder.ivPlacePic);
+        if(place.getPictureSmallURL()!= null && place.getPictureSmallURL()!= "") {
+            Glide.with(context)
+                    .load(place.getPictureSmallURL())
+                    .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(50)))
+                    .into(holder.ivPlacePic);
+        }
     }
 
     @Override
