@@ -71,6 +71,19 @@
             android:tint="#88B810"
             android:background="@drawable/img"/>
 
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/relLayout"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/iv_gps"
+            android:background="@drawable/white_border"
+            android:text="Clear"
+            android:textColor="#DE6F47"
+            android:textSize="12sp"/>
+
 
     </RelativeLayout>
 

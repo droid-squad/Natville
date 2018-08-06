@@ -62,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
         user.setPassword(password);
         user.setEmail(email);
 
-
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
