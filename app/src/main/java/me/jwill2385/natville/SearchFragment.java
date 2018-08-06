@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
@@ -39,6 +41,8 @@ public class SearchFragment extends Fragment {
     PlaceAdapter searchAdapter;
     public ArrayList<Place> sPlaces;
     public HashMap<String, ArrayList<Double>> placeMap;
+    boolean timer = false;
+    Set<String> names;
     String searched;
 
 
@@ -61,11 +65,14 @@ public class SearchFragment extends Fragment {
                     // fill placeMap with map in parse
                     placeMap = object.getMap();
                     Log.d(TAG, "Size: " + placeMap.size());
+                    names = placeMap.keySet();
+                    initSearch();
                 } else {
                     e.printStackTrace();
                 }
             }
         });
+
     }
 
 
@@ -88,7 +95,7 @@ public class SearchFragment extends Fragment {
         rvSearchBar.setAdapter(searchAdapter);
         actvSearch = (AutoCompleteTextView) view.findViewById(R.id.actvSearch);
 
-        initSearch();
+
 
 
 
@@ -98,30 +105,45 @@ public class SearchFragment extends Fragment {
 
 
     private void initSearch() {
-//       Set<String> names = placeMap.keySet();
-//        String[] nameArray = new String[1115] ;
-//        nameArray = (String[]) names.toArray();
-//
-//        Arr
+        ArrayList<String> nameArray = new ArrayList<>();
+
+
+            nameArray = getArray(nameArray);
 
 
 
-        actvSearch.setSingleLine();
-        actvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+            Log.d(TAG, "Size : " + nameArray.size());
+           // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, nameArray);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.autocomplete_search,R.id.tvAutoName,nameArray);
+            actvSearch.setAdapter(adapter);
 
 
-                    //TODO: CREATE A METHOD HERE THAT DECIDES WHAT TO DO WHEN USER PRESSES ENTER
-                    filterTrails();
+            actvSearch.setSingleLine();
+            actvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH
+                            || actionId == EditorInfo.IME_ACTION_DONE
+                            || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                            || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+
+                        //TODO: CREATE A METHOD HERE THAT DECIDES WHAT TO DO WHEN USER PRESSES ENTER
+                        filterTrails();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+
+    }
+
+    private ArrayList<String> getArray(ArrayList<String> nameArray) {
+
+        Log.d(TAG, "Names is : " + names.size());
+
+        nameArray.addAll(names);
+        Log.d(TAG, "Size ok: " + nameArray.size());
+        return  nameArray;
     }
 
     private void filterTrails() {
