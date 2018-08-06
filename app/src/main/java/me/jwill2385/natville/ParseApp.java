@@ -5,7 +5,6 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
-import me.jwill2385.natville.Models.User;
 import me.jwill2385.natville.Models.LocationMap;
 
 public class ParseApp extends Application{
@@ -14,7 +13,6 @@ public class ParseApp extends Application{
         super.onCreate();
 
         ParseObject.registerSubclass(LocationMap.class);
-        ParseObject.registerSubclass(User.class);
 
         final Parse.Configuration configuration = new Parse.Configuration.Builder(this)
                 .applicationId("SEA_park")

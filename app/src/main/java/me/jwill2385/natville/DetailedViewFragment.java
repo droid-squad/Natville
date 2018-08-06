@@ -98,7 +98,7 @@ public class DetailedViewFragment extends Fragment {
         tvNameDetailed.setText(place.getName());
         tvSummaryDetailed.setText(place.getSummary());
         tvLocationDetailed.setText(place.getLocation());
-        tvLengthDetailed.setText("Length: " + Double.toString(place.getDistance()) + " miles");
+        tvLengthDetailed.setText( Double.toString(place.getDistance()) + " miles");
         tvRatingDetailed.setText("Rating: " + Double.toString(place.getRating()));
         tvDifficultyDetailed.setText("Difficulty: " + place.getDifficulty());
         tvConditionStatDetailed.setText("Condition Status: " + place.getConditionStatus());
@@ -186,9 +186,9 @@ public class DetailedViewFragment extends Fragment {
         currentUser.put("legacy", legacy);
 
         ArrayList<String> currentPlace= new ArrayList<String>();
-        currentPlace.add(place.getUrlDetails());
+        currentPlace.add(place.getPictureSmallURL());
         currentPlace.add(place.getName());
-        profArr.add(currentPlace);
+        profArr.add(0, currentPlace);
         currentUser.put("placesVisited", profArr);
 
         currentUser.saveInBackground();
