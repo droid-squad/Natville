@@ -113,7 +113,6 @@ public class SearchFragment extends Fragment {
 
 
             Log.d(TAG, "Size : " + nameArray.size());
-           // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, nameArray);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.autocomplete_search,R.id.tvAutoName,nameArray);
             actvSearch.setAdapter(adapter);
 
