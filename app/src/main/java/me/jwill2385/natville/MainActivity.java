@@ -25,10 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
-import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
 
 
@@ -49,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
     public final static double maxDistance = 200;
     public final static double maxResults = 500;
     public static ArrayList<Place> places;
+
 
 
     // instance fields
@@ -78,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         }
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        //this function makes titles of icons always appear
+        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
+
 
         // initialize list of Places
         places = new ArrayList<>();
@@ -171,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                         places.add(p); // add each place (p) to places array
 
                     }
+
                 } catch (JSONException e) {
                     logError("failed to parse Trail list", e, true);
                 }

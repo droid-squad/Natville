@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchFragment"
-    android:background="#436077">
+    android:background="@color/DimGray">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:text="Toolbar Title"
-            android:src="@drawable/app_icon"
+            android:src="@drawable/placeholder"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title1" />
 
@@ -48,7 +48,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_toRightOf="@+id/ic_magnify2"
                 android:background="@null"
-                android:hint="Search Parks In Your Area."
+                android:hint="Find a Specific Park  ex. 'Pinnacle Peak'"
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
 
@@ -73,3 +73,4 @@
 
 
 </FrameLayout>
+    <!--"#436077"-->

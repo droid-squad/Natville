@@ -3,47 +3,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RecommendationsFragment"
-    android:background="#436077">
+    android:background="@color/DimGray">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvRecommendations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/toolbar_title2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="53dp" />
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/placeholder"
+        android:text="Toolbar Title" />
 
     <Button
-        android:id="@+id/btnRatingSort"
+        android:id="@+id/btnSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/btnFilter"
+        android:text="Sort" />
+
+    <Button
+        android:id="@+id/btnFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:background="@color/DarkGoldenrod"
-        android:text="Rating" />
+        android:text="Filter" />
 
-    <Button
-        android:id="@+id/btnDistanceSort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/btnRatingSort"
-        android:background="@color/Goldenrod"
-        android:text="distance" />
-
-    <TextView
-        android:id="@+id/tvSortTrails"
-        android:layout_marginLeft="5dp"
-        android:layout_width="203dp"
-        android:layout_height="52dp"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dl_Recommendations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Sort Trails by :"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/Goldenrod"
-        android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:layout_alignParentTop="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvRecommendations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="53dp" />
+
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nv_Recommendations"
+            android:divider="@color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="end"
+            android:layout_marginTop="50dp"
+            app:menu="@menu/navigation_menu">
+
+        </android.support.design.widget.NavigationView>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nv_Sorting"
+            android:divider="@color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="start"
+            android:layout_marginTop="50dp"
+            app:menu="@menu/sorting_menu">
+
+        </android.support.design.widget.NavigationView>
+
+
+
+    </android.support.v4.widget.DrawerLayout>
+
+
+
 
 </RelativeLayout>

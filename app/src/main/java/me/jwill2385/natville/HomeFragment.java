@@ -7,13 +7,13 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -24,48 +24,64 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import me.jwill2385.natville.Models.Place;
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "HomeFragment";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 10f;
+    public static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40,-168),new LatLng(71,136));
 
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private EditText etSearch;
+    private AutoCompleteTextView etSearch;
     private ImageView ivGPS;
+    private PlaceAutocompleteAdapter placeAutocompleteAdapter;
+    private static GoogleApiClient mGoogleApiClient;
+    private Button btnClear;
 
     public static LatLng mLatLng;
-    public MainActivityListener listener;
     public static ArrayList<Place> mPlaces;
+    public MainActivityListener listener;
 
 
     @Override
@@ -74,6 +90,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         super.onCreate(savedInstanceState);
         getLocationPermission();
         mPlaces = new ArrayList<>();
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage((FragmentActivity) getContext(),this)
+                .build();
 
     }
 
@@ -87,7 +109,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        etSearch = (EditText) view.findViewById(R.id.etSearch);
+        etSearch = (AutoCompleteTextView) view.findViewById(R.id.etSearch);
+        btnClear = (Button) view.findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etSearch.getText().clear();
+                mMap.clear();
+            }
+        });
         ivGPS = (ImageView) view.findViewById(R.id.iv_gps);
         ivGPS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +127,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         });
         initSearch();
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
     }
 
     private void getLocationPermission() {
@@ -138,6 +175,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void initSearch() {
+        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(),mGoogleApiClient,LAT_LNG_BOUNDS,null);
+        etSearch.setAdapter(placeAutocompleteAdapter);
+
         etSearch.setSingleLine();
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -155,6 +195,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             }
         });
         hideSoftKeyboard();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(getActivity(), "Connection for autocomplete failed",Toast.LENGTH_SHORT).show();
     }
 
     private void geoLocate() {
@@ -305,19 +350,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.green_tree));
                 }
                 else if(place.difficulty.equals("greenBlue")){
-                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_green_tree));
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.greenblue_tree));
                 }
                 else if(place.difficulty.equals("blue")){
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_tree));
                 }
                 else if(place.difficulty.equals("blueBlack")){
-                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blue_black_tree));
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.blueblack_tree));
                 }
                 else if(place.difficulty.equals("black")){
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.black_tree));
                 }
                 else if(place.difficulty.equals("dblack")){
-                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.double_black_tree));
+                    tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.dblack_tree));
                 }else {
                     //if rank is unknown/null
                     tMark.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.tree4));

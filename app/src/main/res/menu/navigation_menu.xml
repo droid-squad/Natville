@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_clear"
+            android:title="Clear" />
+
+        <item android:title="Difficulty">
+
+            <menu>
+                <group android:checkableBehavior="single">
+
+
+                    <item
+                        android:id="@+id/nav_difficulty_green"
+                        android:title="Green" />
+
+                    <item
+                        android:id="@+id/nav_difficulty_blueGreen"
+                        android:title="Blue-Green" />
+                    <item
+                        android:id="@+id/nav_difficulty_blue"
+                        android:title="Blue" />
+                    <item
+                        android:id="@+id/nav_difficulty_blueBlack"
+                        android:title="Blue-Black" />
+                    <item
+                        android:id="@+id/nav_difficulty_black"
+                        android:title="Black" />
+                    <item
+                        android:id="@+id/nav_difficulty_doubleBlack"
+                        android:title="Double-Black" />
+
+
+                </group>
+            </menu>
+        </item>
+    </group>
+
+
+</menu>

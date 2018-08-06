@@ -129,11 +129,16 @@ public class DetailedViewFragment extends Fragment {
                 int currentId = mainActivity.bottomNavigationView.getSelectedItemId();
                 if (currentId == R.id.ic_recommendations) {
                     // if you were on recommendations tab and looked at details then switch back
-                    mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_recommendations);
-                } else if (currentId == R.id.ic_search) {
+
+                    mainActivity.fragmentManager.popBackStackImmediate();
+                }
+                else if (currentId == R.id.ic_search){
                     // if you were on search tab and looked at details, then switch back
-                    mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_search);
-                } else if (currentId == R.id.ic_home) {
+                    mainActivity.fragmentManager.popBackStackImmediate(); //gets last item on backstack
+
+                }
+                else if (currentId==R.id.ic_home){
+
                     // if you were on home tab and looked at details then switch back
                     mainActivity.bottomNavigationView.setSelectedItemId(R.id.ic_home);
                 }

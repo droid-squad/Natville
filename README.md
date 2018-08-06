@@ -19,33 +19,40 @@ Time spent: **X** hours spent in total
 - [X] Scroll View for Parks nearby - Jadal (To be completed by 23rd)
 - [X] List view sorted by rating - Jadal
 - [X] List view sorted by distance - Jadal
-- [ ] User is able to use search bar to search through available parks (To be completed by 27th)
+- [X] User is able to use search bar to search through available parks (To be completed by 27th)
   - [X] Search Bar UI - Jade
   - [X] Searching and presenting results (on map) -Jade
   - [X] Moving name-lat,long map to Parse server - Jadal
-  - [ ] Investigate if it is possible to remove . from keyname so we can get complete set of hiking trails - Jadal
   - [X] Making requests - Jadal
   - [X] Presenting results - Jadal
-- [ ] User can use swipe functionality - Sol/Jade
 - [X] In search view user can click park objct to see details about that object. - Sol (To be completed by 27th)
   - [X] Create UI for Park detail view
   - [X] Hook up with recycled view
-- [ ] Change App logo on the home screen - Jade
-- [ ] User can log in / log out / sign up - Sol
-- [ ] User can click park pins on MainActivity to see park details - Jade
+- [X] Change App logo on the home screen - Jade
+- [X] User can log in / log out / sign up - Sol
+- [X] User can click park pins on MainActivity to see park details - Jade
 
 #### stretch goal
-- [ ] Create App theme and Logos for Title Bar - In progress (wait until meeting with Billy)
+- [ ] Create App theme and Logos for Title Bar - In progress (To be completed by August 10th)
 
 ### The following **optional** features are implemented:
 - [ ] User can filter parks based on specific characteristics
- - [ ] Filter by difficulty
- - [ ] Filter by star rating
- - [ ] Filter by trail condition status
- - [ ] Stretch: parse summary to get more charateristics to filter on
+ - [X] Filter by difficulty
+ - [X] Filter by star rating
+ - [ ] Filter by trail condition status - Discuss if it is worth adding it
 - [X] Visiting users can see reccomendations for parks in the area
-- [ ] Find and implement a package to convert a number rating to a star rating - Jade
+- [X] Find and implement a package to convert a number rating to a star rating - Jade
 - [ ] Achievement implementation (Need to discuss details)
+- [X] Auto-complete for searching - Jade
+- [X] Clear all markers and previous search -Jade
+- [ ] Implement functionalities for three buttons in details page - Sol, Jade
+ - [ ] Add images - Jade
+ - [X] Add to completed list - Sol
+ - [ ] Share trail info
+- [ ] Preserving filtered result - Jadal
+- [ ] Make search case insensitive - Jadal
+ - [ ] Dropdown autocomplete for Search with possible candidates (e.g. trails containing the typed word?) (Optional)
+- [ ] Add button to search at the current location on the map view (after moving center of the map) (Optional)
 
 ## Considerations
 1. What is your product pitch?
