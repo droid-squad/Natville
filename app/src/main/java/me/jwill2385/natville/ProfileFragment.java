@@ -5,19 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-import org.w3c.dom.Text;
-
-import me.jwill2385.natville.Models.User;
+import java.util.ArrayList;
 
 /*
 For each fragment you must create
@@ -34,6 +32,10 @@ Also an onAttach function is needed to connect the fragment to the activity
 public class ProfileFragment extends Fragment {
 
     ParseUser currentUser;
+
+    RecyclerView rvPlacesVisited;
+    ArrayList<ArrayList<String>> mPlaces;
+    PlaceCardAdapter placeCardAdapter;
 
     private Button logOut;
     private TextView username;
@@ -62,6 +64,13 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.tvUsername);
         rank = view.findViewById(R.id.tvRank);
         legacy = view.findViewById(R.id.tvLegacy);
+
+        rvPlacesVisited = (RecyclerView) view.findViewById(R.id.rvPlacesVisited);
+        mPlaces = (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
+        placeCardAdapter = new PlaceCardAdapter(mPlaces);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvPlacesVisited.setLayoutManager(layoutManager);
+        rvPlacesVisited.setAdapter(placeCardAdapter);
 
         username.setText(currentUser.getUsername());
         rank.setText("Rank: "+ currentUser.getString("rank"));

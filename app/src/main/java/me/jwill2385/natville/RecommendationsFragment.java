@@ -197,6 +197,7 @@ public class RecommendationsFragment extends Fragment {
                 placeAdapter.notifyDataSetChanged();
                 break;
             case R.id.nav_difficulty_green:
+               // nv_Recommendations.setItemBackground();
                 filterByDifficulty("green");
                 break;
             case R.id.nav_difficulty_blueGreen:

@@ -15,7 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import me.jwill2385.natville.Models.LocationMap;
 import me.jwill2385.natville.Models.Place;
@@ -33,12 +35,14 @@ import me.jwill2385.natville.Models.Place;
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
-    private EditText etSearchTab;
+    private AutoCompleteTextView actvSearch;
     OnMainActivitySelectedListener listener;
     RecyclerView rvSearchBar;
     PlaceAdapter searchAdapter;
     public ArrayList<Place> sPlaces;
     public HashMap<String, ArrayList<Double>> placeMap;
+    boolean timer = false;
+    Set<String> names;
     String searched;
 
 
@@ -54,18 +58,21 @@ public class SearchFragment extends Fragment {
         // specify which class to query
         ParseQuery<LocationMap> query = ParseQuery.getQuery(LocationMap.class);
         // Specify the object Id
-        query.getInBackground("Avn3fCWcv0", new GetCallback<LocationMap>() {
+        query.getInBackground("d1BfcOmfy5", new GetCallback<LocationMap>() {
             @Override
             public void done(LocationMap object, ParseException e) {
                 if (e == null) {
                     // fill placeMap with map in parse
                     placeMap = object.getMap();
                     Log.d(TAG, "Size: " + placeMap.size());
+                    names = placeMap.keySet();
+                    initSearch();
                 } else {
                     e.printStackTrace();
                 }
             }
         });
+
     }
 
 
@@ -86,35 +93,61 @@ public class SearchFragment extends Fragment {
         rvSearchBar.setLayoutManager(new LinearLayoutManager(view.getContext()));
         // set the adapter
         rvSearchBar.setAdapter(searchAdapter);
+        actvSearch = (AutoCompleteTextView) view.findViewById(R.id.actvSearch);
 
-        etSearchTab = (EditText) view.findViewById(R.id.etSearch2);
-        initSearch();
+
+
+
+
 
 
     }
 
+
     private void initSearch() {
-        etSearchTab.setSingleLine();
-        etSearchTab.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+        ArrayList<String> nameArray = new ArrayList<>();
 
 
-                    //TODO: CREATE A METHOD HERE THAT DECIDES WHAT TO DO WHEN USER PRESSES ENTER
-                    filterTrails();
+            nameArray = getArray(nameArray);
+
+
+
+            Log.d(TAG, "Size : " + nameArray.size());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.autocomplete_search,R.id.tvAutoName,nameArray);
+            actvSearch.setAdapter(adapter);
+
+
+            actvSearch.setSingleLine();
+            actvSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH
+                            || actionId == EditorInfo.IME_ACTION_DONE
+                            || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                            || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+
+                        //TODO: CREATE A METHOD HERE THAT DECIDES WHAT TO DO WHEN USER PRESSES ENTER
+                        filterTrails();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+
+    }
+
+    private ArrayList<String> getArray(ArrayList<String> nameArray) {
+
+        Log.d(TAG, "Names is : " + names.size());
+
+        nameArray.addAll(names);
+        Log.d(TAG, "Size ok: " + nameArray.size());
+        return  nameArray;
     }
 
     private void filterTrails() {
         Log.d(TAG, "filterTrails: filtering");
-        searched = etSearchTab.getText().toString();
+        searched = actvSearch.getText().toString().toLowerCase();
         if (placeMap.containsKey(searched)) {
             ArrayList<Double> location = placeMap.get(searched);
             LatLng spot = new LatLng(location.get(0), location.get(1));
@@ -167,12 +200,12 @@ public class SearchFragment extends Fragment {
 
     private void rearrangeArray() {
         int index = 0;
-        if (sPlaces.get(index).getName().equals(searched)) {
+        if (sPlaces.get(index).getName().toLowerCase().equals(searched)) {
             //this means the place I want is already at top
             return;
         } else {
             for (int j = 0; j < sPlaces.size(); j++) {
-                if (sPlaces.get(j).getName().equals(searched)) {
+                if (sPlaces.get(j).getName().toLowerCase().equals(searched)) {
                     index = j;
                 }
             }
