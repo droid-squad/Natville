@@ -187,7 +187,7 @@ public class DetailedViewFragment extends Fragment {
     //create a function that adds the park to the parse server list of visited parks
     public void addToUserList(ArrayList<ArrayList<String>> profArr, Place place, ParseUser currentUser){
         double legacy= currentUser.getDouble("legacy");
-        legacy+=place.getDistance();
+        legacy+= new Double(place.getDistance());
         currentUser.put("legacy", legacy);
 
         ArrayList<String> currentPlace= new ArrayList<String>();
