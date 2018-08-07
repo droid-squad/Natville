@@ -223,7 +223,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ivLockedBadge7"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="#DE6F47"
                 android:text="Sign Out"
                 android:textColor="@color/white" />

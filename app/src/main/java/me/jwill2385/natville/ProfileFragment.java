@@ -11,11 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
 For each fragment you must create
@@ -41,6 +47,7 @@ public class ProfileFragment extends Fragment {
     private TextView username;
     private TextView rank;
     private TextView legacy;
+    private ImageView profileImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,7 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.tvUsername);
         rank = view.findViewById(R.id.tvRank);
         legacy = view.findViewById(R.id.tvLegacy);
+        profileImage = view.findViewById(R.id.ivUserProfile);
 
         rvPlacesVisited = (RecyclerView) view.findViewById(R.id.rvPlacesVisited);
         mPlaces = (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
@@ -75,6 +83,10 @@ public class ProfileFragment extends Fragment {
         username.setText(currentUser.getUsername());
         rank.setText("Rank: "+ currentUser.getString("rank"));
         legacy.setText("Legacy: "+  Double.toString(currentUser.getDouble("legacy"))+ " miles");
+        Glide.with(Objects.requireNonNull(getContext()))
+                .load(currentUser.getString("profileImageURL"))
+                .apply(new RequestOptions().transforms(new CenterCrop()))
+                .into(profileImage);
 
         logOut.setOnClickListener(new View.OnClickListener(){
             @Override
