@@ -17,12 +17,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.parse.Parse;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /*
 For each fragment you must create
@@ -68,7 +66,7 @@ public class ProfileFragment extends Fragment {
 
         currentUser= ParseUser.getCurrentUser();
         String name = currentUser.getUsername();
-       final ParseFile avatarFile = currentUser.getParseFile("profile");
+       final ParseFile avatarFile = currentUser.getParseFile("profileImage");
 
         logOut = view.findViewById(R.id.bvLogout);
         username = view.findViewById(R.id.tvUsername);
