@@ -111,6 +111,7 @@ public class SearchFragment extends Fragment {
         nameArray.addAll(names);
         Log.d(TAG, "Size : " + nameArray.size());
 
+        // add array to adapter to display to user filtered choices
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.autocomplete_search, R.id.tvAutoName, nameArray);
         actvSearch.setAdapter(adapter);
 
