@@ -370,6 +370,7 @@
     <color name="red_7">#ffa70311</color>
     <color name="red_8">#ff6e0008</color>
     <color name="red_9">#ff4d0008</color>
+    <color name="red_10">#D60500</color>
     <color name="reel_background_content_gradient_end">@android:color/transparent</color>
     <color name="reel_background_content_gradient_start">#bf000000</color>
     <color name="reel_background_content_white_gradient_end">@color/white_40_transparent</color>
