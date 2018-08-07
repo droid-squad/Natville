@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RecommendationsFragment"
-    android:background="@color/DimGray">
+    android:background="#76776F">
 
 
     <ImageView
@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/btnFilter"
-        android:text="Sort" />
+        android:text="Sort"
+        android:backgroundTint="#CAFC79"/>
 
     <Button
         android:id="@+id/btnFilter"
@@ -35,7 +36,8 @@
         android:layout_alignRight="@+id/toolbar_title2"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:text="Filter" />
+        android:text="Filter"
+        android:backgroundTint="#CAFC79"/>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/dl_Recommendations"

@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+<<<<<<< Updated upstream
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseFile;
+=======
+>>>>>>> Stashed changes
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -46,7 +49,11 @@ public class ProfileFragment extends Fragment {
     private TextView username;
     private TextView rank;
     private TextView legacy;
+<<<<<<< Updated upstream
     private ImageView ivUserProfile;
+=======
+    private ImageView profileImage;
+>>>>>>> Stashed changes
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +79,11 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.tvUsername);
         rank = view.findViewById(R.id.tvRank);
         legacy = view.findViewById(R.id.tvLegacy);
+<<<<<<< Updated upstream
         ivUserProfile = view.findViewById(R.id.ivUserProfile);
+=======
+        profileImage = view.findViewById(R.id.ivUserProfile);
+>>>>>>> Stashed changes
 
         rvPlacesVisited = (RecyclerView) view.findViewById(R.id.rvPlacesVisited);
         mPlaces = (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
@@ -91,6 +102,8 @@ public class ProfileFragment extends Fragment {
                 .load(avatarFile.getUrl())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(ivUserProfile);
+
+        Glide.with(getActivity()).load(currentUser.getString("profileImageURL")).into(profileImage);
 
         logOut.setOnClickListener(new View.OnClickListener(){
             @Override
