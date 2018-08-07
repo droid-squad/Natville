@@ -2,11 +2,14 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#000000</color>
     <color name="White">#FFFFFF</color>
     <color name="AppRed">#DE6F47</color>
     <color name="AppGreen">#88B800</color>
+<<<<<<< HEAD
     <color name="AppGray">#505050</color>
+=======
+>>>>>>> 761894eafc4ebaa68803cadb1d20d8ed9a4e84dd
     <color name="Ivory">#FFFFF0</color>
     <color name="LightYellow">#FFFFE0</color>
     <color name="Yellow">#FFFF00</color>
@@ -373,6 +376,7 @@
     <color name="red_7">#ffa70311</color>
     <color name="red_8">#ff6e0008</color>
     <color name="red_9">#ff4d0008</color>
+    <color name="red_10">#D60500</color>
     <color name="reel_background_content_gradient_end">@android:color/transparent</color>
     <color name="reel_background_content_gradient_start">#bf000000</color>
     <color name="reel_background_content_white_gradient_end">@color/white_40_transparent</color>
