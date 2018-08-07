@@ -11,8 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -41,6 +46,7 @@ public class ProfileFragment extends Fragment {
     private TextView username;
     private TextView rank;
     private TextView legacy;
+    private ImageView ivUserProfile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,11 +65,14 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         currentUser= ParseUser.getCurrentUser();
+        String name = currentUser.getUsername();
+       final ParseFile avatarFile = currentUser.getParseFile("profile");
 
         logOut = view.findViewById(R.id.bvLogout);
         username = view.findViewById(R.id.tvUsername);
         rank = view.findViewById(R.id.tvRank);
         legacy = view.findViewById(R.id.tvLegacy);
+        ivUserProfile = view.findViewById(R.id.ivUserProfile);
 
         rvPlacesVisited = (RecyclerView) view.findViewById(R.id.rvPlacesVisited);
         mPlaces = (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
@@ -75,6 +84,12 @@ public class ProfileFragment extends Fragment {
         username.setText(currentUser.getUsername());
         rank.setText("Rank: "+ currentUser.getString("rank"));
         legacy.setText("Legacy: "+  Double.toString(currentUser.getDouble("legacy"))+ " miles");
+
+
+        Glide.with(this)
+                .load(avatarFile.getUrl())
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(ivUserProfile);
 
         logOut.setOnClickListener(new View.OnClickListener(){
             @Override
