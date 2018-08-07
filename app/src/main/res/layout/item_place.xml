@@ -17,7 +17,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="8dp"
-        app:srcCompat="@color/Black" />
+        app:srcCompat="@drawable/default_image" />
 
     <TextView
         android:id="@+id/tvPlaceName"
@@ -41,9 +41,9 @@
     <RatingBar
         android:id="@+id/tvPlaceRating"
         style="?android:attr/ratingBarStyleSmall"
-        android:progressTint="#88B800"
-        android:progressBackgroundTint="#88B800"
-        android:secondaryProgressTint="#88B800"
+        android:progressTint="@color/AppRed"
+        android:progressBackgroundTint="@color/AppRed"
+        android:secondaryProgressTint="@color/AppRed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvPlaceName"

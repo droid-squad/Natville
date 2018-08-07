@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -58,6 +59,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
         holder.tvPlaceLocation.setText(place.getLocation());
         holder.rbPlaceRating.setRating((float) place.getRating());
         holder.tvPlaceSummary.setText(place.getSummary());
+
         holder.tvPlaceDistance.setText(Double.toString(place.getDistance())+ " miles");
         Glide.with(context).load(place.getPictureSmallURL())
                 .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(50)))
