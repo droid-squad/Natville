@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,11 +45,14 @@ public class SearchFragment extends Fragment {
     boolean timer = false;
     Set<String> names;
     String searched;
+    Activity activity;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set activity to be parent
+        activity = getActivity();
 
         // initialize arraylist (data source)
         sPlaces = new ArrayList<>();
@@ -106,7 +110,8 @@ public class SearchFragment extends Fragment {
         //get array of all the names of places
         nameArray.addAll(names);
         Log.d(TAG, "Size : " + nameArray.size());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_search, R.id.tvAutoName, nameArray);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.autocomplete_search, R.id.tvAutoName, nameArray);
         actvSearch.setAdapter(adapter);
 
 
@@ -181,6 +186,9 @@ public class SearchFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            //we want to clear out sPlaces array and then fill it with new locations
+            sPlaces.clear();
+            searchAdapter.clear();
             sPlaces.addAll(MainActivity.places);
             rearrangeArray();
             Log.d(TAG, "Size " + sPlaces.size());
