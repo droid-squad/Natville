@@ -49,9 +49,9 @@ Time spent: **X** hours spent in total
  - [ ] Add images - Jade
  - [X] Add to completed list - Sol
  - [ ] Share trail info
-- [ ] Preserving filtered result - Jadal
-- [ ] Make search case insensitive - Jadal
- - [ ] Dropdown autocomplete for Search with possible candidates (e.g. trails containing the typed word?) (Optional)
+- [x] Preserving filtered result - Jadal
+- [x] Make search case insensitive - Jadal
+ - [ ] Dropdown autocomplete for Search with possible candidates (e.g. trails containing the typed word?) (Optional) - Jadal
 - [ ] Add button to search at the current location on the map view (after moving center of the map) (Optional)
 
 ## Considerations
