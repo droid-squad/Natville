@@ -31,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/btnFilter"
         android:text="Sort"
-        android:backgroundTint="#CAFC79"/>
+        android:backgroundTint="@color/white"/>
 
     <Button
         android:id="@+id/btnFilter"
@@ -44,7 +44,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="Filter"
-        android:backgroundTint="#CAFC79"/>
+        android:backgroundTint="@color/white"/>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/dl_Recommendations"
