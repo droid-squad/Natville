@@ -435,4 +435,6 @@
     <color name="zero_rating_video_settings_drawer_confirm_button_color">#ffffffff</color>
     <color name="zero_rating_video_settings_drawer_subtitle_color">#ff999999</color>
     <color name="zero_rating_video_settings_drawer_unchecked_border_color">#ffdbdbdb</color>
+    <color name="darkDimGray">#595959</color>
+    <color name="ourBrown">#f6efa2</color>
 </resources>

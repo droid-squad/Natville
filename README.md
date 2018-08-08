@@ -51,8 +51,9 @@ Time spent: **X** hours spent in total
  - [ ] Share trail info
 - [x] Preserving filtered result - Jadal
 - [x] Make search case insensitive - Jadal
- - [ ] Dropdown autocomplete for Search with possible candidates (e.g. trails containing the typed word?) (Optional) - Jadal
+ - [x] Dropdown autocomplete for Search with possible candidates (e.g. trails containing the typed word?) (Optional) - Jadal
 - [ ] Add button to search at the current location on the map view (after moving center of the map) (Optional)
+- [x] Add Sliding Animation for transitions between fragments - Jadal
 
 ## Considerations
 1. What is your product pitch?
