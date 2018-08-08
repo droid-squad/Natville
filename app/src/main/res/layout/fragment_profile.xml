@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
+                android:elevation="4dp"
                 android:background="@color/AppRed">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -117,7 +118,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="@color/Gray"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                android:elevation="2dp"/>
 
             <ImageView
                 android:id="@+id/ivShare"
@@ -158,126 +160,32 @@
             <GridView
                 android:id="@+id/gvBadgeGrid"
                 android:layout_width="match_parent"
-                android:layout_height="145dp"
+                android:layout_height="210dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tvBadges"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/tvBadges"
                 android:layout_marginTop="0dp"
-                android:background="@color/Gray" />
+                android:background="@color/Gray"
+                android:columnWidth="60dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp" />
 
-            <ImageView
-                android:id="@+id/ivFakeBadge"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignStart="@+id/ivUserProfile"
-                android:layout_below="@+id/tvBadges"
-                android:tint="#88B800"
-                app:srcCompat="@drawable/baseline_spa_black_24dp" />
 
-            <ImageView
-                android:id="@+id/ivLockedBadge"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/ivFakeBadge"
-                android:layout_marginStart="85dp"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge2"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignEnd="@+id/ivShare"
-                android:layout_alignTop="@+id/ivFakeBadge"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge3"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/ivFakeBadge"
-                android:layout_marginEnd="87dp"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge4"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignTop="@+id/ivFakeBadge"
-                android:layout_centerHorizontal="true"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge5"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignStart="@+id/ivUserProfile"
-                android:layout_below="@+id/ivFakeBadge"
-                android:layout_marginTop="10dp"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge6"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignStart="@+id/ivLockedBadge"
-                android:layout_alignTop="@+id/ivLockedBadge5"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge7"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignTop="@+id/ivLockedBadge5"
-                android:layout_centerHorizontal="true"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge8"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignTop="@+id/ivLockedBadge5"
-                android:layout_centerHorizontal="true"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge9"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignStart="@+id/ivLockedBadge3"
-                android:layout_alignTop="@+id/ivLockedBadge5"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
-
-            <ImageView
-                android:id="@+id/ivLockedBadge10"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_alignEnd="@+id/ivShare"
-                android:layout_alignTop="@+id/ivLockedBadge5"
-                android:tint="@color/white_75_transparent"
-                app:srcCompat="@drawable/baseline_lock_black_24dp" />
 
             <Button
                 android:id="@+id/bvLogout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ivLockedBadge7"
+                android:layout_height="30dp"
+                android:layout_below="@+id/gvBadgeGrid"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="45dp"
                 android:background="#DE6F47"
                 android:text="Sign Out"
                 android:textColor="@color/white" />

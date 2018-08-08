@@ -80,8 +80,8 @@
             android:layout_marginTop="10dp"
             android:layout_toStartOf="@+id/iv_gps"
             android:background="@drawable/white_border"
-            android:text="Clear"
             android:textColor="#DE6F47"
+            android:text="Clear"
             android:textSize="12sp"/>
 
 
