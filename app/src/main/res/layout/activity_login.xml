@@ -41,8 +41,10 @@
         android:layout_marginTop="5dp"
         android:background="@color/blue_5_30_transparent"
         android:hint="Password"
+        android:inputType="textPassword"
         android:textColor="@color/white"
-        android:textColorHint="@color/white_70_transparent" />
+        android:textColorHint="@color/white_70_transparent"
+        tools:password="true" />
 
     <Button
         android:id="@+id/btnLogin"

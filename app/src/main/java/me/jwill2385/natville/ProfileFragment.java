@@ -74,6 +74,7 @@ public class ProfileFragment extends Fragment {
         legacy = view.findViewById(R.id.tvLegacy);
         ivUserProfile = view.findViewById(R.id.ivUserProfile);
 
+
         rvPlacesVisited = (RecyclerView) view.findViewById(R.id.rvPlacesVisited);
         mPlaces = (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
         placeCardAdapter = new PlaceCardAdapter(mPlaces);

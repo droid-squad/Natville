@@ -91,7 +91,7 @@ public class DetailedViewFragment extends Fragment {
         ivCompleteTrail = view.findViewById(R.id.ivComplete);
 
         //setting all information from place object
-        tvNameDetailed.setText(place.getName());
+        tvNameDetailed.setText("  " + place.getName());
         tvSummaryDetailed.setText(place.getSummary());
         tvLocationDetailed.setText(place.getLocation());
         tvLengthDetailed.setText( Double.toString(place.getDistance()) + " miles");
@@ -111,9 +111,7 @@ public class DetailedViewFragment extends Fragment {
         tvLowDetailed.setText("Low: " + Double.toString(place.getLow()) + " feet");
         tvUrlDetailed.setText("For more information visit: " + place.getUrlDetails());
 
-        Glide.with(getActivity()).load(place.getPictureLargeURL())
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .into(ivPicDetailed);
+        Glide.with(getActivity()).load(place.getPictureLargeURL()).apply(RequestOptions.centerCropTransform()).into(ivPicDetailed);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
