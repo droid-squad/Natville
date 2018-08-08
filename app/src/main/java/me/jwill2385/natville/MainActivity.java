@@ -17,7 +17,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
-import com.parse.Parse;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
@@ -92,20 +91,24 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
                             case R.id.ic_home:
                                 if (isServicesOK()) {
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right, R.anim.enter_left_to_right, R.anim.exit_left_to_right);
                                     fragmentTransaction.replace(R.id.flContainer, fragmentHome).commit();
                                 }
                                 return true;
                             case R.id.ic_search:
                                 FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+                                fragmentTransaction2.setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right, R.anim.enter_left_to_right, R.anim.exit_left_to_right);
                                 fragmentTransaction2.replace(R.id.flContainer, fragmentSearch).commit();
                                 return true;
                             case R.id.ic_profile:
                                 FragmentTransaction fragmentTransaction3 = fragmentManager.beginTransaction();
+                                fragmentTransaction3.setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right, R.anim.enter_left_to_right, R.anim.exit_left_to_right);
                                 fragmentTransaction3.replace(R.id.flContainer, fragmentProfile).commit();
                                 return true;
 
                             case R.id.ic_recommendations:
                                 FragmentTransaction fragmentTransaction4 = fragmentManager.beginTransaction();
+                                fragmentTransaction4.setCustomAnimations(R.anim.enter_left_to_right, R.anim.exit_left_to_right, R.anim.enter_left_to_right, R.anim.exit_left_to_right);
                                 fragmentTransaction4.replace(R.id.flContainer, fragmentRecommendation).commit();
                                 return true;
                         }

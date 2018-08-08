@@ -2,7 +2,6 @@ package me.jwill2385.natville;
 
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,12 +18,9 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import me.jwill2385.natville.Models.Place;
-
-import static com.google.android.gms.common.util.ArrayUtils.contains;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -152,6 +148,7 @@ public class DetailedViewFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 ArrayList<ArrayList<String>> profArr= (ArrayList<ArrayList<String>>) currentUser.get("placesVisited");
                 String parkName=place.getName();
+                ivCompleteTrail.setImageResource(R.drawable.baseline_done_filled_black_24dp);
                 //check if that park was already added to our array
                 if(profArr==null){
                     addToUserList(profArr, place, currentUser);
