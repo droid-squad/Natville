@@ -23,21 +23,28 @@
     <Button
         android:id="@+id/btnSort"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="40dp"
+        android:background="@drawable/white_border"
+        android:textColor="#DE6F47"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/btnFilter"
         android:text="Sort"
-        android:backgroundTint="#CAFC79"/>
+        android:backgroundTint="@color/white"/>
 
     <Button
         android:id="@+id/btnFilter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="40dp"
+        android:background="@drawable/white_border"
+        android:textColor="#DE6F47"
         android:layout_alignRight="@+id/toolbar_title2"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="Filter"
-        android:backgroundTint="#CAFC79"/>
+        android:backgroundTint="@color/white"/>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/dl_Recommendations"

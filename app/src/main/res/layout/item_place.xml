@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="6dp"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
     android:background="@drawable/white_transparent_border">
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivPlacePic"
         android:layout_toEndOf="@+id/ivPlacePic"
+        android:layout_marginLeft="3dp"
         android:text="name"
         android:textStyle="bold"
         android:textSize="20sp"/>
@@ -36,7 +37,7 @@
         android:layout_alignStart="@+id/tvPlaceName"
         android:layout_below="@+id/tvPlaceRating"
         android:text="location"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 
     <RatingBar
         android:id="@+id/tvPlaceRating"
@@ -46,8 +47,8 @@
         android:secondaryProgressTint="@color/AppRed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvPlaceName"
-        android:layout_below="@+id/tvPlaceName"
+        android:layout_alignLeft="@+id/tvPlaceName"
+        android:layout_below="@+id/tvPlaceDistance"
         android:numStars="5"
         android:stepSize=".5" />
 
@@ -56,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvPlaceName"
-        android:layout_below="@+id/tvPlaceLocation"
+        android:layout_below="@+id/tvPlaceName"
         android:text="dist"
         android:textSize="16sp" />
 
@@ -64,9 +65,10 @@
         android:id="@+id/tvPlaceSummary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvPlaceDistance"
+        android:layout_below="@id/tvPlaceLocation"
         android:layout_alignLeft="@id/tvPlaceDistance"
         android:layout_alignStart="@+id/tvPlaceName"
         android:text="summary"
-        android:textSize="16sp" />
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"/>
 </RelativeLayout>

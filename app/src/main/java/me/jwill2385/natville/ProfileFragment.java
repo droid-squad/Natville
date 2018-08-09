@@ -1,6 +1,7 @@
 package me.jwill2385.natville;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,9 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -89,11 +93,14 @@ public class ProfileFragment extends Fragment {
         String legacyString = String.format("%.1f",currentUser.getDouble("legacy"));
         legacy.setText(legacyString+ " Total Miles");
 
+        try {
+            Glide.with(this)
+                    .load(avatarFile.getUrl())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into(ivUserProfile);
+        }catch(NullPointerException e){
 
-        Glide.with(this)
-                .load(avatarFile.getUrl())
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .into(ivUserProfile);
+        }
 
         logOut.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -103,6 +110,17 @@ public class ProfileFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), loginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        GridView gridView = (GridView) view.findViewById(R.id.gvBadgeGrid);
+        gridView.setAdapter(new BadgeAdapter(getContext()));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Toast.makeText(getContext(), "Complete " + 5*(i+1) + " trails.",Toast.LENGTH_SHORT).show();
             }
         });
 
