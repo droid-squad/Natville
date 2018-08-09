@@ -47,6 +47,7 @@ public class ProfileFragment extends Fragment {
     private TextView rank;
     private TextView legacy;
     private ImageView ivUserProfile;
+    private ImageView ivSettings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class ProfileFragment extends Fragment {
         rank = view.findViewById(R.id.tvRank);
         legacy = view.findViewById(R.id.tvLegacy);
         ivUserProfile = view.findViewById(R.id.ivUserProfile);
+        ivSettings = view.findViewById(R.id.ivSettings);
 
 
         rvPlacesVisited = (RecyclerView) view.findViewById(R.id.rvPlacesVisited);

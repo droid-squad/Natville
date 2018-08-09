@@ -109,7 +109,6 @@ public class SearchFragment extends Fragment {
         ArrayList<String> nameArray = new ArrayList<>();
         //get array of all the names of places
         nameArray.addAll(names);
-        Log.d(TAG, "Size : " + nameArray.size());
 
         // add array to adapter to display to user filtered choices
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.autocomplete_search, R.id.tvAutoName, nameArray);
@@ -192,7 +191,6 @@ public class SearchFragment extends Fragment {
             searchAdapter.clear();
             sPlaces.addAll(MainActivity.places);
             rearrangeArray();
-            Log.d(TAG, "Size " + sPlaces.size());
             searchAdapter.notifyDataSetChanged();
 
         }

@@ -369,7 +369,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     public interface MainActivityListener {
         void getTrails(double lat, double lon, double range, double results);
 
-        void getPlaces();
     }
 
     @Override

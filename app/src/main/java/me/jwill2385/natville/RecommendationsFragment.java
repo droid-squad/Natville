@@ -282,7 +282,7 @@ public class RecommendationsFragment extends Fragment {
 
     /*
     this function searches through array of all places nearby you,
-    finds locations with given dificulty and then shows you that result
+    finds locations with given difficulty and then shows you that result
      */
     private void filterByDifficulty(String level) {
         ArrayList<Place> filteredList = new ArrayList<>();

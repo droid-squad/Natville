@@ -189,10 +189,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
         });
     }
 
-    @Override
-    public void getPlaces() {
-        HomeFragment.mPlaces = places;
-    }
 
     private void logError(String message, Throwable error, boolean alertUser) {
         // always log the error
