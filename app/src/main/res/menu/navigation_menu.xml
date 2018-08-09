@@ -15,23 +15,23 @@
 
                     <item
                         android:id="@+id/nav_difficulty_green"
-                        android:title="Green" />
+                        android:title="Green (Easy)" />
 
                     <item
                         android:id="@+id/nav_difficulty_blueGreen"
-                        android:title="Blue-Green" />
+                        android:title="Blue-Green (Moderate)" />
                     <item
                         android:id="@+id/nav_difficulty_blue"
-                        android:title="Blue" />
+                        android:title="Blue (Intermediate)" />
                     <item
                         android:id="@+id/nav_difficulty_blueBlack"
-                        android:title="Blue-Black" />
+                        android:title="Blue-Black (Challenging)" />
                     <item
                         android:id="@+id/nav_difficulty_black"
-                        android:title="Black" />
+                        android:title="Black (Difficult)" />
                     <item
                         android:id="@+id/nav_difficulty_doubleBlack"
-                        android:title="Double-Black" />
+                        android:title="Double-Black (EXTREME)" />
 
 
                 </group>
