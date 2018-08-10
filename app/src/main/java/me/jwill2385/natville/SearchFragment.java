@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +67,6 @@ public class SearchFragment extends Fragment {
                 if (e == null) {
                     // fill placeMap with map in parse
                     placeMap = object.getMap();
-                    Log.d(TAG, "Size: " + placeMap.size());
                     names = placeMap.keySet();
                     timer = true;
                     initSearch();
@@ -143,7 +141,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void filterTrails() {
-        Log.d(TAG, "filterTrails: filtering");
         searched = actvSearch.getText().toString().toLowerCase();
         if (placeMap.containsKey(searched)) {
             ArrayList<Double> location = placeMap.get(searched);

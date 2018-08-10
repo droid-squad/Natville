@@ -326,11 +326,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         @Override
         protected void onPostExecute(Void aVoid) {
             mPlaces.addAll(MainActivity.places);
-            Log.d("getPlaces test line", "Size: " + mPlaces.size());
 
             for (int i = 0; i < mPlaces.size(); i++) {
                 Place place = mPlaces.get(i);
-                Log.d("OnComplete", "Trail: " + i + " is " + place.getName());
                 LatLng trailMark = new LatLng(place.getLatitude(), place.getLongitude());
                 Marker tMark = mMap.addMarker(new MarkerOptions()
                         .position(trailMark)

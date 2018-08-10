@@ -387,7 +387,6 @@ public class RecommendationsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             myPlaces.addAll(MainActivity.places);
             allPlaces.addAll(myPlaces);
-            Log.d("counter", " we have " + myPlaces.size());
             placeAdapter.notifyDataSetChanged();
 
         }
