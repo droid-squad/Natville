@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Main
     public final static String API_BASE_URL = "https://www.hikingproject.com/data/get-trails?";
     // parameter name for API key
     public final static String API_KEY_PRAM = "key";
-    //the API key -TODO move to secret location
+    //the API key
     public final static String API_KEY = "200315482-a80ef1dd23c559d634a1b00537914ce8";
     public final static double maxDistance = 200;
     public final static double maxResults = 500;

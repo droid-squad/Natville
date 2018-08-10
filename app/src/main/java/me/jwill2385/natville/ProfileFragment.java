@@ -126,6 +126,7 @@ public class ProfileFragment extends Fragment {
         });
 
 
+        //when you click on settings icon, popup menu appears to change picture and username
         ivSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

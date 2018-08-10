@@ -135,7 +135,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "Permission Granted map should init");
                 mLocationPermissionsGranted = true;
                 initMap();
 
@@ -195,9 +194,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void geoLocate() {
-        Log.d(TAG, "geoLocate: geolocating");
         String searched = etSearch.getText().toString();
-
         Geocoder geocoder = new Geocoder(getActivity());
         List<Address> list = new ArrayList<>();
         try {
@@ -230,8 +227,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //TODO Change this toast to something more related to the app
-        Toast.makeText(getActivity(), "Hikes Ready", Toast.LENGTH_SHORT).show();
         mMap = googleMap;
 
         if (mLocationPermissionsGranted) {
@@ -261,7 +256,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void getDeviceLocation() {
-        Log.d(TAG, "getDeviceLocation: getting the devices current location");
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         try {
             if (mLocationPermissionsGranted) {
@@ -270,7 +264,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "onComplete: found location");
                             Location currentLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
@@ -278,7 +271,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             //gets trails and populates their markers
                             new asyncTrails().execute();
                         } else {
-                            Log.d(TAG, "onComplete: current location unavailable");
                             Toast.makeText(getActivity(), "Current Location Unavailable", Toast.LENGTH_SHORT).show();
                         }
                     }
