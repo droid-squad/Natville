@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,6 @@ public class DetailedViewFragment extends Fragment {
     public TextView tvSummaryDetailed;
     public TextView tvLocationDetailed;
     public TextView tvLengthDetailed;
-    public TextView tvRatingDetailed;
     public TextView tvDifficultyDetailed;
     public TextView tvConditionStatDetailed;
     public TextView tvConditionDetDetailed;
@@ -51,6 +51,7 @@ public class DetailedViewFragment extends Fragment {
     public TextView tvUrlDetailed;
     public ImageView ivBack;
     public ImageView ivCompleteTrail;
+    public RatingBar rbRatingDetailed;
 
     public DetailedViewFragment() {
         // Required empty public constructor
@@ -77,7 +78,6 @@ public class DetailedViewFragment extends Fragment {
         tvSummaryDetailed = view.findViewById(R.id.tvSummaryDetailed);
         tvLocationDetailed = view.findViewById(R.id.tvLocationDetailed);
         tvLengthDetailed = view.findViewById(R.id.tvLengthDetailed);
-        tvRatingDetailed = view.findViewById(R.id.tvRatingDetailed);
         tvDifficultyDetailed = view.findViewById(R.id.tvDifficultyDetailed);
         tvConditionStatDetailed = view.findViewById(R.id.tvCondStatDetailed);
         tvConditionDetDetailed = view.findViewById(R.id.tvCondDetDetailed);
@@ -89,13 +89,14 @@ public class DetailedViewFragment extends Fragment {
         tvUrlDetailed = view.findViewById(R.id.tvUrlDetailed);
         ivBack = view.findViewById(R.id.ivBack);
         ivCompleteTrail = view.findViewById(R.id.ivComplete);
+        rbRatingDetailed = view.findViewById(R.id.tvRatingDetailed);
 
         //setting all information from place object
         tvNameDetailed.setText("  " + place.getName());
         tvSummaryDetailed.setText(place.getSummary());
         tvLocationDetailed.setText(place.getLocation());
         tvLengthDetailed.setText( Double.toString(place.getDistance()) + " miles");
-        tvRatingDetailed.setText("Rating: " + Double.toString(place.getRating()));
+        rbRatingDetailed.setRating((float) place.getRating());
         tvDifficultyDetailed.setText("Difficulty: " + place.getDifficulty());
         tvConditionStatDetailed.setText("Condition Status: " + place.getConditionStatus());
         //if condition details empty show N/A, else show the details

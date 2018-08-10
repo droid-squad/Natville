@@ -71,16 +71,19 @@
                 android:textSize="15sp"
                 android:textColor="@color/white"/>
 
-            <TextView
+            <RatingBar
                 android:id="@+id/tvRatingDetailed"
+                android:layout_margin="10dp"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/AppRed"
+                android:progressBackgroundTint="@color/white"
+                android:secondaryProgressTint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvNameDetailed"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="10dp"
-                android:text="Rating"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
+                android:numStars="5"
+                android:stepSize=".5" />
 
             <TextView
                 android:id="@+id/tvAbout"
