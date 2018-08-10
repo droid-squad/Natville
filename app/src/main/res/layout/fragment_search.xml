@@ -51,7 +51,6 @@
                 android:completionThreshold="1"
                 android:dropDownAnchor="@+id/relLayout2"
                 android:hint="Find a Specific Park  ex. 'Pinnacle Peak' "
-                android:popupBackground="@color/green_0"
                 android:textSize="13sp" />
 
 

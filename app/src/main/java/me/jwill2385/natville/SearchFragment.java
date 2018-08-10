@@ -109,7 +109,7 @@ public class SearchFragment extends Fragment {
         nameArray.addAll(names);
 
         // add array to adapter to display to user filtered choices
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.autocomplete_search, R.id.tvAutoName, nameArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.autocomplete_search ,R.id.tvAutoName, nameArray);
         actvSearch.setAdapter(adapter);
 
 
