@@ -33,16 +33,16 @@ Time spent: **X** hours spent in total
 - [X] User can click park pins on MainActivity to see park details - Jade
 
 #### stretch goal
-- [ ] Create App theme and Logos for Title Bar - In progress (To be completed by August 10th)
+- [X] Create App theme and Logos for Title Bar
 
 ### The following **optional** features are implemented:
-- [ ] User can filter parks based on specific characteristics
+- [X] User can filter parks based on specific characteristics
  - [X] Filter by difficulty
  - [X] Filter by star rating
- - [ ] Filter by trail condition status - Discuss if it is worth adding it
+ //- [ ] Filter by trail condition status - Discuss if it is worth adding it
 - [X] Visiting users can see reccomendations for parks in the area
 - [X] Find and implement a package to convert a number rating to a star rating - Jade
-- [ ] Achievement implementation (Need to discuss details)
+- [X] Achievement implementation (Need to discuss details)
 - [X] Auto-complete for searching - Jade
 - [X] Clear all markers and previous search -Jade
 - [ ] Implement functionalities for three buttons in details page - Sol, Jade
