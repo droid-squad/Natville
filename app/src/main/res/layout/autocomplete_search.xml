@@ -8,12 +8,12 @@
         android:id="@+id/tvAutoName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="10dp"
         />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/black"/>
 
 </RelativeLayout>
