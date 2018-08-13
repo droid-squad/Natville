@@ -15,9 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -199,22 +197,22 @@ public class DetailedViewFragment extends Fragment {
 
     public String newDifficulty(String color){
         if(color.equals("green") ){
-            return "Green - Easy";
+            return "Green (Easy)";
         }
         else if(color.equals("greenBlue")){
-            return "Green Blue - Moderate";
+            return "Green-Blue (Moderate)";
         }
         else if(color.equals("blue")){
-            return "Blue - Intermediate";
+            return "Blue (Intermediate)";
         }
         else if(color.equals("blueBlack")){
-            return "Blue Black - Challenging";
+            return "Blue-Black (Challenging)";
         }
         else if(color.equals("black")){
-            return "Black - Difficult";
+            return "Black (Difficult)";
         }
         else if(color.equals("dblack")){
-            return "Double Black - Extreme";
+            return "Double-Black (Extreme)";
         }else {
             //if rank is unknown/null
             return "Unknown";
